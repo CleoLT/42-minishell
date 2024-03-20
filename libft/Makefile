@@ -6,7 +6,7 @@
 #    By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/13 16:02:29 by ale-tron          #+#    #+#              #
-#    Updated: 2024/02/14 19:32:51 by ale-tron         ###   ########.fr        #
+#    Updated: 2024/03/20 12:02:10 by ale-tron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ GNL_DIR	= gnl/
 PRINTF_DIR = printf/
 
 # ═══ SOURCES ═════════════════════════════════════════════════════════════════#
-IS_FILES	= ft_isalpha ft_isalnum ft_isascii ft_isdigit ft_isprint
+IS_FILES	= ft_isalpha ft_isalnum ft_isascii ft_isdigit ft_isprint ft_isspace
 STR_FILES	= ft_strlcpy ft_strlcat ft_strchr ft_strrchr ft_strncmp ft_strdup ft_substr ft_strjoin ft_strtrim ft_split ft_strlen ft_strnstr ft_strmapi ft_striteri
 MEM_FILES	= ft_bzero ft_memset ft_memcpy ft_memmove ft_memchr ft_memcmp ft_calloc
 PUT_FILES	= ft_putchar_fd ft_putstr_fd ft_putendl_fd ft_putnbr_fd

@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 18:27:18 by ale-tron          #+#    #+#             */
-/*   Updated: 2023/09/30 15:48:57 by ale-tron         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:02:10 by ale-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef LIBFT_H
@@ -20,6 +20,7 @@ int				ft_tolower(int c);
 int				ft_isascii(int c);
 int				ft_isdigit(int c);
 int				ft_isprint(int c);
+int				ft_isspace(int c);
 int				ft_strlen(const char *s);
 void			ft_bzero(void *s, size_t n);
 void			*ft_memset(void *b, int c, size_t len);
