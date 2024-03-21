@@ -17,6 +17,7 @@ LIB_DIR = libft/
 LEX_DIR	= lexer/
 ERR_DIR	= error/
 
+INCLUDE = Makefile libft/Makefile
 
 # ═══ SOURCES ═════════════════════════════════════════════════════════════════#
 MAIN		= minishell
@@ -29,6 +30,7 @@ SRC_FILES+=$(addprefix $(ERR_DIR),$(ERR_FILES))
 
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
+DEPS = $(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_FILES)))
 
 # ═══ RULES ═══════════════════════════════════════════════════════════════════#
 
@@ -38,9 +40,9 @@ $(NAME):	$(OBJS)
 			make -C $(LIB_DIR)
 			$(CC) $(CFLAGS) $(READL_FLAG) -o $(NAME) $(OBJS) $(LIB_FLAG)
 
-$(OBJ_DIR)%.o:	$(SRC_DIR)%.c
+$(OBJ_DIR)%.o:	$(SRC_DIR)%.c $(INCLUDE)
 				$(MKDIR) $(dir $@)
-				$(CC) $(CFLAGS) -I$(INC_DIR) -I$(LIB_DIR)$(INC_DIR) -c -o $@ $<
+				$(CC) $(CFLAGS) -I$(INC_DIR) -I$(LIB_DIR)$(INC_DIR) -MMD -MP -c -o $@ $<
 
 clean:
 		$(RM) $(OBJS)
@@ -52,4 +54,5 @@ fclean:	clean
 
 re:	fclean all
 
+-include $(DEPS)
 .PHONY: all clean fclean re
