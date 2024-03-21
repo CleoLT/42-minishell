@@ -2,7 +2,8 @@ NAME = minishell
 
 # ═══ COMPILATE ═══════════════════════════════════════════════════════════════#
 CC			= gcc
-RM			= rm -f
+RMF			= rm -f
+RMD			= rm -rd
 CFLAGS		= -Wall -Wextra -Werror #-g -fsanitize=address
 READL_FLAG	= -lreadline
 LIB_FLAG 	= -L ./libft -lft
@@ -45,12 +46,12 @@ $(OBJ_DIR)%.o:	$(SRC_DIR)%.c $(INCLUDE)
 				$(CC) $(CFLAGS) -I$(INC_DIR) -I$(LIB_DIR)$(INC_DIR) -MMD -MP -c -o $@ $<
 
 clean:
-		$(RM) $(OBJS)
+		$(RMD) $(OBJ_DIR)
 		make clean -C $(LIB_DIR)
-
+		
 fclean:	clean
-		$(RM) $(NAME)
-		$(RM) $(LIBFT_DIR)libft.a
+		$(RMF) $(NAME)
+		$(RMF) $(LIBFT_DIR)libft.a
 
 re:	fclean all
 
