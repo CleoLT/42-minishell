@@ -3,7 +3,7 @@ NAME = minishell
 # ═══ COMPILATE ═══════════════════════════════════════════════════════════════#
 CC			= gcc
 RMF			= rm -f
-RMD			= rm -rd
+RMD			= rm -rf
 CFLAGS		= -Wall -Wextra -Werror #-g -fsanitize=address
 READL_FLAG	= -lreadline
 LIB_FLAG 	= -L ./libft -lft
