@@ -1,26 +1,19 @@
 #include "minishell.h"
-/*
-static char **split_line(char *str)
+#include "lexer.h"
+
+void	lexer_token(t_tools *tools, char *line)
 {
+	char	*tmp;
 
-
-
-
-}
-*/
-void	lexer_token(char *line)
-{
-	char	**value;
-	int		i;
-	
-//	(*token)->type = PIPE;
-	value = ft_split(line, ' ');
-	i = 0;
-	while (value[i])
-	{
-		//append_token(token, value[i]); 
-		printf("%s\n", value[i]);
-		i++;
-	}
-
+	tools->str = line;
+	tmp = ft_strtrim(tools->str, " ");
+	free(tools->str);
+	tools->str = tmp;
+	printf("%s\n", tools->str);
+	if (!tools->str)
+		ft_error("exit", errno);
+	if (!token_reader(tools))
+		ft_error("bad lexer", errno);
+/*	if (tools->str[0] == '\0')
+		return (free_tools(tools));*/
 }

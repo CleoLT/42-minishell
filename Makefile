@@ -14,20 +14,23 @@ INC_DIR	= inc/
 SRC_DIR	= src/
 OBJ_DIR	= obj/
 LIB_DIR = libft/
-
+ENVP_DIR = envp/
 LEX_DIR	= lexer/
 ERR_DIR	= error/
+UTILS_DIR = utils/
 
 INCLUDE = Makefile libft/Makefile
 
 # ═══ SOURCES ═════════════════════════════════════════════════════════════════#
 MAIN		= minishell
-LEX_FILES	= lexer
+LEX_FILES	= lexer quotes token_reader
 ERR_FILES	= error
+UTILS_FILES = envp_utils free_utils lexer_utils
 
 SRC_FILES+=$(MAIN)
 SRC_FILES+=$(addprefix $(LEX_DIR),$(LEX_FILES))
 SRC_FILES+=$(addprefix $(ERR_DIR),$(ERR_FILES))
+SRC_FILES+=$(addprefix $(UTILS_DIR),$(UTILS_FILES))
 
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
