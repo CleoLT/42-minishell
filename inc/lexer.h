@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:33:47 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/03/28 18:00:34 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/03/28 20:02:48 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		token_reader(t_tools *tools);
 void	token_addback(t_token **lexer_list, t_token *node);
 
 /* quotes.c */
-int		quotes_handler(char *s, int i, char quote);
+int		quotes_handler(char *s, int i, char quote, t_token **lexer_list);
 int		closed_quotes(char *s, int i, int *counter, int quote);
 int		count_quotes(char *str);
 #endif

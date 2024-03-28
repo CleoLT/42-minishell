@@ -6,13 +6,13 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:55:27 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/03/28 17:07:51 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/03/28 20:07:20 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int	quotes_handler(char *s, int i, char quote)
+int	quotes_handler(char *s, int i, char quote, t_token **lexer_list)
 {
 	int j;
 
@@ -23,6 +23,16 @@ int	quotes_handler(char *s, int i, char quote)
 		while (s[i + j] && (s[i + j] != quote))
 			j++;
 		j++;
+	}
+	if (quote == 34)
+	{
+		if (!token_addnode(ft_substr(s, i, j), 7, lexer_list))
+			return (-1);
+	}
+	else if (quote == 39)
+	{
+		if (!token_addnode(ft_substr(s, i, j), 8, lexer_list))
+			return (-1);
 	}
 	return (j);
 }
