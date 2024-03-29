@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/03/28 15:12:10 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/03/29 14:31:04 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <unistd.h>
 # include <sys/errno.h>
 # include <readline/readline.h>
 
@@ -22,13 +23,14 @@
 # include "macros.h"
 # include "structures.h"
 # include "lexer.h"
-
+# include "exec.h"
 
 void	ft_error(char *arg, int exit_code);
 void	lexer_token(t_tools *tools, char *line);
 
 /* envp_utils.c */
 char	**ft_arrdup(char **array);
+char    **get_path_env(char **envp);
 
 /* free_utils.c */
 int		free_tools(t_tools *tools);
