@@ -18,7 +18,6 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	int i = 0;
 	tools_init(&tools, envp);
-//	tools.envp = ft_arrdup(envp);
 	while (i++ < 5)
 	{
 		line = readline("minishell$ ");
@@ -28,11 +27,18 @@ int	main(int argc, char **argv, char **envp)
 			ft_error("unclosed quotes", errno);
 //		printf("line %d: %s\n", i, line);
 		lexer_token(&tools, line);
-		while (tools.lexer_list != NULL)
+/*		if (!envp_reader(&tools))
+			ft_error("bad envp_reader", errno);*/
+/*		while (tools.lexer_list != NULL)
 		{
 			printf("type: %d\n str: %s\n indx: %d\n ----\n", tools.lexer_list->type, tools.lexer_list->str, tools.lexer_list->indx);
 			tools.lexer_list = tools.lexer_list->next;
-		}
+		}*/
+/*		while (tools.envp_list != NULL)
+		{
+			printf(" name: %s\n value: %s\n -----\n", tools.envp_list->name, tools.envp_list->value);
+			tools.envp_list = tools.envp_list->next;
+		}*/
 /*		while (*tools.envp != NULL)
 			printf("--> %s\n", *tools.envp++);*/
 		add_history(line);

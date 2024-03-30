@@ -23,11 +23,13 @@ INCLUDE = Makefile libft/Makefile
 
 # ═══ SOURCES ═════════════════════════════════════════════════════════════════#
 MAIN		= minishell
+ENVP_FILES  = envp
 LEX_FILES	= lexer quotes spaces token_reader
 ERR_FILES	= error
 UTILS_FILES = envp_utils free_utils lexer_utils
 
 SRC_FILES+=$(MAIN)
+SRC_FILES+=$(addprefix $(ENVP_DIR),$(ENVP_FILES))
 SRC_FILES+=$(addprefix $(LEX_DIR),$(LEX_FILES))
 SRC_FILES+=$(addprefix $(ERR_DIR),$(ERR_FILES))
 SRC_FILES+=$(addprefix $(UTILS_DIR),$(UTILS_FILES))

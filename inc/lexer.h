@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:33:47 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/03/30 13:26:47 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/03/30 18:39:52 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 # define LEXER_H
 
 # include "minishell.h"
+
+/* envp.c */
+int		envp_reader(t_tools *tools);
+int		envp_addnode(char *n, char *v, t_envp **envp_list);
+void	envp_addback(t_envp **envp_list, t_envp *node);
 
 /* token_reader.c */
 int		check_token(int c);
