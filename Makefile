@@ -23,7 +23,7 @@ INCLUDE = Makefile libft/Makefile
 
 # ═══ SOURCES ═════════════════════════════════════════════════════════════════#
 MAIN		= minishell
-LEX_FILES	= lexer quotes token_reader
+LEX_FILES	= lexer quotes spaces token_reader
 ERR_FILES	= error
 UTILS_FILES = envp_utils free_utils lexer_utils
 

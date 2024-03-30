@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:55:27 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/03/28 20:07:20 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/03/30 13:10:44 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	closed_quotes(char *s, int i, int *counter, int quote)
 		*counter += 1;
 	return (j - i);
 }	
-
 
 int	count_quotes(char *str)
 {

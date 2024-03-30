@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:32:50 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/03/28 20:07:16 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/03/30 15:44:18 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,8 @@ int	get_str(char *s, int i, t_token **lexer_list)
 
 	len = 0;
 	while (s[i + len] && !(check_token(s[i + len]))
-		&& s[i + len] != 34 && s[i + len] != 39)
-	{
-//		len += quotes_handler(s, i + len, 34);
-//		len += quotes_handler(s, i + len, 39);
-		if (ft_isspace(s[i + len]))
-			break ;
-		else
-			len++;
-	}
+		&& s[i + len] != 34 && s[i + len] != 39 && ft_isspace(s[i + len]) != 1)
+		len++;
 	if (!token_addnode(ft_substr(s, i, len), 6, lexer_list))
 		return (-1);
 	return (len);
@@ -97,8 +90,8 @@ int	token_reader(t_tools *tools)
 	{
 		j = 0;
 		if (ft_isspace(tools->str[i]) == 1)
-			i++;
-		if (check_token(tools->str[i]))
+			j = spaces_handler(tools->str, i, &tools->lexer_list);
+		else if (check_token(tools->str[i]))
 			j = token_handler(tools->str, i, &tools->lexer_list);
 		else if ((tools->str[i] == 34) || (tools->str[i] == 39))
 			j = quotes_handler(tools->str, i, tools->str[i], &tools->lexer_list); 

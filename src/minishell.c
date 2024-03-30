@@ -1,8 +1,8 @@
 #include "minishell.h"
 
-int	tools_init(t_tools *tools)
+int	tools_init(t_tools *tools, char **envp)
 {
-	tools->envp = NULL;
+	tools->envp = ft_arrdup(envp);
 	tools->str = NULL;
 	return (1);
 }
@@ -17,8 +17,8 @@ int	main(int argc, char **argv, char **envp)
 	if (argc > 1)
 		return (1);
 	int i = 0;
-	tools_init(&tools);
-	tools.envp = ft_arrdup(envp);
+	tools_init(&tools, envp);
+//	tools.envp = ft_arrdup(envp);
 	while (i++ < 5)
 	{
 		line = readline("minishell$ ");
