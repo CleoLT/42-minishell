@@ -9,7 +9,28 @@ static void cmd_faker(t_tools *tools, char *line)
 	int i = 0;
 	while (tools->cmd->arg[i])
 			printf("%s ", tools->cmd->arg[i++]);
+	printf("| ");
+
+	t_cmd *comm1;
+	comm1 = malloc(sizeof(t_cmd));
+	comm1->arg = ft_split(" wc -l   ", ' ');
+	tools->cmd->next = comm1;
+	i = 0;
+	while (tools->cmd->next->arg[i])
+			printf("%s ", tools->cmd->next->arg[i++]);
+	printf("| ");
+
+	t_cmd *comm2;
+	comm2 = malloc(sizeof(t_cmd));
+	comm2->arg = ft_split(" cat ", ' ');
+	comm1->next = comm2;
+	i = 0;
+	while (tools->cmd->next->next->arg[i])
+			printf("%s ", tools->cmd->next->next->arg[i++]);
 	printf("\n");
+
+	tools->cmd->next->next->next = NULL;
+
 }
 
 int	tools_init(t_tools *tools, char **envp)
@@ -35,9 +56,10 @@ int	main(int argc, char **argv, char **envp)
 	{
 		line = readline("minishell$ ");
 		if (!line)
-			ft_error("readline", errno);
+			ft_error("readline error", errno);
 		if (!count_quotes(line))
 			ft_error("unclosed quotes", errno);
+//		printf("que pasa");
 //		printf("line %d: %s\n", i, line);
 /*		lexer_token(&tools, line);
 		while (tools.lexer_list != NULL)
@@ -51,12 +73,12 @@ int	main(int argc, char **argv, char **envp)
 /*		while (*tools.envp != NULL)
 			printf("--> %s\n", *tools.envp++);*/
 		cmd_faker(&tools, line);
-		exec_cmd(&tools);
+		execute(&tools);
 		add_history(line);
 		free(line);
 		free(tools.str);
-		free_arr(tools.cmd->arg); // free faker 
-		free(tools.cmd); //free faker 
+	//	free_arr(tools.cmd->arg); // free faker 
+	//	free(tools.cmd); //free faker 
 	}
 	free_arr(tools.envp);
 	free_arr(tools.path);
