@@ -9,14 +9,16 @@ static void cmd_faker(t_tools *tools, char *line)
 	tools->cmd->fd_in = 0;
 	tools->cmd->fd_out = 1;
 	tools->cmd->prev = NULL; 
-	int i = 0;
+
+	tools->cmd->next =NULL;
+/*	int i = 0;
 	while (tools->cmd->arg[i])
 			printf("%s ", tools->cmd->arg[i++]);
 	printf("| ");
 
 	t_cmd *comm1;
 	comm1 = malloc(sizeof(t_cmd));
-	comm1->arg = ft_split(" wc -l ", ' ');
+	comm1->arg = ft_split(" cat", ' ');
 	tools->cmd->next = comm1;
 	tools->cmd->next->fd_in = 0;
 	tools->cmd->next->fd_out = 1;
@@ -28,7 +30,7 @@ static void cmd_faker(t_tools *tools, char *line)
 
 	t_cmd *comm2;
 	comm2 = malloc(sizeof(t_cmd));
-	comm2->arg = ft_split(" cat ", ' ');
+	comm2->arg = ft_split(" wc -l", ' ');
 	comm1->next = comm2;
 	tools->cmd->next->next->fd_in = 0;
 	tools->cmd->next->next->fd_out = 1;
@@ -39,7 +41,7 @@ static void cmd_faker(t_tools *tools, char *line)
 	printf("\n");
 
 	tools->cmd->next->next->next = NULL;
-
+*/
 }
 
 int	tools_init(t_tools *tools, char **envp)

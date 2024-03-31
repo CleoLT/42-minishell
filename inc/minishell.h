@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/03/31 11:09:35 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/03/31 14:51:34 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	free_arr(char **array);
 
 /* error.c */
 void	ft_error(char *arg, int exit_code);
+void	print_error(char *cmd, char *str, int exit_code);
 int		ft_strerror(int exit_code);
 
 

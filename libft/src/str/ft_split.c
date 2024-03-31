@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:23:05 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/02/08 18:32:29 by ale-tron         ###   ########.fr       */
+/*   Updated: 2024/03/31 15:11:03 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/libft.h"
@@ -18,6 +18,8 @@ size_t	count_words(const char *str, char c)
 
 	i = 0;
 	count = 0;
+	if (str[0] && str[1] == '\0')
+		return (1);
 	while (str[i])
 	{
 		if (str[i + 1] == c && str[i] != c)
