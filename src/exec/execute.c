@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/03/30 19:19:48 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/03/31 14:09:17 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,17 @@ char	*find_path(t_tools *tools)
 void	exec_cmd(t_tools *tools)
 {
 	char	*path;
-	int		error;
+//	int		error;
 	if (tools->cmd->arg[0] == NULL || tools->cmd->arg[0][0] == '\0')
 		return ;
 	path = find_path(tools);
 	if (!path)
 	{
-		error = ft_strerror(errno);
-		printf("%d\n", error);
-		perror(tools->cmd->arg[0]);
+//		error = ft_strerror(errno);
+//		printf("%d\n", error);
+//		perror(tools->cmd->arg[0]);
 	//	write(2, "bamerror", 7);
+		exit(127);
 		return ;
 	}
 //	write(2, "bambo\n", 7);	
@@ -60,60 +61,65 @@ void	exec_cmd(t_tools *tools)
 	free(path);
 }
 
-void	make_pipe(t_tools *tools)
+void	ft_fork(t_tools *tools, int *pipe_fd)
 {
-	int		pipe_fd[2];
+//	int		pipe_fd[2];
 	pid_t	pid;
 
 	
 	pid = fork();
 	if (pid == -1)
 		ft_error("fork function", errno);
-	if (tools->cmd->next)
-	{
-		if (pipe(pipe_fd) == -1)
-			ft_error("pipe function", errno);
-	}
 	if (pid == 0)
 	{
-	//	write(2, "bambino\n", 8);	
+/*		if (tools->cmd->prev)
+		{
+			dup2(fd_in, STDIN_FILENO);	
+			close(fd_in);
+		}
+*/		if (tools->cmd->fd_in >= 0)
+		{
+			dup2(tools->cmd->fd_in, STDIN_FILENO);	
+			close(tools->cmd->fd_in);
+		}	
+		close(pipe_fd[READ_END]);
 		if (tools->cmd->next)
 		{
-			close(pipe_fd[READ_END]);
 			if (dup2(pipe_fd[WRITE_END], STDOUT_FILENO) == -1)
 				ft_error("dup2 function", errno);
 		}
+		close(pipe_fd[WRITE_END]);
 		exec_cmd(tools);
 	}
-	if (pid > 0)
+	else
 	{
-		if (tools->cmd->next)
+		close(pipe_fd[WRITE_END]);
+		if (tools->cmd->prev)
 		{
-			close(pipe_fd[WRITE_END]);
-			//printf("hola");
-			if (dup2(pipe_fd[READ_END], STDIN_FILENO) == -1)
-				ft_error("dup2 function", errno);
+		//	close(fd_in);	
+			close(tools->cmd->fd_in);
 		}
+	//	fd_in = pipe_fd[READ_END];
+		if (tools->cmd->next)
+			tools->cmd->next->fd_in = pipe_fd[READ_END];
 		wait(NULL);
+	
 	}
-
 
 }
 
 void	execute(t_tools *tools)
 {
+	int	pipe_fd[2];
+//	int	fd_in = 0;
+	
 	while (tools->cmd)
 	{
-		make_pipe(tools);
-	//	printf("%s | ", tools->cmd->arg[0]);
+		if (tools->cmd->next)
+			pipe(pipe_fd);
+		ft_fork(tools, pipe_fd);
+		//	printf("%s | ", tools->cmd->arg[0]);
 		tools->cmd = tools->cmd->next;
 	}
-/*
-pid_t test;
-test = fork();
-int fd[2];
-pipe(fd);
-if (test == 0)
-	exec_cmd(tools);
-wait(NULL);*/
+		wait(NULL);
 }

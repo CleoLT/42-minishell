@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:06:43 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/03/29 14:24:06 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/03/31 12:41:54 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ typedef struct s_token
 typedef struct s_cmd
 {
 	char			**arg;
+	int				fd_in;
+	int				fd_out;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
+
 }	t_cmd;
 
 typedef struct s_tools

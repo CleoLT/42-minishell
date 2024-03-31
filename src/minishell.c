@@ -6,6 +6,9 @@ static void cmd_faker(t_tools *tools, char *line)
 	comm = malloc(sizeof(t_cmd));
 	comm->arg = ft_split(line, ' ');
 	tools->cmd = comm;
+	tools->cmd->fd_in = 0;
+	tools->cmd->fd_out = 1;
+	tools->cmd->prev = NULL; 
 	int i = 0;
 	while (tools->cmd->arg[i])
 			printf("%s ", tools->cmd->arg[i++]);
@@ -13,8 +16,11 @@ static void cmd_faker(t_tools *tools, char *line)
 
 	t_cmd *comm1;
 	comm1 = malloc(sizeof(t_cmd));
-	comm1->arg = ft_split(" wc -l   ", ' ');
+	comm1->arg = ft_split(" wc -l ", ' ');
 	tools->cmd->next = comm1;
+	tools->cmd->next->fd_in = 0;
+	tools->cmd->next->fd_out = 1;
+	tools->cmd->next->prev = tools->cmd; 
 	i = 0;
 	while (tools->cmd->next->arg[i])
 			printf("%s ", tools->cmd->next->arg[i++]);
@@ -24,6 +30,9 @@ static void cmd_faker(t_tools *tools, char *line)
 	comm2 = malloc(sizeof(t_cmd));
 	comm2->arg = ft_split(" cat ", ' ');
 	comm1->next = comm2;
+	tools->cmd->next->next->fd_in = 0;
+	tools->cmd->next->next->fd_out = 1;
+	tools->cmd->next->next->prev = tools->cmd->next; 
 	i = 0;
 	while (tools->cmd->next->next->arg[i])
 			printf("%s ", tools->cmd->next->next->arg[i++]);
@@ -77,9 +86,17 @@ int	main(int argc, char **argv, char **envp)
 		add_history(line);
 		free(line);
 		free(tools.str);
-	//	free_arr(tools.cmd->arg); // free faker 
-	//	free(tools.cmd); //free faker 
+
+
+/*		free_arr(tools.cmd->arg); // free faker 
+		free_arr(tools.cmd->next->arg);
+		free_arr(tools.cmd->next->next->arg);
+		free(tools.cmd->next->next); 	
+		free(tools.cmd->next); 
+		free(tools.cmd); //free faker 
+*/	
 	}
+
 	free_arr(tools.envp);
 	free_arr(tools.path);
 	return (0);
