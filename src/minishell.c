@@ -10,8 +10,8 @@ static void cmd_faker(t_tools *tools, char *line)
 	tools->cmd->fd_out = 1;
 	tools->cmd->prev = NULL; 
 
-	tools->cmd->next =NULL;
-/*	int i = 0;
+//	tools->cmd->next =NULL;
+	int i = 0;
 	while (tools->cmd->arg[i])
 			printf("%s ", tools->cmd->arg[i++]);
 	printf("| ");
@@ -41,7 +41,7 @@ static void cmd_faker(t_tools *tools, char *line)
 	printf("\n");
 
 	tools->cmd->next->next->next = NULL;
-*/
+
 }
 
 int	tools_init(t_tools *tools, char **envp)
@@ -69,8 +69,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 			ft_error("readline error", errno);
 		if (!count_quotes(line))
-			ft_error("unclosed quotes", errno);
-//		printf("que pasa");
+			perror("unclosed quotes");
 //		printf("line %d: %s\n", i, line);
 /*		lexer_token(&tools, line);
 		while (tools.lexer_list != NULL)

@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/03/31 16:41:31 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/03/31 18:37:14 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ char	*find_path(t_tools *tools)
 	char	*cmd_path;
 	int		i;
 
-//	if (tools->cmd->arg[0] == NULL || tools->cmd->arg[0][0] == '\0')
-//		return (NULL);
 	cmd_path = ft_strjoin("/", tools->cmd->arg[0]);
 	i = 0;
 	while (tools->path[i])
@@ -37,7 +35,6 @@ char	*find_path(t_tools *tools)
 	return (NULL);
 }
 
-
 void	exec_cmd(t_tools *tools)
 {
 	char	*path;
@@ -47,11 +44,14 @@ void	exec_cmd(t_tools *tools)
 	if (tools->cmd->arg[0][0] == '\0')
 		print_error(tools->cmd->arg[0], ": command not found",  127);
 	path = find_path(tools);
+	if (!path && access(tools->cmd->arg[0], X_OK) == 0)
+		path = ft_strdup(tools->cmd->arg[0]);
+	else if (access(tools->cmd->arg[0], F_OK) == 0)
+		print_error(tools->cmd->arg[0], ": permission denied",  126);
 	if (!path)
 		print_error(tools->cmd->arg[0], ": command not found",  127);
 	if (execve(path, tools->cmd->arg, tools->envp) != 0)
 		ft_error("execve function", errno);
-	printf("path: %s\n", path);
 	free(path);
 }
 
