@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:59:09 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/03/30 15:44:25 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/04/01 11:35:54 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MACROS_H
@@ -25,5 +25,8 @@
 # define SPACE		0
 
 # define MAXARGS	10
+
+# define READ_END	0
+# define WRITE_END	1
 
 #endif

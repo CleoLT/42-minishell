@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:06:43 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/03/30 20:00:55 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/04/01 14:14:11 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,28 @@ typedef struct s_envp
 	struct s_envp	*prev;
 }	t_envp;
 
+typedef struct s_cmd
+{
+	char			**arg;
+	int				fd_in;
+	int				fd_out;
+	struct s_cmd	*prev;
+	struct s_cmd	*next;
+
+}	t_cmd;
+
 typedef struct s_tools
 {
 	char	**envp;
+	char 	**path;
 	char	*str;
 	t_token	*lexer_list;
 	t_envp	*envp_list;
+	t_cmd	*cmd;
+//	int		fd_in;
+//	int		fd_out;
+	int		pipe_fd[2];
+	pid_t	pid;
 }	t_tools;
 
 #endif
