@@ -1,20 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/29 13:41:52 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/01 14:06:37 by cle-tron         ###   ########.fr       */
+/*   Created: 2024/04/01 13:41:18 by cle-tron          #+#    #+#             */
+/*   Updated: 2024/04/01 13:46:17 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#include "minishell.h"
 
 
-void    exec_cmd(t_tools *tools, t_cmd *cmd);
-void	execute(t_tools *tools);
-
-#endif
