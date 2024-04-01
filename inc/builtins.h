@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/29 13:41:52 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/01 14:06:37 by cle-tron         ###   ########.fr       */
+/*   Created: 2024/04/01 12:20:41 by cle-tron          #+#    #+#             */
+/*   Updated: 2024/04/01 13:15:04 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#ifndef BUILTINS_H
+# define BUILTINS_H
 
-
-void    exec_cmd(t_tools *tools, t_cmd *cmd);
-void	execute(t_tools *tools);
+void exec_built(t_tools *tools, int type);
 
 #endif

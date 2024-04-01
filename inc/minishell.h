@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/01 11:37:10 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/01 13:17:08 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <string.h>
 # include <signal.h>
 # include <sys/errno.h>
+# include <sys/param.h>
 # include <readline/readline.h>
 
 # include "libft.h"
@@ -26,6 +27,7 @@
 # include "structures.h"
 # include "lexer.h"
 # include "exec.h"
+# include "builtins.h"
 
 void	lexer_token(t_tools *tools, char *line);
 
