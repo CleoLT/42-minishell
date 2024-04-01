@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_utils.c                                       :+:      :+:    :+:   */
+/*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 19:37:01 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/03/29 13:33:20 by cle-tron         ###   ########.fr       */
+/*   Created: 2024/03/29 13:41:52 by cle-tron          #+#    #+#             */
+/*   Updated: 2024/03/30 16:14:32 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef EXEC_H
+# define EXEC_H
 
-int	free_tools(t_tools *tools)
-{
-	free(tools->str);
-	return (1);
-}
 
-void	free_arr(char **array)
-{
-	int	i;
+void    exec_cmd(t_tools *tools);
+void	execute(t_tools *tools);
 
-	i = 0;
-	while (array[i])
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-}
+#endif

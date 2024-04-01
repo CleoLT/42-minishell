@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 11:11:02 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/02/08 18:31:22 by ale-tron         ###   ########.fr       */
+/*   Updated: 2024/03/30 15:02:12 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/libft.h"
@@ -23,13 +23,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (string == NULL)
 		return (NULL);
 	i = 0;
-	while (s1[i])
+	while (s1 && s1[i])
 	{
 		string[i] = s1[i];
 		i++;
 	}
 	j = 0;
-	while (s2[j])
+	while (s2 && s2[j])
 	{
 		string[i + j] = s2[j];
 		j++;

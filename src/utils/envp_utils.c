@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 17:19:47 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/03/27 19:23:02 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/03/29 14:30:02 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,24 @@ char	**ft_arrdup(char **array)
 		i++;
 	}
 	return (tmp);
+}
+
+char	**get_path_env(char **envp)
+{
+	int		i;
+	char	*env;
+	char	**env_array;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
+		{
+			env = envp[i] + 5;
+			env_array = ft_split(env, ':');
+			return (env_array);
+		}
+		i++;
+	}
+	return (NULL);
 }
