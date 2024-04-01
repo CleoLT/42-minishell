@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/01 15:01:31 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:07:42 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!count_quotes(line))
 		{
 			write(2, "error: unclosed quotes\n", 23);
+			free(line);
 			continue ;
 		}
 //		printf("line %d: %s\n", i, line);
