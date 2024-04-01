@@ -6,11 +6,18 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/03/31 18:37:14 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/01 13:21:27 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_is_builtin(char *cmd)
+{
+	if (!strncmp(cmd, "pwd", 4))
+		return (PWD);
+	return (0);
+}
 
 char	*find_path(t_tools *tools)
 {
@@ -38,9 +45,16 @@ char	*find_path(t_tools *tools)
 void	exec_cmd(t_tools *tools)
 {
 	char	*path;
+	int		built_type;
 	
 	if (tools->cmd->arg[0] == NULL) // esto en realidad no va aqui, va en parser
 		print_error(NULL, "syntax error near unexpected token `|'",  127);
+	built_type = ft_is_builtin(tools->cmd->arg[0]);
+	if (built_type)
+	{
+		(exec_built(tools, built_type));
+		return ;
+	}
 	if (tools->cmd->arg[0][0] == '\0')
 		print_error(tools->cmd->arg[0], ": command not found",  127);
 	path = find_path(tools);

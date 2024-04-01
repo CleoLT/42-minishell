@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:59:09 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/01 11:35:54 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/01 12:53:59 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MACROS_H
@@ -26,7 +26,17 @@
 
 # define MAXARGS	10
 
+//PIPES
 # define READ_END	0
 # define WRITE_END	1
+
+//BUILTINS
+# define ECHO		1
+# define CD			2
+# define PWD		3
+# define EXPORT		4
+# define UNSET		5
+# define ENV		6
+# define EXIT		7
 
 #endif
