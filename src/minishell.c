@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/01 11:39:54 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/01 12:01:29 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 			ft_error("readline error", errno);
 		if (!count_quotes(line))
-			perror("unclosed quotes");
+		{
+			write(2, "error: unclosed quotes\n", 23);
+			continue ;
+		}
 //		printf("line %d: %s\n", i, line);
 /*		lexer_token(&tools, line);
 		while (tools.lexer_list != NULL)
