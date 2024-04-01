@@ -4,7 +4,7 @@ NAME = minishell
 CC			= gcc
 RMF			= rm -f
 RMD			= rm -rf
-CFLAGS		= -Wall -Wextra -Werror  #-g -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
 READL_FLAG	= -lreadline
 LIB_FLAG 	= -L ./libft -lft
 MKDIR		= mkdir -p

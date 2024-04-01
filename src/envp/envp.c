@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 17:01:46 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/03/30 19:09:30 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/04/01 21:55:14 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	envp_addback(t_envp **envp_list, t_envp *node)
 {
 	t_envp	*tmp;
-
+	
 	tmp = *envp_list;
 	if (*envp_list == NULL)
 	{
