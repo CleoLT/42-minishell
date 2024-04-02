@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/01 21:59:19 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:50:03 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(int argc, char **argv, char **envp)
 	char 	*line;
 
 	(void)argv;
-	(void)envp;
+//	(void)envp;
 	if (argc > 1)
 		return (1);
 	int i = 0;
@@ -82,23 +82,23 @@ int	main(int argc, char **argv, char **envp)
 		line = readline("minishell$ ");
 		if (!line)
 			ft_error("readline error", errno);
-/*		if (!count_quotes(line))
+		if (!count_quotes(line))
 		{
 			write(2, "error: unclosed quotes\n", 23);
 			free(line);
 			continue ;
-		}*/
+		}
 //		printf("line %d: %s\n", i, line);
 		lexer_token(&tools, line);
 /*		if (!envp_reader(&tools))
 			ft_error("bad envp_reader", errno);*/
-		while (tools.lexer_list != NULL)
+/*		while (tools.lexer_list != NULL)
 		{
 			printf("type: %d\n str: %s\n indx: %d\n ----\n", tools.lexer_list->type, tools.lexer_list->str, tools.lexer_list->indx);
 
 //			printf("\npointer: %p\n", tools.lexer_list);	//lexer_list da leaks de memoria
 			tools.lexer_list = tools.lexer_list->next;
-		}
+		}*/
 /*		while (tools.envp_list != NULL)
 		{
 			printf(" name: %s\n value: %s\n -----\n", tools.envp_list->name, tools.envp_list->value);
@@ -107,9 +107,9 @@ int	main(int argc, char **argv, char **envp)
 /*		while (*tools.envp != NULL)
 			printf("--> %s\n", *tools.envp++);*/
 /*		cmd_faker(&tools, line);
-		execute(&tools);
-		add_history(line);
-		free(line);
+		execute(&tools);*/
+//		add_history(line);
+/*		free(line);
 		free(tools.str);
 //		printf("\npointer: %p\n", tools.cmd);
 		free_tools(&tools);

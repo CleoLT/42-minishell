@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/01 13:17:08 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/02 14:42:54 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include "structures.h"
 # include "lexer.h"
 # include "exec.h"
+# include "expander.h"
 # include "builtins.h"
 
 void	lexer_token(t_tools *tools, char *line);
