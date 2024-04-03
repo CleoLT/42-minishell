@@ -6,12 +6,12 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/02 16:50:03 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/04/03 13:03:55 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
+
 static void cmd_faker(t_tools *tools, char *line)
 {
 	t_cmd *comm;
@@ -23,7 +23,7 @@ static void cmd_faker(t_tools *tools, char *line)
 	tools->cmd->prev = NULL; 
 
 	tools->cmd->next =NULL;
-	int i = 0;
+/*	int i = 0;
 	while (tools->cmd->arg[i])
 			printf("%s ", tools->cmd->arg[i++]);
 	printf("| ");
@@ -53,8 +53,8 @@ static void cmd_faker(t_tools *tools, char *line)
 	printf("\n");
 
 	tools->cmd->next->next->next = NULL;
-
-}*/
+*/
+}
 
 int	tools_init(t_tools *tools, char **envp)
 {
@@ -106,22 +106,17 @@ int	main(int argc, char **argv, char **envp)
 		}*/
 /*		while (*tools.envp != NULL)
 			printf("--> %s\n", *tools.envp++);*/
-/*		cmd_faker(&tools, line);
-		execute(&tools);*/
-//		add_history(line);
-/*		free(line);
-		free(tools.str);
+		cmd_faker(&tools, line);
+		execute(&tools);
+		add_history(line);
+		free(line);
+//		free(tools.str);
+//		free(tools.lexer_list);
+//		free(tools.envp_list);
 //		printf("\npointer: %p\n", tools.cmd);
 		free_tools(&tools);
-			free_arr(tools.cmd->arg); // free faker 
-		free_arr(tools.cmd->next->arg);
-		free_arr(tools.cmd->next->next->arg);
-		free(tools.cmd->next->next); 	
-		free(tools.cmd->next); 
-		free(tools.cmd); //free faker 
-*/
 	}
-//	free_arr(tools.envp);
-//	free_arr(tools.path);
+	free_arr(tools.envp);
+	free_arr(tools.path);
 	return (0);
 }

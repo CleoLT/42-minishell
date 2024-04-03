@@ -6,12 +6,12 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 16:50:26 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/04/02 16:49:50 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/04/03 12:56:21 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
-
+/*
 int	expander_reader(t_tools *tools)
 {
 	while (tools->lexer_list != NULL)
@@ -29,4 +29,4 @@ int	expander_reader(t_tools *tools)
 		tools->lexer_list = tools->lexer_list->next;
 	}
 	return (1);
-}
+}*/
