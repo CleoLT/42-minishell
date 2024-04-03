@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/01 12:20:41 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/03 17:14:40 by cle-tron         ###   ########.fr       */
+/*   Created: 2024/04/03 18:48:38 by cle-tron          #+#    #+#             */
+/*   Updated: 2024/04/03 19:24:20 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "minishell.h"
 
-void exec_built(t_tools *tools, int type, t_cmd *cmd);
+void	signals(void)
+{
+	signal(SIGQUIT, handle_sigquit);
+}
 
-#endif
+void	handle_sigquit(int sig)
+{
+	(void)sig;
+	ft_putstr_fd("exit\n", STDIN_FILENO);
+}
+

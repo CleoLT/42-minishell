@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:06:43 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/02 14:50:12 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:00:09 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ typedef struct s_tools
 	t_cmd	*cmd;
 //	int		fd_in;
 //	int		fd_out;
-	int		pipe_fd[2];
-	pid_t	pid;
+//	int		pipe_fd[2];
+//	pid_t	*pid;
+	int		t_cmd_size;
 }	t_tools;
 
 #endif

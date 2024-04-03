@@ -25,7 +25,7 @@ BUILT_DIR	= built/
 INCLUDE = Makefile libft/Makefile
 
 # ═══ SOURCES ═════════════════════════════════════════════════════════════════#
-MAIN		= minishell
+MAIN		= minishell signal
 ENVP_FILES  = envp
 LEX_FILES	= lexer quotes spaces token_reader
 ERR_FILES	= error
