@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:32:50 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/04/01 19:19:46 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:37:52 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ int	token_handler(char *s, int i, t_token **lexer_list)
 int	token_addnode (char *s, int token, t_token **lexer_list)
 {
 	t_token *node;
-//	static int	indx;
 
-//	indx = 0;
 	node = (t_token *)malloc(sizeof(t_token));
 	if (!node)
 		return (0);

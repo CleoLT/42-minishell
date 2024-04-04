@@ -6,11 +6,47 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 19:37:01 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/04/01 14:59:26 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/04 14:41:22 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void static free_token(t_token **lexer_list)
+{
+	t_token *tmp;
+
+	if (!*lexer_list)
+		return ;
+	while (*lexer_list)
+	{
+		tmp = (*lexer_list)->next;
+		if ((*lexer_list)->str)
+			free((*lexer_list)->str);
+		free(*lexer_list);
+		*lexer_list = tmp;
+	}
+	*lexer_list = NULL;
+}
+
+void static free_envp(t_envp **envp_list)
+{
+	t_envp *tmp;
+
+	if (!*envp_list)
+		return ;
+	while (*envp_list)
+	{
+		tmp = (*envp_list)->next;
+		if ((*envp_list)->name)
+			free((*envp_list)->name);
+		if ((*envp_list)->value)
+			free((*envp_list)->value);
+		free(*envp_list);
+		*envp_list = tmp;
+	}
+	*envp_list = NULL;
+}
 
 void static	free_cmd(t_cmd *cmd)
 {
@@ -35,7 +71,8 @@ int	free_tools(t_tools *tools)
 	free(tools->str);
 //	free_arr(tools->cmd->arg);
 	free_cmd(tools->cmd);
-
+	free_token(&tools->lexer_list);
+	free_envp(&tools->envp_list);
 	return (1);
 }
 

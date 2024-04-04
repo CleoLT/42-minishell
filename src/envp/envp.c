@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 17:01:46 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/04/01 21:55:14 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:23:58 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	envp_reader(t_tools *tools)
 		flag = 0;
 		result = ft_split(tools->envp[i], '=');
 		flag = envp_addnode(result[0], result[1], &tools->envp_list);
+		free(result);
 		if (flag < 0)
 			return (0);
 		i++;

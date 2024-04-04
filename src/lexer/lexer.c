@@ -3,14 +3,7 @@
 
 void	lexer_token(t_tools *tools, char *line)
 {
-	char	*tmp;
-
-	tools->str = line;
-	tmp = ft_strtrim(tools->str, " ");
-//	free(tools->str);
-	tools->str = tmp;
-	free(tmp);
-//	printf("%s\n", tools->str);
+	tools->str = ft_strtrim(line, " ");
 	if (!tools->str)
 		ft_error("exit", errno);
 	if (!token_reader(tools))
