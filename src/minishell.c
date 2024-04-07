@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/03 19:09:36 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/05 12:12:42 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	tools_init(t_tools *tools, char **envp)
 	tools->envp_list = NULL;
 	tools->lexer_list = NULL;
 	tools->path = get_path_env(envp);
+	tools->exit_code = 0;
 	signals();
 	return (1);
 }
@@ -77,7 +78,6 @@ int	main(int argc, char **argv, char **envp)
 	char 	*line;
 
 	(void)argv;
-//	(void)envp;
 	if (argc > 1)
 		return (1);
 	int i = 0;
@@ -86,7 +86,10 @@ int	main(int argc, char **argv, char **envp)
 	{
 		line = readline("minishell$ ");
 		if (!line)
+		{
+			//ft_putstr_fd(ft_itoa(errno), 2);
 			ft_error("readline error", errno);
+		}
 		if (!count_quotes(line))
 		{
 			write(2, "error: unclosed quotes\n", 23);
@@ -114,15 +117,11 @@ int	main(int argc, char **argv, char **envp)
 		cmd_faker(&tools, line);
 		execute(&tools);
 		add_history(line);
-		signal(SIGQUIT, handle_sigquit);	
 		free(line);
-//		free(tools.str);
-//		free(tools.lexer_list);
-//		free(tools.envp_list);
-//		printf("\npointer: %p\n", tools.cmd);
 		free_tools(&tools);	
 	}
-		free_arr(tools.envp);
+	clear_history();
+	free_arr(tools.envp);
 	free_arr(tools.path);
 	return (0);
 }

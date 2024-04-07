@@ -4,9 +4,10 @@ NAME = minishell
 CC			= gcc
 RMF			= rm -f
 RMD			= rm -rf
-CFLAGS		= -Wall -Wextra -Werror #-g -fsanitize=address
-READL_FLAG	= -lreadline
-LIB_FLAG 	= -L ./libft -lft
+CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
+LIB_FLAG 	= -L./libft/ -L./readline/ -lreadline -lhistory -ltermcap -lft
+DEP_FLAG	= -MMD -MP
+INCLUDE		= -I./libft/inc/ -I./inc/ -I./readline/
 MKDIR		= mkdir -p
 
 # ═══ DIRECTORIES ═════════════════════════════════════════════════════════════#
@@ -14,6 +15,7 @@ INC_DIR		= inc/
 SRC_DIR		= src/
 OBJ_DIR		= obj/
 LIB_DIR		= libft/
+READL_DIR	= readline/
 ENVP_DIR	= envp/
 LEX_DIR		= lexer/
 EXEC_DIR	= exec/
@@ -21,8 +23,6 @@ EXP_DIR		= expander/
 ERR_DIR		= error/
 UTILS_DIR	= utils/
 BUILT_DIR	= built/
-
-INCLUDE = Makefile libft/Makefile
 
 # ═══ SOURCES ═════════════════════════════════════════════════════════════════#
 MAIN		= minishell signal
@@ -53,11 +53,18 @@ all:	$(NAME)
 
 $(NAME):	$(OBJS)
 			make -C $(LIB_DIR)
-			$(CC) $(CFLAGS) $(READL_FLAG) -o $(NAME) $(OBJS) $(LIB_FLAG)
+			$(CC) $(CFLAGS) $(OBJS) $(LIB_FLAG) -o $@
 
-$(OBJ_DIR)%.o:	$(SRC_DIR)%.c $(INCLUDE)
+$(OBJ_DIR)%.o:	$(SRC_DIR)%.c Makefile libft/Makefile libft/src/*/*.c 
 				$(MKDIR) $(dir $@)
-				$(CC) $(CFLAGS) -I$(INC_DIR) -I$(LIB_DIR)$(INC_DIR) -MMD -MP -c -o $@ $<
+				$(CC) $(CFLAGS) -DREADLINE_LIBRARY $(INCLUDE) $(DEP_FLAG) -c -o $@ $<
+
+readl: 
+		cd $(READL_DIR) && ./configure
+		make -C $(READL_DIR)
+
+cleanrl:
+		make clean -C $(READL_DIR)
 
 clean:
 		$(RMD) $(OBJ_DIR)
