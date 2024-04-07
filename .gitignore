@@ -2,4 +2,6 @@
 **/*.o
 **/*.d
 minishell
-libft/libft.a
+*/*.a
+*/*/*.so
+*/*/*.dylib
