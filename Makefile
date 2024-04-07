@@ -7,7 +7,7 @@ RMD			= rm -rf
 CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
 LIB_FLAG 	= -L./libft/ -L./readline/ -lreadline -lhistory -ltermcap -lft
 DEP_FLAG	= -MMD -MP
-INCLUDE		= -I./libft/inc/ -I./inc/ -I./readline/
+INCLUDE		= -I./libft/inc/ -I./inc/ -I./readline/ 
 MKDIR		= mkdir -p
 
 # ═══ DIRECTORIES ═════════════════════════════════════════════════════════════#
@@ -60,7 +60,7 @@ $(OBJ_DIR)%.o:	$(SRC_DIR)%.c Makefile libft/Makefile libft/src/*/*.c
 				$(CC) $(CFLAGS) -DREADLINE_LIBRARY $(INCLUDE) $(DEP_FLAG) -c -o $@ $<
 
 readl: 
-		cd $(READL_DIR) && ./configure
+		cd ./readline/ && ./configure
 		make -C $(READL_DIR)
 
 cleanrl:

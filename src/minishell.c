@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/05 12:12:42 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/07 18:58:47 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void cmd_faker(t_tools *tools, char *line)
 	tools->cmd->fd_out = 1;
 	tools->cmd->prev = NULL; 
 
-	tools->cmd->next =NULL;
+	tools->cmd->next = NULL;
 	tools->t_cmd_size = 1;
 
 /*	int i = 0;
@@ -68,7 +68,7 @@ int	tools_init(t_tools *tools, char **envp)
 	tools->lexer_list = NULL;
 	tools->path = get_path_env(envp);
 	tools->exit_code = 0;
-	signals();
+//	signals();
 	return (1);
 }
 
@@ -80,15 +80,15 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (argc > 1)
 		return (1);
-	int i = 0;
+//	int i = 0;
 	tools_init(&tools, envp);
-	while (i++ < 5)
+	while (1)
 	{
-		line = readline("minishell$ ");
+		line = readline("\033[0;32mminishell$ \033[0m");
 		if (!line)
 		{
-			//ft_putstr_fd(ft_itoa(errno), 2);
 			ft_error("readline error", errno);
+			write(2, "readline wtf", 20);
 		}
 		if (!count_quotes(line))
 		{
@@ -96,7 +96,7 @@ int	main(int argc, char **argv, char **envp)
 			free(line);
 			continue ;
 		}
-//		printf("line %d: %s\n", i, line);
+	//	printf("line %d: %s\n", i, line);
 	//	lexer_token(&tools, line);
 /*		if (!envp_reader(&tools))
 			ft_error("bad envp_reader", errno);*/
@@ -116,11 +116,11 @@ int	main(int argc, char **argv, char **envp)
 			printf("--> %s\n", *tools.envp++);*/
 		cmd_faker(&tools, line);
 		execute(&tools);
-		add_history(line);
+	//	add_history(line);
 		free(line);
 		free_tools(&tools);	
 	}
-	clear_history();
+//	clear_history();
 	free_arr(tools.envp);
 	free_arr(tools.path);
 	return (0);

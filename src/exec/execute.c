@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/05 13:05:28 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/07 18:55:42 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,32 @@ int	ft_is_builtin(char *arg)
 	if (!strncmp(arg, "echo", 5))
 		return (ECHO);
 	return (0);
+}
+
+
+void wait_all(pid_t *pid, int size)
+{
+	int i = 0;
+	int	status;
+	while (i < size)    
+	{
+        waitpid(pid[i], &status, 0);
+        if (WIFEXITED(status))
+            printf("Fils [%d] a terminé normalement.\n", pid[i]);
+        else if (WIFSIGNALED(status))
+        {
+            printf("Fils [%d] a ete interrompu.\n", pid[i]);
+            if (WTERMSIG(status) == SIGTERM)
+                printf("\e[31mFils [%d] a recu le signal %d, SIGTERM\e[0m\n",
+                            pid[i], WTERMSIG(status));
+            if (WTERMSIG(status) == SIGKILL)
+                printf("\e[31mFils [%d] a recu le signal %d, SIGKILL\e[0m\n",
+                            pid[i], WTERMSIG(status));
+        }
+        i++;
+    }
+
+
 }
 
 char	*find_path(t_tools *tools, t_cmd *cmd)
@@ -95,7 +121,7 @@ void	ft_fork(t_tools *tools, t_cmd *cmd, int *pipe_fd, int fd_in, pid_t pid)
 				ft_error("dup2 function", errno);
 		}
 		close(pipe_fd[WRITE_END]);
-		signal(SIGQUIT, SIG_DFL);
+	//	signal(SIGQUIT, SIG_DFL);
 		exec_cmd(tools, cmd);
 	}
 		close(pipe_fd[WRITE_END]);
@@ -111,36 +137,23 @@ void	ft_fork(t_tools *tools, t_cmd *cmd, int *pipe_fd, int fd_in, pid_t pid)
 		}
 
 }
-
-void kill_and_wait(pid_t *pid, int size)
+void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd, int fd_in)
 {
-	int i = 0;
-	int	status;
+	if (cmd->prev)
+	{
+		dup2(fd_in, STDIN_FILENO);	
+		close(fd_in);
+	}
+	if (cmd->next)
+	{
+		close(pipe_fd[READ_END]);
+		if (dup2(pipe_fd[WRITE_END], STDOUT_FILENO) == -1)
+			ft_error("dup2 function", errno);
+		close(pipe_fd[WRITE_END]);
 
-//	while (i < size)
-//	{
-//		kill(pid[i], SIGKILL);
-//		i++;
-//	}
-//	i = 0;
-  while (i < size) // Récupère la sortie de chaque fils
-    {
-        waitpid(pid[i], &status, 0);
-        if (WIFEXITED(status))
-            printf("Fils [%d] a terminé normalement.\n", pid[i]);
-        else if (WIFSIGNALED(status))
-        {
-            printf("Fils [%d] a ete interrompu.\n", pid[i]);
-            if (WTERMSIG(status) == SIGTERM)
-                printf("\e[31mFils [%d] a recu le signal %d, SIGTERM\e[0m\n",
-                            pid[i], WTERMSIG(status));
-            if (WTERMSIG(status) == SIGKILL)
-                printf("\e[31mFils [%d] a recu le signal %d, SIGKILL\e[0m\n",
-                            pid[i], WTERMSIG(status));
-        }
-        i++;
-    }
-
+	}
+		//	signal(SIGQUIT, SIG_DFL);
+			exec_cmd(tools, cmd);
 
 }
 
@@ -157,14 +170,27 @@ void	execute(t_tools *tools)
 	{
 		if (cmd->next)
 			pipe(pipe_fd);
-		ft_fork(tools, cmd, pipe_fd, fd_in, pid[i]);
-			wait(NULL);
-		//	kill_and_wait(pid, tools->t_cmd_size);
-		printf("fd: %d\n", fd_in);
-		if (cmd->next)// truc bizarre sinon readline beugue avec 1 cmd
-			cmd = cmd->next;
-		else
-			break;
+		pid[i] = fork();
+		if (pid[i] == 0)
+			child_process(cmd, tools, pipe_fd, fd_in);
+		if (cmd->prev)
+			close(fd_in);
+		if (cmd->next)
+		{
+			fd_in = pipe_fd[READ_END];
+
+		close(pipe_fd[WRITE_END]);
+	//	if (dup2(pipe_fd[READ_END], STDIN_FILENO) == -1)
+	//		exit(-1);
+	//	close(pipe_fd[READ_END]);
+		}
+
+	
+	
+	
+	//	ft_fork(tools, cmd, pipe_fd, fd_in, pid[i]);
+		cmd = cmd->next;
 		i++;
 	}
+	wait_all(pid, tools->t_cmd_size);
 }
