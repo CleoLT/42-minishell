@@ -6,11 +6,12 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/03 13:03:55 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:56:21 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 static void cmd_faker(t_tools *tools, char *line)
 {
@@ -22,7 +23,9 @@ static void cmd_faker(t_tools *tools, char *line)
 	tools->cmd->fd_out = 1;
 	tools->cmd->prev = NULL; 
 
-	tools->cmd->next =NULL;
+	tools->cmd->next = NULL;
+	tools->t_cmd_size = 1;
+
 /*	int i = 0;
 	while (tools->cmd->arg[i])
 			printf("%s ", tools->cmd->arg[i++]);
@@ -42,7 +45,7 @@ static void cmd_faker(t_tools *tools, char *line)
 
 	t_cmd *comm2;
 	comm2 = malloc(sizeof(t_cmd));
-	comm2->arg = ft_split(" wc -l", ' ');
+	comm2->arg = ft_split(" cat", ' ');
 	comm1->next = comm2;
 	tools->cmd->next->next->fd_in = 0;
 	tools->cmd->next->next->fd_out = 1;
@@ -53,6 +56,7 @@ static void cmd_faker(t_tools *tools, char *line)
 	printf("\n");
 
 	tools->cmd->next->next->next = NULL;
+	tools->t_cmd_size = 3;
 */
 }
 
@@ -63,6 +67,8 @@ int	tools_init(t_tools *tools, char **envp)
 	tools->envp_list = NULL;
 	tools->lexer_list = NULL;
 	tools->path = get_path_env(envp);
+	tools->exit_code = 0;
+	signals();
 	return (1);
 }
 
@@ -72,24 +78,22 @@ int	main(int argc, char **argv, char **envp)
 	char 	*line;
 
 	(void)argv;
-//	(void)envp;
 	if (argc > 1)
 		return (1);
-	int i = 0;
 	tools_init(&tools, envp);
-	while (i++ < 5)
+	while (1)
 	{
-		line = readline("minishell$ ");
+		line = readline("\033[0;32mminishell$ \033[0m");
 		if (!line)
-			ft_error("readline error", errno);
+			break ;
 		if (!count_quotes(line))
 		{
 			write(2, "error: unclosed quotes\n", 23);
 			free(line);
 			continue ;
 		}
-//		printf("line %d: %s\n", i, line);
-		lexer_token(&tools, line);
+	//	printf("line %d: %s\n", i, line);
+	//	lexer_token(&tools, line);
 /*		if (!envp_reader(&tools))
 			ft_error("bad envp_reader", errno);*/
 /*		while (tools.lexer_list != NULL)
@@ -110,12 +114,9 @@ int	main(int argc, char **argv, char **envp)
 		execute(&tools);
 		add_history(line);
 		free(line);
-//		free(tools.str);
-//		free(tools.lexer_list);
-//		free(tools.envp_list);
-//		printf("\npointer: %p\n", tools.cmd);
-		free_tools(&tools);
+		free_tools(&tools);	
 	}
+//	clear_history();
 	free_arr(tools.envp);
 	free_arr(tools.path);
 	return (0);

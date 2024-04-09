@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:59:09 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/01 18:56:49 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/04/07 15:11:06 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MACROS_H
@@ -22,7 +22,7 @@
 # define STRING		6
 # define STRINGD	7
 # define STRINGS	8
-# define SPACE		0
+# define SPACE2		0 // I change the name of this macro because isn't compatible with readline library
 
 # define MAXARGS	10
 

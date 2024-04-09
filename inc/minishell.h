@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/02 14:42:54 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:38:15 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@
 # include <signal.h>
 # include <sys/errno.h>
 # include <sys/param.h>
-# include <readline/readline.h>
 
+# include "../readline/readline.h"
+# include "../readline/history.h"
 # include "libft.h"
+
 # include "macros.h"
 # include "structures.h"
 # include "lexer.h"
@@ -34,7 +36,8 @@ void	lexer_token(t_tools *tools, char *line);
 
 /* envp_utils.c */
 char	**ft_arrdup(char **array);
-char    **get_path_env(char **envp);
+char	 **get_path_env(char **envp);
+int		array_len(char **array);
 
 /* free_utils.c */
 int		free_tools(t_tools *tools);
@@ -42,10 +45,11 @@ void	free_arr(char **array);
 
 /* error.c */
 void	ft_error(char *arg, int exit_code);
-void	print_error(char *cmd, char *str, int exit_code);
+void	print_error(char *cmd, char *str, int exit_code, t_tools **tools);
 int		ft_strerror(int exit_code);
 
-
-
+/* signal.c */
+void	signals(void);
+void	handle_sigquit(int sig);
 
 #endif

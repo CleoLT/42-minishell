@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 17:19:47 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/04/01 18:57:46 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:43:10 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,14 @@ char	**get_path_env(char **envp)
 		i++;
 	}
 	return (NULL);
+}
+
+int	array_len(char **array)
+{
+	int	count;
+	
+	count = 0;
+	while (array[count])
+		count ++;
+	return (count);
 }
