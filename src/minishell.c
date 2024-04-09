@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/07 18:58:47 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/09 13:11:29 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ static void cmd_faker(t_tools *tools, char *line)
 	tools->cmd->fd_out = 1;
 	tools->cmd->prev = NULL; 
 
-	tools->cmd->next = NULL;
-	tools->t_cmd_size = 1;
+//	tools->cmd->next = NULL;
+//	tools->t_cmd_size = 1;
 
-/*	int i = 0;
+	int i = 0;
 	while (tools->cmd->arg[i])
 			printf("%s ", tools->cmd->arg[i++]);
 	printf("| ");
@@ -57,7 +57,7 @@ static void cmd_faker(t_tools *tools, char *line)
 
 	tools->cmd->next->next->next = NULL;
 	tools->t_cmd_size = 3;
-*/
+
 }
 
 int	tools_init(t_tools *tools, char **envp)
@@ -68,7 +68,7 @@ int	tools_init(t_tools *tools, char **envp)
 	tools->lexer_list = NULL;
 	tools->path = get_path_env(envp);
 	tools->exit_code = 0;
-//	signals();
+	signals();
 	return (1);
 }
 
@@ -80,16 +80,12 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (argc > 1)
 		return (1);
-//	int i = 0;
 	tools_init(&tools, envp);
 	while (1)
 	{
 		line = readline("\033[0;32mminishell$ \033[0m");
 		if (!line)
-		{
-			ft_error("readline error", errno);
-			write(2, "readline wtf", 20);
-		}
+			break ;
 		if (!count_quotes(line))
 		{
 			write(2, "error: unclosed quotes\n", 23);
@@ -116,7 +112,7 @@ int	main(int argc, char **argv, char **envp)
 			printf("--> %s\n", *tools.envp++);*/
 		cmd_faker(&tools, line);
 		execute(&tools);
-	//	add_history(line);
+		add_history(line);
 		free(line);
 		free_tools(&tools);	
 	}
