@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/09 14:56:21 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/09 15:27:38 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	main(int argc, char **argv, char **envp)
 		line = readline("\033[0;32mminishell$ \033[0m");
 		if (!line)
 			break ;
+		add_history(line);
 		if (!count_quotes(line))
 		{
 			write(2, "error: unclosed quotes\n", 23);
@@ -93,7 +94,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 	//	printf("line %d: %s\n", i, line);
-	//	lexer_token(&tools, line);
+		lexer_token(&tools, line);
 /*		if (!envp_reader(&tools))
 			ft_error("bad envp_reader", errno);*/
 /*		while (tools.lexer_list != NULL)
@@ -112,7 +113,6 @@ int	main(int argc, char **argv, char **envp)
 			printf("--> %s\n", *tools.envp++);*/
 		cmd_faker(&tools, line);
 		execute(&tools);
-		add_history(line);
 		free(line);
 		free_tools(&tools);	
 	}
