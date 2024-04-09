@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/09 13:11:29 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:56:21 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ static void cmd_faker(t_tools *tools, char *line)
 	tools->cmd->fd_out = 1;
 	tools->cmd->prev = NULL; 
 
-//	tools->cmd->next = NULL;
-//	tools->t_cmd_size = 1;
+	tools->cmd->next = NULL;
+	tools->t_cmd_size = 1;
 
-	int i = 0;
+/*	int i = 0;
 	while (tools->cmd->arg[i])
 			printf("%s ", tools->cmd->arg[i++]);
 	printf("| ");
@@ -57,7 +57,7 @@ static void cmd_faker(t_tools *tools, char *line)
 
 	tools->cmd->next->next->next = NULL;
 	tools->t_cmd_size = 3;
-
+*/
 }
 
 int	tools_init(t_tools *tools, char **envp)

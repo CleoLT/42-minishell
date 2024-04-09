@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:48:38 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/09 12:54:20 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:53:28 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	handle_sigint(int sig)
 void	handle_sigquit(int sig)
 {
 		printf("Quit: %d\n", sig);		
-		write(2, "Quit: ", 6);
 }
 
 void	signals(void)

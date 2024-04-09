@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/09 12:44:02 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:55:18 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void wait_all(pid_t *pid, int size)
 	while (i < size)    
 	{
         waitpid(pid[i], &status, 0);
-        if (WIFEXITED(status))
+   /*     if (WIFEXITED(status))
             printf("Fils [%d] a terminé normalement.\n", pid[i]);
         else if (WIFSIGNALED(status))
         {
@@ -40,7 +40,7 @@ void wait_all(pid_t *pid, int size)
             if (WTERMSIG(status) == SIGINT)
                 printf("\e[31mFils [%d] a recu le signal %d, SIGINT\e[0m\n",
                             pid[i], WTERMSIG(status));
-        }
+        }*/
         i++;
     }
 
@@ -97,7 +97,8 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd, int fd_in)
 {
 	if (cmd->prev)
-	{		dup2(fd_in, STDIN_FILENO);	
+	{	
+		dup2(fd_in, STDIN_FILENO);	
 		close(fd_in);
 	}
 	if (cmd->next)
@@ -105,14 +106,10 @@ void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd, int fd_in)
 		close(pipe_fd[READ_END]);
 		if (dup2(pipe_fd[WRITE_END], STDOUT_FILENO) == -1)
 			ft_error("dup2 function", errno);
-	//	close(pipe_fd[WRITE_END]);
-
-	}
-	if (cmd->next || cmd->prev)
 		close(pipe_fd[WRITE_END]);
-
-	printf("child process fd_in : %d | ", fd_in);
-	printf("p[READ_END] : %d | p[WRITE_END] : %d\n", pipe_fd[READ_END], pipe_fd[WRITE_END]);
+	}
+//	if (cmd->next || cmd->prev)
+//		close(pipe_fd[WRITE_END]);
 
 	signal(SIGQUIT, handle_sigquit); 
 	exec_cmd(tools, cmd);
@@ -135,19 +132,13 @@ void	execute(t_tools *tools)
 		pid[i] = fork();
 		if (pid[i] == 0)
 			child_process(cmd, tools, pipe_fd, fd_in);
-		if (cmd->prev)
-			close(fd_in);
+//		if (cmd->prev)
+//			close(fd_in);
 		if (cmd->next)
 		{
 			fd_in = pipe_fd[READ_END];
-
-		close(pipe_fd[WRITE_END]);
-	//	if (dup2(pipe_fd[READ_END], STDIN_FILENO) == -1)
-	//		exit(-1);
-	//	close(pipe_fd[READ_END]);
+			close(pipe_fd[WRITE_END]);
 		}
-//		printf("%d fd_in : %d | ", i, fd_in);
-//	printf("p[READ_END] : %d | p[WRITE_END] : %d\n", pipe_fd[READ_END], pipe_fd[WRITE_END]);
 		cmd = cmd->next;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/07 14:49:11 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:38:15 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	lexer_token(t_tools *tools, char *line);
 
 /* envp_utils.c */
 char	**ft_arrdup(char **array);
-char    **get_path_env(char **envp);
+char	 **get_path_env(char **envp);
 int		array_len(char **array);
 
 /* free_utils.c */
@@ -51,6 +51,5 @@ int		ft_strerror(int exit_code);
 /* signal.c */
 void	signals(void);
 void	handle_sigquit(int sig);
-
 
 #endif

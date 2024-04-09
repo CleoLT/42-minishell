@@ -4,7 +4,7 @@ NAME = minishell
 CC			= gcc
 RMF			= rm -f
 RMD			= rm -rf
-CFLAGS		= -Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
 LIB_FLAG 	= -L./libft/ -L./readline/ -lreadline -lhistory -ltermcap -lft
 DEP_FLAG	= -MMD -MP
 INCLUDE		= -I./libft/inc/ -I./inc/ -I./readline/ 
@@ -49,7 +49,7 @@ DEPS = $(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_FILES)))
 
 # ═══ RULES ═══════════════════════════════════════════════════════════════════#
 
-all:	$(NAME)
+all:	$(NAME) 
 
 $(NAME):	$(OBJS)
 			make -C $(LIB_DIR)
@@ -77,4 +77,4 @@ fclean:	clean
 re:	fclean all
 
 -include $(DEPS)
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re readl
