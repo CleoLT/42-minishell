@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/09 15:27:38 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:40:39 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,11 @@ int	main(int argc, char **argv, char **envp)
 		}*/
 /*		while (*tools.envp != NULL)
 			printf("--> %s\n", *tools.envp++);*/
-		cmd_faker(&tools, line);
+				cmd_faker(&tools, line);
 		execute(&tools);
 		free(line);
-		free_tools(&tools);	
+		free_tools(&tools);
+		printf("exit_code %d\n", tools.exit_code);
 	}
 //	clear_history();
 	free_arr(tools.envp);

@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/09 14:55:18 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:41:44 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,20 @@ int	ft_is_builtin(char *arg)
 }
 
 
-void wait_all(pid_t *pid, int size)
+void wait_all(pid_t *pid, t_tools *tools)
 {
 	int i = 0;
 	int	status;
-	while (i < size)    
+	while (i < tools->t_cmd_size)    
 	{
         waitpid(pid[i], &status, 0);
-   /*     if (WIFEXITED(status))
-            printf("Fils [%d] a terminé normalement.\n", pid[i]);
-        else if (WIFSIGNALED(status))
+		if (WIFEXITED(status))
+		{
+			  tools->exit_code = WEXITSTATUS(status);
+			  printf("exit_code en wait_all: %d\n", tools->exit_code);
+	  		  //printf("Fils [%d] a terminé normalement.\n", pid[i]);
+		}
+/*        else if (WIFSIGNALED(status))
         {
             printf("Fils [%d] a ete interrompu.\n", pid[i]);
        //     if (WTERMSIG(status) == SIGQUIT)
@@ -142,5 +146,5 @@ void	execute(t_tools *tools)
 		cmd = cmd->next;
 		i++;
 	}
-	wait_all(pid, tools->t_cmd_size);
+	wait_all(pid, tools);
 }
