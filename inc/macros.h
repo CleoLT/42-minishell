@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:59:09 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/07 15:11:06 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/15 14:22:40 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MACROS_H
@@ -38,5 +38,9 @@
 # define UNSET		5
 # define ENV		6
 # define EXIT		7
+
+//PROCESS
+# define PROCESS_OFF	0
+# define PROCESS_ON		1
 
 #endif

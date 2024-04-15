@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/09 14:38:15 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/15 14:55:27 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ void	free_arr(char **array);
 
 /* error.c */
 void	ft_error(char *arg, int exit_code);
-void	print_error(char *cmd, char *str, int exit_code, t_tools **tools);
+void	print_error(char *cmd, char *str, int exit_code);
 int		ft_strerror(int exit_code);
 
 /* signal.c */
-void	signals(void);
+void	ft_signals(int process, int *exit_code);
 void	handle_sigquit(int sig);
 
 #endif

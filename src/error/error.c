@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:36:04 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/04 18:31:57 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:46:13 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ void	ft_error(char *arg, int exit_code)
 	exit(exit_code);
 }
 
-void	print_error(char *cmd, char *str, int exit_code, t_tools **tools)
+void	print_error(char *cmd, char *str, int exit_code)
 {
-	(*tools)->exit_code = exit_code;
-	printf("exit_code en print error %d: \n", (*tools)->exit_code);
 	ft_putstr_fd(cmd, 2);
 	ft_putendl_fd(str, 2);
 	exit(exit_code);

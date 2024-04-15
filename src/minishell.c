@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/15 13:40:39 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/15 14:55:44 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	tools_init(t_tools *tools, char **envp)
 	tools->lexer_list = NULL;
 	tools->path = get_path_env(envp);
 	tools->exit_code = 0;
-	signals();
+	ft_signals(PROCESS_OFF, &tools->exit_code);
 	return (1);
 }
 
@@ -111,7 +111,7 @@ int	main(int argc, char **argv, char **envp)
 		}*/
 /*		while (*tools.envp != NULL)
 			printf("--> %s\n", *tools.envp++);*/
-				cmd_faker(&tools, line);
+		cmd_faker(&tools, line);
 		execute(&tools);
 		free(line);
 		free_tools(&tools);
@@ -120,5 +120,5 @@ int	main(int argc, char **argv, char **envp)
 //	clear_history();
 	free_arr(tools.envp);
 	free_arr(tools.path);
-	return (0);
+	return (tools.exit_code);
 }
