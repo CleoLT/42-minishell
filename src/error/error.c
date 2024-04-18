@@ -6,15 +6,21 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:36:04 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/15 13:46:13 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/18 18:20:19 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <readline/readline.h>
 
 void	ft_error(char *arg, int exit_code)
 {
+	perror(arg);
+	exit(exit_code);
+}
+
+void	ft_error_built(char *cmd, char *arg, int exit_code)
+{
+	ft_putstr_fd(cmd, 2);
 	perror(arg);
 	exit(exit_code);
 }

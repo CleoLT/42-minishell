@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/15 14:55:27 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/18 18:20:17 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # include "expander.h"
 # include "builtins.h"
 
+int		signal_exit_code;
+
 void	lexer_token(t_tools *tools, char *line);
 
 /* envp_utils.c */
@@ -45,6 +47,7 @@ void	free_arr(char **array);
 
 /* error.c */
 void	ft_error(char *arg, int exit_code);
+void	ft_error_built(char *cmd, char *arg, int exit_code);
 void	print_error(char *cmd, char *str, int exit_code);
 int		ft_strerror(int exit_code);
 

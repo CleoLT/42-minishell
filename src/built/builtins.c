@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:10:23 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/17 12:40:10 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:55:48 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	ft_pwd(void)
 {
 	char	cwd[MAXPATHLEN];
 
-	write(2, "hola", 4);
 	if (getcwd(cwd, MAXPATHLEN))
 		printf("%s\n", cwd);
 	else 
@@ -41,7 +40,6 @@ void	ft_echo(char **arg)
 		if (arg[i][j] != '\0')		
 			break ;
 		nl_option++;
-	//	i++;
 	}
 	while (arg[i])
 	{
@@ -55,10 +53,12 @@ void	ft_echo(char **arg)
 
 void	exec_built(t_tools *tools, int type, t_cmd *cmd)
 {
-	printf("%s\n", tools->cmd->arg[0]);
+//	printf("%s\n", tools->cmd->arg[0]);
 	if (type == ECHO)
 		ft_echo(cmd->arg);
 	if (type == PWD)
 		ft_pwd();
+	if (type == CD)
+		ft_cd(tools->cmd->arg[1]); ///// !!!! quitar tools en caso de pipes!!!
 	exit(EXIT_SUCCESS);
 }
