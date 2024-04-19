@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/18 17:56:16 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:47:47 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc > 1)
 		return (1);
 	tools_init(&tools, envp);
-	rl_catch_signals = 0;
+//	rl_catch_signals = 0;
 	while (1)
 	{
 		line = readline("\033[0;32mminishell$ \033[0m");
@@ -100,8 +100,8 @@ int	main(int argc, char **argv, char **envp)
 		}
 	//	printf("line %d: %s\n", i, line);
 		lexer_token(&tools, line);
-		if (!envp_reader(&tools))
-			ft_error("bad envp_reader", errno);
+//		if (!envp_reader(&tools))
+//			ft_error("bad envp_reader", errno);
 /*		while (tools.lexer_list != NULL)
 		{
 			printf("type: %d\n str: %s\n indx: %d\n ----\n", tools.lexer_list->type, tools.lexer_list->str, tools.lexer_list->indx);

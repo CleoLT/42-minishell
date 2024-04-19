@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:10:23 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/17 14:55:48 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:46:11 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,11 @@ void	ft_echo(char **arg)
 
 void	exec_built(t_tools *tools, int type, t_cmd *cmd)
 {
-//	printf("%s\n", tools->cmd->arg[0]);
 	if (type == ECHO)
 		ft_echo(cmd->arg);
 	if (type == PWD)
 		ft_pwd();
 	if (type == CD)
-		ft_cd(tools->cmd->arg[1]); ///// !!!! quitar tools en caso de pipes!!!
+		ft_cd(cmd->arg, tools); 
 	exit(EXIT_SUCCESS);
 }
