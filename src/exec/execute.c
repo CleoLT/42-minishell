@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/18 18:48:55 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/19 17:10:55 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,25 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 	free(path);
 }
 
+int	open_infile(char *file)
+{
+	int	fd;
+
+	if (access(file, F_OK) != 0)
+		ft_error(file, 1);
+	if (access(file, R_OK) != 0)
+		ft_error(file, 1);
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		ft_error("open function", errno);
+	return (fd);
+}
+
 void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd, int fd_in)
 {
-	if (cmd->prev)
+	if (cmd->infile)
+			fd_in = open_infile(cmd->infile);
+	if (cmd->prev || cmd->infile)
 	{	
 		dup2(fd_in, STDIN_FILENO);	
 		close(fd_in);
@@ -129,6 +145,7 @@ void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd, int fd_in)
 	exec_cmd(tools, cmd);
 }
 
+
 void	execute(t_tools *tools)
 {
 	int	pipe_fd[2];
@@ -142,6 +159,7 @@ void	execute(t_tools *tools)
 
 	while (cmd)
 	{
+		printf("%s\n", cmd->infile);
 		if (cmd->next)
 			pipe(pipe_fd);
 		pid[i] = fork();

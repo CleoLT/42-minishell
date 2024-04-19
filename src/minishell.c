@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/19 15:47:47 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/19 17:11:56 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void cmd_faker(t_tools *tools, char *line)
 	comm = malloc(sizeof(t_cmd));
 	comm->arg = ft_split(line, ' ');
 	tools->cmd = comm;
+	tools->cmd->infile = "libft";
 	tools->cmd->fd_in = 0;
 	tools->cmd->fd_out = 1;
 	tools->cmd->prev = NULL; 
@@ -35,6 +36,7 @@ static void cmd_faker(t_tools *tools, char *line)
 	comm1 = malloc(sizeof(t_cmd));
 	comm1->arg = ft_split(" cat", ' ');
 	tools->cmd->next = comm1;
+	tools->cmd->next->infile = "pipex";
 	tools->cmd->next->fd_in = 0;
 	tools->cmd->next->fd_out = 1;
 	tools->cmd->next->prev = tools->cmd; 
@@ -47,6 +49,7 @@ static void cmd_faker(t_tools *tools, char *line)
 	comm2 = malloc(sizeof(t_cmd));
 	comm2->arg = ft_split(" cat", ' ');
 	comm1->next = comm2;
+	tools->cmd->next->next->infile = NULL;
 	tools->cmd->next->next->fd_in = 0;
 	tools->cmd->next->next->fd_out = 1;
 	tools->cmd->next->next->prev = tools->cmd->next; 
@@ -81,7 +84,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc > 1)
 		return (1);
 	tools_init(&tools, envp);
-//	rl_catch_signals = 0;
+	rl_catch_signals = 0;
 	while (1)
 	{
 		line = readline("\033[0;32mminishell$ \033[0m");

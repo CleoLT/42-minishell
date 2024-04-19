@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/18 18:20:17 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:44:51 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <signal.h>
 # include <sys/errno.h>
 # include <sys/param.h>
+# include <fcntl.h>
 
 # include "../readline/readline.h"
 # include "../readline/history.h"
