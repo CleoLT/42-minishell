@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/19 17:11:56 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/19 17:28:01 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,17 @@ static void cmd_faker(t_tools *tools, char *line)
 	comm = malloc(sizeof(t_cmd));
 	comm->arg = ft_split(line, ' ');
 	tools->cmd = comm;
-	tools->cmd->infile = "libft";
+	tools->cmd->infile = "pipex";
 	tools->cmd->fd_in = 0;
 	tools->cmd->fd_out = 1;
 	tools->cmd->prev = NULL; 
 
-	tools->cmd->next = NULL;
-	tools->t_cmd_size = 1;
+//	tools->cmd->next = NULL;
+//	tools->t_cmd_size = 1;
 
-/*	int i = 0;
+	int i = 0;
+	if (tools->cmd->infile)
+		printf("<%s ", tools->cmd->infile);
 	while (tools->cmd->arg[i])
 			printf("%s ", tools->cmd->arg[i++]);
 	printf("| ");
@@ -36,11 +38,13 @@ static void cmd_faker(t_tools *tools, char *line)
 	comm1 = malloc(sizeof(t_cmd));
 	comm1->arg = ft_split(" cat", ' ');
 	tools->cmd->next = comm1;
-	tools->cmd->next->infile = "pipex";
+	tools->cmd->next->infile = "txt";
 	tools->cmd->next->fd_in = 0;
 	tools->cmd->next->fd_out = 1;
 	tools->cmd->next->prev = tools->cmd; 
 	i = 0;
+	if (tools->cmd->next->infile)
+		printf("<%s ", tools->cmd->next->infile);
 	while (tools->cmd->next->arg[i])
 			printf("%s ", tools->cmd->next->arg[i++]);
 	printf("| ");
@@ -54,13 +58,15 @@ static void cmd_faker(t_tools *tools, char *line)
 	tools->cmd->next->next->fd_out = 1;
 	tools->cmd->next->next->prev = tools->cmd->next; 
 	i = 0;
+	if (tools->cmd->next->next->infile)
+		printf("<%s ", tools->cmd->next->next->infile);
 	while (tools->cmd->next->next->arg[i])
 			printf("%s ", tools->cmd->next->next->arg[i++]);
 	printf("\n");
 
 	tools->cmd->next->next->next = NULL;
 	tools->t_cmd_size = 3;
-*/
+
 }
 
 int	tools_init(t_tools *tools, char **envp)

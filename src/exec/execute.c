@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/19 17:10:55 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/19 17:26:25 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,6 @@ void	execute(t_tools *tools)
 
 	while (cmd)
 	{
-		printf("%s\n", cmd->infile);
 		if (cmd->next)
 			pipe(pipe_fd);
 		pid[i] = fork();
