@@ -32,7 +32,7 @@ ERR_FILES	= error
 UTILS_FILES = envp_utils free_utils lexer_utils signal
 EXEC_FILES	= execute
 EXP_FILES	= expander
-BUILT_FILES	= builtins
+BUILT_FILES	= builtins ft_cd
 
 SRC_FILES+=$(MAIN)
 SRC_FILES+=$(addprefix $(ENVP_DIR),$(ENVP_FILES))

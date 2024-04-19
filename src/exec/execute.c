@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/15 15:04:33 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/18 18:48:55 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 int	ft_is_builtin(char *arg)
 {
-	if (!strncmp(arg, "pwd", 4))
+	if (!ft_strncmp(arg, "pwd", 4))
 		return (PWD);
-	if (!strncmp(arg, "echo", 5))
+	if (!ft_strncmp(arg, "echo", 5))
 		return (ECHO);
+	if (!ft_strncmp(arg, "cd", 3))
+		return (CD);
 	return (0);
 }
 
@@ -88,7 +90,10 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 		print_error(NULL, "syntax error near unexpected token `|'",  127);
 	built_type = ft_is_builtin(cmd->arg[0]);
 	if (built_type)
+	{
 		(exec_built(tools, built_type, cmd));
+		return ;
+	}
 	if (cmd->arg[0][0] == '\0')
 		print_error(cmd->arg[0], ": command not found", 127);
 	path = find_path(tools, cmd);
@@ -122,7 +127,6 @@ void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd, int fd_in)
 
 //	signal(SIGQUIT, handle_sigquit); 
 	exec_cmd(tools, cmd);
-
 }
 
 void	execute(t_tools *tools)
@@ -135,6 +139,7 @@ void	execute(t_tools *tools)
 	cmd = tools->cmd;
 	pid_t	pid[tools->t_cmd_size];
 	ft_signals(PROCESS_ON, &tools->exit_code);
+
 	while (cmd)
 	{
 		if (cmd->next)

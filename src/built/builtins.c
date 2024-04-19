@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:10:23 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/03 18:21:30 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:46:11 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	ft_pwd(void)
 {
 	char	cwd[MAXPATHLEN];
 
-	write(2, "hola", 4);
 	if (getcwd(cwd, MAXPATHLEN))
 		printf("%s\n", cwd);
 	else 
@@ -26,14 +25,22 @@ void	ft_pwd(void)
 void	ft_echo(char **arg)
 {
 	int	nl_option;
-	int i = 0;
+	int i;
+	int j;
 	int	size;
 
+	i = 0;
 	size = array_len(arg);
 	nl_option = 0;
-	if (!strncmp(arg[1], "-n", 3))
-		nl_option = 1;
-	i = nl_option + 1;
+	while (arg[++i] && arg[i][0] == '-' && arg[i][1] == 'n')
+	{
+		j = 2;
+		while (arg[i][j] == 'n')
+			j++;
+		if (arg[i][j] != '\0')		
+			break ;
+		nl_option++;
+	}
 	while (arg[i])
 	{
 		printf("%s", arg[i++]);
@@ -46,10 +53,11 @@ void	ft_echo(char **arg)
 
 void	exec_built(t_tools *tools, int type, t_cmd *cmd)
 {
-	printf("%s\n", tools->cmd->arg[0]);
 	if (type == ECHO)
 		ft_echo(cmd->arg);
 	if (type == PWD)
 		ft_pwd();
+	if (type == CD)
+		ft_cd(cmd->arg, tools); 
 	exit(EXIT_SUCCESS);
 }
