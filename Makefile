@@ -4,7 +4,7 @@ NAME = minishell
 CC			= gcc
 RMF			= rm -f
 RMD			= rm -rf
-CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror  #-g -fsanitize=address
 LIB_FLAG 	= -L./libft/ -L./readline/ -lreadline -lhistory -ltermcap -lft
 DEP_FLAG	= -MMD -MP
 INCLUDE		= -I./libft/inc/ -I./inc/ -I./readline/ 
@@ -30,7 +30,7 @@ ENVP_FILES  = envp
 LEX_FILES	= lexer quotes spaces token_reader
 ERR_FILES	= error
 UTILS_FILES = envp_utils free_utils lexer_utils signal
-EXEC_FILES	= execute
+EXEC_FILES	= execute redirect_infile
 EXP_FILES	= expander
 BUILT_FILES	= builtins ft_cd
 

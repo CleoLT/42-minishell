@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/20 12:52:28 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/20 16:53:30 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,24 @@ static void cmd_faker(t_tools *tools, char *line)
 	comm = malloc(sizeof(t_cmd));
 	comm->arg = ft_split(line, ' ');
 	tools->cmd = comm;
-	tools->cmd->infile = NULL;
-	tools->cmd->heredoc = "LOL";
+//	tools->cmd->infile = NULL;
+	tools->cmd->infile = malloc(sizeof(char *) * 5);
+	tools->cmd->infile[0] = malloc(sizeof(char *) * 2);
+	tools->cmd->infile[1] = malloc(sizeof(char *) * 3);
+	tools->cmd->infile[2] = malloc(sizeof(char *) * 2);
+	tools->cmd->infile[3] = malloc(sizeof(char *) * 3);
+	tools->cmd->infile[4] = NULL;
+	tools->cmd->infile[0][0] = "txt";
+	tools->cmd->infile[0][1] = NULL;
+	tools->cmd->infile[1][0] = "LOL";
+	tools->cmd->infile[1][1] = "heredoc";
+	tools->cmd->infile[1][2] = NULL;
+	tools->cmd->infile[2][0] = "txt2";
+	tools->cmd->infile[2][1] = NULL;
+	tools->cmd->infile[3][0] = "LA";
+	tools->cmd->infile[3][1] = "heredoc";
+	tools->cmd->infile[3][2] = NULL;
+//	tools->cmd->heredoc = "LOL";
 	tools->cmd->fd_in = 0;
 	tools->cmd->fd_out = 1;
 	tools->cmd->prev = NULL; 
@@ -28,24 +44,33 @@ static void cmd_faker(t_tools *tools, char *line)
 	tools->cmd->next = NULL;
 	tools->t_cmd_size = 1;
 
-/*	int i = 0;
-	if (tools->cmd->infile)
-		printf("<%s ", tools->cmd->infile);
+	int i = 0;
+	while (tools->cmd->infile[i])
+	{	
+		if (tools->cmd->infile[i][1])
+			printf("<<%s ", tools->cmd->infile[i][0]);
+		else
+			printf("<%s ", tools->cmd->infile[i][0]);
+		i++;
+	}
+	i=0;
 	while (tools->cmd->arg[i])
 			printf("%s ", tools->cmd->arg[i++]);
+//	printf("\n");
+
 	printf("| ");
 
 	t_cmd *comm1;
 	comm1 = malloc(sizeof(t_cmd));
 	comm1->arg = ft_split(" cat", ' ');
 	tools->cmd->next = comm1;
-	tools->cmd->next->infile = "txt";
+	tools->cmd->next->infile = NULL;
 	tools->cmd->next->fd_in = 0;
 	tools->cmd->next->fd_out = 1;
 	tools->cmd->next->prev = tools->cmd; 
 	i = 0;
-	if (tools->cmd->next->infile)
-		printf("<%s ", tools->cmd->next->infile);
+//	if (tools->cmd->next->infile)
+//		printf("<%s ", tools->cmd->next->infile);
 	while (tools->cmd->next->arg[i])
 			printf("%s ", tools->cmd->next->arg[i++]);
 	printf("| ");
@@ -59,15 +84,15 @@ static void cmd_faker(t_tools *tools, char *line)
 	tools->cmd->next->next->fd_out = 1;
 	tools->cmd->next->next->prev = tools->cmd->next; 
 	i = 0;
-	if (tools->cmd->next->next->infile)
-		printf("<%s ", tools->cmd->next->next->infile);
+//	if (tools->cmd->next->next->infile)
+//		printf("<%s ", tools->cmd->next->next->infile);
 	while (tools->cmd->next->next->arg[i])
 			printf("%s ", tools->cmd->next->next->arg[i++]);
 	printf("\n");
 
 	tools->cmd->next->next->next = NULL;
 	tools->t_cmd_size = 3;
-*/
+
 }
 
 int	tools_init(t_tools *tools, char **envp)

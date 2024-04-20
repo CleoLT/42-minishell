@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 19:37:01 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/04/04 14:41:22 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/04/20 16:49:26 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,20 @@ void static free_envp(t_envp **envp_list)
 void static	free_cmd(t_cmd *cmd)
 {
 	t_cmd	*tmp;
+	int		i;
 
-//	if (!cmd->next && cmd)
-//	{
-//		free(cmd);
-//		free_arr(cmd->arg);
-//	}
 	while (cmd)
 	{
 		tmp = cmd;
 		cmd = cmd->next;
 		free_arr(tmp->arg);
+		if (tmp->infile)
+		{
+			i = 0;
+			while(tmp->infile[i])
+				free(tmp->infile[i++]);
+			free(tmp->infile);
+		}
 		free(tmp);
 	}
 }
@@ -69,7 +72,6 @@ void static	free_cmd(t_cmd *cmd)
 int	free_tools(t_tools *tools)
 {
 	free(tools->str);
-//	free_arr(tools->cmd->arg);
 	free_cmd(tools->cmd);
 	free_token(&tools->lexer_list);
 	free_envp(&tools->envp_list);
