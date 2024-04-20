@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/19 17:26:25 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/20 13:02:12 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 	char	*path;
 	int		built_type;
 	
-	if (cmd->arg[0] == NULL) // esto en realidad no va aqui, va en parser
-		print_error(NULL, "syntax error near unexpected token `|'",  127);
+	if (cmd->arg[0] == NULL)
+		exit(tools->exit_code);
 	built_type = ft_is_builtin(cmd->arg[0]);
 	if (built_type)
 	{
@@ -122,11 +122,44 @@ int	open_infile(char *file)
 	return (fd);
 }
 
+int	heredoc(char *limit)
+{
+	int	fd;
+	char *line;
+
+	fd = open("/tmp/.heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (fd == -1)
+		ft_error("open function", errno);
+	while (1)
+	{
+		line = readline("> ");
+		if (!line)
+			break ; 
+		if (!ft_strncmp(limit, line, ft_strlen(limit) + 1))
+		{
+			free(line);
+			break ;
+		}
+		ft_putstr_fd(line, fd);
+		free(line);
+	}
+	close(fd);
+
+	
+	fd = open("/tmp/.heredoc", O_RDONLY);
+	if (fd == -1)
+		ft_error("open function", errno);
+	return (fd);
+
+}
+
 void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd, int fd_in)
 {
-	if (cmd->infile)
-			fd_in = open_infile(cmd->infile);
-	if (cmd->prev || cmd->infile)
+	if (cmd->heredoc)
+		fd_in = heredoc(cmd->heredoc);
+//	if (cmd->infile)
+//		fd_in = open_infile(cmd->infile);
+	if (cmd->prev || cmd->infile || cmd->heredoc)
 	{	
 		dup2(fd_in, STDIN_FILENO);	
 		close(fd_in);

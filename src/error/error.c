@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:36:04 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/18 18:20:19 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/20 11:38:20 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_error(char *arg, int exit_code)
 {
+	if (!arg[0])
+		write(2, " : ", 3);
 	perror(arg);
 	exit(exit_code);
 }
