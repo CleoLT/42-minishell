@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/20 12:02:18 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:50:44 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 int		signal_exit_code;
 
 void	lexer_token(t_tools *tools, char *line);
+void	ft_heredoc(t_cmd *cmd);
 
 /* envp_utils.c */
 char	**ft_arrdup(char **array);

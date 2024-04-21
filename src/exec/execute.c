@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/20 15:24:19 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/21 17:02:43 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,10 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd, int fd_in)
 {
 	if (cmd->infile)
+	{
+		write(2, "problem\n",  10);
 		fd_in = redirect_infile(cmd->infile);
+	}
 	if (cmd->prev || cmd->infile)
 	{	
 		dup2(fd_in, STDIN_FILENO);	
@@ -151,8 +154,8 @@ void	execute(t_tools *tools)
 		pid[i] = fork();
 		if (pid[i] == 0)
 			child_process(cmd, tools, pipe_fd, fd_in);
-//		if (cmd->prev)
-//			close(fd_in);
+		if (cmd->prev)
+			close(fd_in);
 		if (cmd->next)
 		{
 			fd_in = pipe_fd[READ_END];

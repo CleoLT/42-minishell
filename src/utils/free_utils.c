@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 19:37:01 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/04/20 16:49:26 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/21 16:51:13 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,11 @@ void static	free_cmd(t_cmd *cmd)
 		{
 			i = 0;
 			while(tmp->infile[i])
+			{
+				if (tmp->infile[i][1])
+					free(tmp->infile[i][0]); //chapuza para liberar en caso de heredoc
 				free(tmp->infile[i++]);
+			}
 			free(tmp->infile);
 		}
 		free(tmp);
