@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/21 17:02:24 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/21 18:11:31 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void cmd_faker(t_tools *tools, char *line)
 	comm->arg = ft_split(line, ' ');
 	tools->cmd = comm;
 	tools->cmd->infile = NULL;
-/*	tools->cmd->infile = malloc(sizeof(char *) * 5);
+	tools->cmd->infile = malloc(sizeof(char *) * 5);
 	tools->cmd->infile[0] = malloc(sizeof(char *) * 2);
 	tools->cmd->infile[1] = malloc(sizeof(char *) * 3);
 //	tools->cmd->infile[1] = NULL;
@@ -63,7 +63,7 @@ static void cmd_faker(t_tools *tools, char *line)
 	tools->cmd->infile[3][0] = "LA";
 	tools->cmd->infile[3][1] = "heredoc";
 	tools->cmd->infile[3][2] = NULL;
-*/	
+	
 	tools->cmd->fd_in = 0;
 	tools->cmd->fd_out = 1;
 	tools->cmd->prev = NULL; 

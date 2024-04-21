@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/21 17:02:43 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/21 18:07:41 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,22 +111,22 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 
 void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd, int fd_in)
 {
+	int	fd_out;
+
 	if (cmd->infile)
-	{
-		write(2, "problem\n",  10);
 		fd_in = redirect_infile(cmd->infile);
-	}
 	if (cmd->prev || cmd->infile)
 	{	
 		dup2(fd_in, STDIN_FILENO);	
 		close(fd_in);
 	}
+	fd_out = pipe_fd[WRITE_END];
 	if (cmd->next)
 	{
 		close(pipe_fd[READ_END]);
-		if (dup2(pipe_fd[WRITE_END], STDOUT_FILENO) == -1)
+		if (dup2(fd_out, STDOUT_FILENO) == -1)
 			ft_error("dup2 function", errno);
-		close(pipe_fd[WRITE_END]);
+		close(fd_out);
 	}
 //	if (cmd->next || cmd->prev)
 //		close(pipe_fd[WRITE_END]);
@@ -154,7 +154,7 @@ void	execute(t_tools *tools)
 		pid[i] = fork();
 		if (pid[i] == 0)
 			child_process(cmd, tools, pipe_fd, fd_in);
-		if (cmd->prev)
+		if (cmd->prev)  // cierra stdin en caso de  --   cat | ls
 			close(fd_in);
 		if (cmd->next)
 		{

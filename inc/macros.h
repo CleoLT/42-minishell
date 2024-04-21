@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:59:09 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/20 14:00:07 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/21 17:44:50 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MACROS_H
@@ -42,6 +42,11 @@
 //PROCESS
 # define PROCESS_OFF	0
 # define PROCESS_ON		1
-# define HERE_DOC		"heredoc"
+
+//REDIRECTIONS
+# define IN			"1i"
+# define HDOC		"1h"
+# define OUT		"2o"
+# define APP		"2a"
 
 #endif
