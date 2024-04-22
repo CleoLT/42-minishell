@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/22 11:44:52 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/22 14:59:49 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
 	char 	*line;
+	t_envp	*original_envp;
 
 	(void)argv;
 	if (argc > 1)
@@ -190,11 +191,13 @@ int	main(int argc, char **argv, char **envp)
 //			printf("\npointer: %p\n", tools.lexer_list);	//lexer_list da leaks de memoria
 			tools.lexer_list = tools.lexer_list->next;
 		}*/
-/*		while (tools.envp_list != NULL)
+/*		original_envp = tools.envp_list;
+		while (tools.envp_list != NULL)
 		{
 			printf(" name: %s\n value: %s\n -----\n", tools.envp_list->name, tools.envp_list->value);
 			tools.envp_list = tools.envp_list->next;
-		}*/
+		}
+		tools.envp_list = original_envp;*/
 /*		while (*tools.envp != NULL)
 			printf("--> %s\n", *tools.envp++);*/
 		cmd_faker(&tools, line);
