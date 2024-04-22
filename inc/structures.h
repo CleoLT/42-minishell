@@ -6,7 +6,11 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:06:43 by ale-tron          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/04/22 10:26:09 by cle-tron         ###   ########.fr       */
+=======
+/*   Updated: 2024/04/22 12:33:35 by irozhkov         ###   ########.fr       */
+>>>>>>> expander_v.1
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +33,15 @@ typedef struct s_envp
 	struct s_envp	*next;
 	struct s_envp	*prev;
 }	t_envp;
+
+
+typedef struct s_indx
+{
+	int				row;
+	int				col;
+	struct s_indx	*next;
+	struct s_indx	*prev;
+}	t_indx;
 
 typedef struct s_cmd
 {
