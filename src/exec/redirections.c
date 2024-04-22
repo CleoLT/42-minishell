@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect_infile.c                                   :+:      :+:    :+:   */
+/*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 14:13:12 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/22 11:01:33 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:18:45 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ static int	open_outfile(char **file)
 {
 	int	fd;
 
-//	if (access(*file, W_OK) != 0)
-//		ft_error(*file, 1);
 	if (file[1])
 		fd = open(*file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else
