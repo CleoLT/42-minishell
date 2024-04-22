@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/22 11:15:10 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:44:52 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,16 @@ static void cmd_faker(t_tools *tools, char *line)
 	tools->cmd->infile = malloc(sizeof(char *) * 5);
 	tools->cmd->infile[0] = malloc(sizeof(char *) * 2);
 	tools->cmd->infile[1] = malloc(sizeof(char *) * 3);
-//	tools->cmd->infile[1] = NULL;
+	tools->cmd->infile[1] = NULL;
 	tools->cmd->infile[2] = malloc(sizeof(char *) * 2);
 	tools->cmd->infile[3] = malloc(sizeof(char *) * 3);
 	tools->cmd->infile[4] = NULL;
-	tools->cmd->infile[0][0] = "txt";
+	tools->cmd->infile[0][0] = "outnew";
 	tools->cmd->infile[0][1] = NULL;
-	tools->cmd->infile[1][0] = "LOL";
-	tools->cmd->infile[1][1] = "heredoc";
-	tools->cmd->infile[1][2] = NULL;
-	tools->cmd->infile[2][0] = "txt";
+//	tools->cmd->infile[1][0] = "LOL";
+//	tools->cmd->infile[1][1] = "heredoc";
+//	tools->cmd->infile[1][2] = NULL;
+//	tools->cmd->infile[2][0] = "txt";
 	tools->cmd->infile[2][1] = NULL;
 	tools->cmd->infile[3][0] = "LA";
 	tools->cmd->infile[3][1] = "heredoc";
@@ -87,7 +87,7 @@ static void cmd_faker(t_tools *tools, char *line)
 
 	t_cmd *comm1;
 	comm1 = malloc(sizeof(t_cmd));
-	comm1->arg = ft_split(" cat", ' ');
+	comm1->arg = ft_split(" ls ", ' ');
 	tools->cmd->next = comm1;
 	tools->cmd->next->infile = NULL;
 	tools->cmd->next->infile = malloc(sizeof(char *) * 2);
@@ -100,10 +100,10 @@ static void cmd_faker(t_tools *tools, char *line)
 	tools->cmd->next->outfile = malloc(sizeof(char *) * 3);
 	tools->cmd->next->outfile[0] = malloc(sizeof(char *) * 3);
 	tools->cmd->next->outfile[1] = malloc(sizeof(char *) * 3);
-	tools->cmd->next->outfile[0][0] = "pipex";
+	tools->cmd->next->outfile[0][0] = "txt";
 	tools->cmd->next->outfile[0][1] = NULL;
 	tools->cmd->next->outfile[0][2] = NULL;
-	tools->cmd->next->outfile[1][0] = "outfile1";
+	tools->cmd->next->outfile[1][0] = "outnew";
 	tools->cmd->next->outfile[1][1] = "append";
 	tools->cmd->next->outfile[1][2] = NULL;
 	tools->cmd->next->outfile[2] = NULL;

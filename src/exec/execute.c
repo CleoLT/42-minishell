@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/22 11:03:43 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:56:41 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd, int fd_in)
 	if (cmd->outfile)
 	{
 			fd_out = redirect_outfile(cmd->outfile);
-		//	close(pipe_fd[WRITE_END]);
+			close(pipe_fd[WRITE_END]);
 	}
 	if (cmd->next || cmd->outfile)
 	{
@@ -159,6 +159,8 @@ void	execute(t_tools *tools)
 		pid[i] = fork();
 		if (pid[i] == 0)
 			child_process(cmd, tools, pipe_fd, fd_in);
+	//	else 
+	//		wait(NULL);
 		if (cmd->prev)  // cierra stdin en caso de  --   cat | ls
 			close(fd_in);
 		if (cmd->next)
