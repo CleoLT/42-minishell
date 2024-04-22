@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 19:37:01 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/04/04 14:41:22 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/04/22 12:30:54 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void static free_envp(t_envp **envp_list)
 	}
 	*envp_list = NULL;
 }
-
+/*
 void static	free_cmd(t_cmd *cmd)
 {
 	t_cmd	*tmp;
@@ -64,13 +64,13 @@ void static	free_cmd(t_cmd *cmd)
 		free_arr(tmp->arg);
 		free(tmp);
 	}
-}
+}*/
 
 int	free_tools(t_tools *tools)
 {
 	free(tools->str);
 //	free_arr(tools->cmd->arg);
-	free_cmd(tools->cmd);
+//	free_cmd(tools->cmd);
 	free_token(&tools->lexer_list);
 	free_envp(&tools->envp_list);
 	return (1);
