@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/02 14:42:54 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/04/22 13:24:32 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	lexer_token(t_tools *tools, char *line);
 /* envp_utils.c */
 char	**ft_arrdup(char **array);
 char    **get_path_env(char **envp);
+char	*ft_strncpy(char *dest, const char *src, size_t n);
+char	*ft_strcpy(char *dest, const char *src);
 
 /* free_utils.c */
 int		free_tools(t_tools *tools);
