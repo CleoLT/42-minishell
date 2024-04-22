@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 19:37:01 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/04/21 18:12:27 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:14:46 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,13 @@ void static	free_cmd(t_cmd *cmd)
 				free(tmp->infile[i++]);
 			}
 			free(tmp->infile);
+		}
+		if (tmp->outfile)
+		{
+			i = 0;
+			while(tmp->outfile[i])
+				free(tmp->outfile[i++]);
+			free(tmp->outfile);
 		}
 		free(tmp);
 	}

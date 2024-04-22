@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/21 18:11:31 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:15:10 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ void	print_cdm_list(t_cmd *cmd)
 				i++;
 			}
 		}
+		if (cmd->outfile)
+		{
+			i = 0;
+			while (cmd->outfile[i])
+			{
+				if (cmd->outfile[i][1])
+					printf(">>%s ", cmd->outfile[i][0]);
+				else
+					printf(">%s ", cmd->outfile[i][0]);
+				i++;
+			}
+		}
 		i = 0;
 		while (cmd->arg[i])
 			printf("%s ", cmd->arg[i++]);
@@ -46,6 +58,7 @@ static void cmd_faker(t_tools *tools, char *line)
 	comm->arg = ft_split(line, ' ');
 	tools->cmd = comm;
 	tools->cmd->infile = NULL;
+	tools->cmd->outfile = NULL;
 	tools->cmd->infile = malloc(sizeof(char *) * 5);
 	tools->cmd->infile[0] = malloc(sizeof(char *) * 2);
 	tools->cmd->infile[1] = malloc(sizeof(char *) * 3);
@@ -74,15 +87,26 @@ static void cmd_faker(t_tools *tools, char *line)
 
 	t_cmd *comm1;
 	comm1 = malloc(sizeof(t_cmd));
-	comm1->arg = ft_split(" ls", ' ');
+	comm1->arg = ft_split(" cat", ' ');
 	tools->cmd->next = comm1;
 	tools->cmd->next->infile = NULL;
-//	tools->cmd->next->infile = malloc(sizeof(char *) * 2);
-//	tools->cmd->next->infile[0] = malloc(sizeof(char *) * 3);
-//	tools->cmd->next->infile[0][0] = "PAS";
-//	tools->cmd->next->infile[0][1] = "heredoc";
-//	tools->cmd->next->infile[0][2] = NULL;
-//	tools->cmd->next->infile[1] = NULL;
+	tools->cmd->next->infile = malloc(sizeof(char *) * 2);
+	tools->cmd->next->infile[0] = malloc(sizeof(char *) * 3);
+	tools->cmd->next->infile[0][0] = "PAS";
+	tools->cmd->next->infile[0][1] = "heredoc";
+	tools->cmd->next->infile[0][2] = NULL;
+	tools->cmd->next->infile[1] = NULL;
+	tools->cmd->next->outfile = NULL;
+	tools->cmd->next->outfile = malloc(sizeof(char *) * 3);
+	tools->cmd->next->outfile[0] = malloc(sizeof(char *) * 3);
+	tools->cmd->next->outfile[1] = malloc(sizeof(char *) * 3);
+	tools->cmd->next->outfile[0][0] = "pipex";
+	tools->cmd->next->outfile[0][1] = NULL;
+	tools->cmd->next->outfile[0][2] = NULL;
+	tools->cmd->next->outfile[1][0] = "outfile1";
+	tools->cmd->next->outfile[1][1] = "append";
+	tools->cmd->next->outfile[1][2] = NULL;
+	tools->cmd->next->outfile[2] = NULL;
 	tools->cmd->next->fd_in = 0;
 	tools->cmd->next->fd_out = 1;
 	tools->cmd->next->prev = tools->cmd; 
@@ -94,6 +118,7 @@ static void cmd_faker(t_tools *tools, char *line)
 	comm2->arg = ft_split(" cat  ", ' ');
 	comm1->next = comm2;
 	tools->cmd->next->next->infile = NULL;
+	tools->cmd->next->next->outfile = NULL;
 	tools->cmd->next->next->fd_in = 0;
 	tools->cmd->next->next->fd_out = 1;
 	tools->cmd->next->next->prev = tools->cmd->next; 
@@ -102,14 +127,15 @@ static void cmd_faker(t_tools *tools, char *line)
 	tools->t_cmd_size = 3;
 
 
-/*	t_cmd 	*tmp;
+	t_cmd 	*tmp;
 	tmp = tools->cmd;
 	tools->cmd = tools->cmd->next;
 	tools->cmd->next = tmp;
 	tmp->prev = tools->cmd;
 	tmp->next = comm2;
 	tools->cmd->prev = NULL;
-*/
+
+//	tools->cmd->next = NULL;
 	
 	print_cdm_list(tools->cmd);
 

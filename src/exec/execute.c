@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/21 18:07:41 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:03:43 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,12 @@ void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd, int fd_in)
 		close(fd_in);
 	}
 	fd_out = pipe_fd[WRITE_END];
-	if (cmd->next)
+	if (cmd->outfile)
+	{
+			fd_out = redirect_outfile(cmd->outfile);
+		//	close(pipe_fd[WRITE_END]);
+	}
+	if (cmd->next || cmd->outfile)
 	{
 		close(pipe_fd[READ_END]);
 		if (dup2(fd_out, STDOUT_FILENO) == -1)
