@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/24 16:57:45 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:06:32 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,10 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 	if (!path && access(cmd->arg[0], F_OK) == 0)
 	{
 		path = ft_strdup(cmd->arg[0]);
-		if (ft_strncmp(path, "./", 2) && ft_strncmp(path, "/", 1))
+		if (ft_strncmp(path, "./", 2) && ft_strncmp(path, "/", 1)) //en caso que sea un archivo existente txt por ejemplo
 			print_error(cmd->arg[0], ": command not found", 127);
-//		else if (ft_strncmp(path, "./", 2) == 0) hacer el caso de ./ls o ./cat
+		else if (!(ft_strncmp(path, "./", 2)) && access(cmd->arg[0] , X_OK)) 
+			print_error(cmd->arg[0], ": permission denied", 126);
 	}
 	if (!path)
 		print_error(cmd->arg[0], ": command not found", 127);

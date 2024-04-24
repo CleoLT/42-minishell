@@ -1,20 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/01 12:20:41 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/24 18:17:04 by cle-tron         ###   ########.fr       */
+/*   Created: 2024/04/24 18:08:47 by cle-tron          #+#    #+#             */
+/*   Updated: 2024/04/24 18:44:46 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "minishell.h"
 
-void	exec_built(t_tools *tools, int type, t_cmd *cmd);
-void	ft_cd(char **arg, t_tools *tools);
-void	ft_unset(t_envp **env, char **arg);
+void	ft_unset(t_envp **env, char **arg)
+{
+	int	i;
+	int	exit_code;
 
-#endif
+	exit_code = 0;
+	i = 1;
+	if (!arg[i])
+	   return ;	
+	while (arg[i])
+	{
+		if (arg[i][0] != '_' || ft_isalpha(arg[i][0]) != 0)
+			printf("error syntax\n");
+		
+		i++;
+	}
+
+
+
+	exit(exit_code);
+printf("%s\n", (*env)->name);
+}

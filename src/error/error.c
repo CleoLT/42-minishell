@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:36:04 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/20 11:38:20 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:35:49 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,3 +39,5 @@ int	ft_strerror(int exit_code)
 	ft_putendl_fd(strerror(exit_code), STDERR_FILENO);
 	return(exit_code);
 }
+
+
