@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/22 14:59:49 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:50:45 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
 	char 	*line;
-	t_envp	*original_envp;
+//	t_envp	*original_envp;
 
 	(void)argv;
 	if (argc > 1)
