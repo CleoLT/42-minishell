@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/21 15:50:44 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/22 14:53:10 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ void	ft_heredoc(t_cmd *cmd);
 
 /* envp_utils.c */
 char	**ft_arrdup(char **array);
-char	 **get_path_env(char **envp);
+char	**get_path_env(char **envp);
 int		array_len(char **array);
+char	*ft_strncpy(char *dest, const char *src, size_t n);
+char	*ft_strcpy(char *dest, const char *src);
 
 /* free_utils.c */
 int		free_tools(t_tools *tools);

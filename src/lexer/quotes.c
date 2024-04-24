@@ -6,15 +6,15 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:55:27 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/04/02 16:20:02 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/04/17 12:36:17 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int	quotes_handler(char *s, int i, char quote, t_token **lexer_list)
+int	quotes_handler(char *s, int i, char quote, t_token **lexer_list, int c)
 {
-	int j;
+	int 	j;
 
 	j = 0;
 	if (s[i + j] == quote)
@@ -26,12 +26,12 @@ int	quotes_handler(char *s, int i, char quote, t_token **lexer_list)
 	}
 	if (quote == 34)
 	{
-		if (!token_addnode(ft_strtrim(ft_substr(s, i, j), "\""), 7, lexer_list))
+		if (!token_addnode(ft_substr(s, i + 1, j - 2), 7, lexer_list, c))
 			return (-1);
 	}
 	else if (quote == 39)
 	{
-		if (!token_addnode(ft_strtrim(ft_substr(s, i, j), "\'"), 8, lexer_list))
+		if (!token_addnode(ft_substr(s, i + 1, j - 2), 8, lexer_list, c))
 			return (-1);
 	}
 	return (j);
