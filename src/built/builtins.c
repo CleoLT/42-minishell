@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:10:23 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/22 13:57:05 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:15:35 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,11 @@ void	ft_env(t_envp *env)
 
 	while (env)
 	{
-		printf("%s=", env->name);
-		printf("%s\n", env->value);
-		env++;
+		if (env->name)
+			printf("%s=", env->name);
+		if (env->value)
+			printf("%s\n", env->value);
+		env = env->next;
 	}	
 
 }

@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/22 13:57:05 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:57:45 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,22 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 	if (cmd->arg[0][0] == '\0')
 		print_error(cmd->arg[0], ": command not found", 127);
 	path = find_path(tools, cmd);
-
-/*	if (!path && access(cmd->arg[0], X_OK) == 0)
+//	printf("%s\n", path);
+	if (!path && access(cmd->arg[0], F_OK) == 0)
+	{
 		path = ft_strdup(cmd->arg[0]);
+		if (ft_strncmp(path, "./", 2) && ft_strncmp(path, "/", 1))
+			print_error(cmd->arg[0], ": command not found", 127);
+//		else if (ft_strncmp(path, "./", 2) == 0) hacer el caso de ./ls o ./cat
+	}
+	if (!path)
+		print_error(cmd->arg[0], ": command not found", 127);
+	if (execve(path, cmd->arg, tools->envp) != 0)
+		print_error(cmd->arg[0], ": permission denied", 126);
+/*	if (!path && access(cmd->arg[0], X_OK) == 0)
+	{	path = ft_strdup(cmd->arg[0]);
+		printf("%s\n", path);
+	}
 	else if (access(cmd->arg[0], F_OK) == 0)
 		print_error(cmd->arg[0], ": permission denied", 126);
 	if (!path)
@@ -115,14 +128,6 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 	if (execve(path, cmd->arg, tools->envp) != 0)
 		ft_error("execve function", errno);
 */
-	if (!path && access(cmd->arg[0], X_OK) == 0 && access(cmd->arg[0], F_OK) == 0 )
-		path = ft_strdup(cmd->arg[0]);
-	else if (access(cmd->arg[0], X_OK) == 0)
-		print_error(cmd->arg[0], ": permission denied", 126);
-	else if (!path)
-		print_error(cmd->arg[0], ": command not found", 127);
-	if (execve(path, cmd->arg, tools->envp) != 0)
-		ft_error("execve function", errno);
 
 	free(path);
 }

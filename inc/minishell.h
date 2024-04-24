@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/22 14:53:10 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:20:04 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,7 @@ int		ft_strerror(int exit_code);
 void	ft_signals(int process, int *exit_code);
 void	handle_sigquit(int sig);
 
+/*commands faker*/
+void	print_cdm_list(t_cmd *cmd);
+void	cmd_faker(t_tools *tools, char *line);
 #endif
