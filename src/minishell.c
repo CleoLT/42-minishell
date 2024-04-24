@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/22 11:44:52 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/22 13:43:03 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void cmd_faker(t_tools *tools, char *line)
 	tools->cmd = comm;
 	tools->cmd->infile = NULL;
 	tools->cmd->outfile = NULL;
-	tools->cmd->infile = malloc(sizeof(char *) * 5);
+/*	tools->cmd->infile = malloc(sizeof(char *) * 5);
 	tools->cmd->infile[0] = malloc(sizeof(char *) * 2);
 	tools->cmd->infile[1] = malloc(sizeof(char *) * 3);
 	tools->cmd->infile[1] = NULL;
@@ -76,7 +76,7 @@ static void cmd_faker(t_tools *tools, char *line)
 	tools->cmd->infile[3][0] = "LA";
 	tools->cmd->infile[3][1] = "heredoc";
 	tools->cmd->infile[3][2] = NULL;
-	
+*/	
 	tools->cmd->fd_in = 0;
 	tools->cmd->fd_out = 1;
 	tools->cmd->prev = NULL; 
@@ -84,7 +84,7 @@ static void cmd_faker(t_tools *tools, char *line)
 	tools->cmd->next = NULL;
 	tools->t_cmd_size = 1;
 
-
+/*
 	t_cmd *comm1;
 	comm1 = malloc(sizeof(t_cmd));
 	comm1->arg = ft_split(" ls ", ' ');
@@ -138,7 +138,7 @@ static void cmd_faker(t_tools *tools, char *line)
 //	tools->cmd->next = NULL;
 	
 	print_cdm_list(tools->cmd);
-
+*/
 }
 
 int	tools_init(t_tools *tools, char **envp)
@@ -181,8 +181,8 @@ int	main(int argc, char **argv, char **envp)
 		}
 	//	printf("line %d: %s\n", i, line);
 		lexer_token(&tools, line);
-//		if (!envp_reader(&tools))
-//			ft_error("bad envp_reader", errno);
+		if (!envp_reader(&tools))
+			ft_error("bad envp_reader", errno);
 /*		while (tools.lexer_list != NULL)
 		{
 			printf("type: %d\n str: %s\n indx: %d\n ----\n", tools.lexer_list->type, tools.lexer_list->str, tools.lexer_list->indx);
@@ -199,7 +199,7 @@ int	main(int argc, char **argv, char **envp)
 			printf("--> %s\n", *tools.envp++);*/
 		cmd_faker(&tools, line);
 		ft_heredoc(tools.cmd);
-		print_cdm_list(tools.cmd);
+	//	print_cdm_list(tools.cmd);
 		execute(&tools);
 		free(line);
 		free_tools(&tools);

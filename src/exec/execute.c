@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/22 11:56:41 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/22 13:57:05 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@ int	ft_is_builtin(char *arg)
 		return (ECHO);
 	if (!ft_strncmp(arg, "cd", 3))
 		return (CD);
+	if (!ft_strncmp(arg, "export", 7))
+		return (EXPORT);
+	if (!ft_strncmp(arg, "unset", 6))
+		return (UNSET);
+	if (!ft_strncmp(arg, "env", 4))
+		return (ENV);
+	if (!ft_strncmp(arg, "exit", 5))
+		return (EXIT);
 	return (0);
 }
 
@@ -97,7 +105,8 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 	if (cmd->arg[0][0] == '\0')
 		print_error(cmd->arg[0], ": command not found", 127);
 	path = find_path(tools, cmd);
-	if (!path && access(cmd->arg[0], X_OK) == 0)
+
+/*	if (!path && access(cmd->arg[0], X_OK) == 0)
 		path = ft_strdup(cmd->arg[0]);
 	else if (access(cmd->arg[0], F_OK) == 0)
 		print_error(cmd->arg[0], ": permission denied", 126);
@@ -105,6 +114,16 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 		print_error(cmd->arg[0], ": command not found", 127);
 	if (execve(path, cmd->arg, tools->envp) != 0)
 		ft_error("execve function", errno);
+*/
+	if (!path && access(cmd->arg[0], X_OK) == 0 && access(cmd->arg[0], F_OK) == 0 )
+		path = ft_strdup(cmd->arg[0]);
+	else if (access(cmd->arg[0], X_OK) == 0)
+		print_error(cmd->arg[0], ": permission denied", 126);
+	else if (!path)
+		print_error(cmd->arg[0], ": command not found", 127);
+	if (execve(path, cmd->arg, tools->envp) != 0)
+		ft_error("execve function", errno);
+
 	free(path);
 }
 
@@ -124,8 +143,9 @@ void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd, int fd_in)
 	if (cmd->outfile)
 	{
 			fd_out = redirect_outfile(cmd->outfile);
-			close(pipe_fd[WRITE_END]);
+//			close(pipe_fd[WRITE_END]);
 	}
+//	exec_cmd(tools, cmd);
 	if (cmd->next || cmd->outfile)
 	{
 		close(pipe_fd[READ_END]);

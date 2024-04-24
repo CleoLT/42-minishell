@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:06:43 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/22 10:26:09 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/22 12:58:06 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct s_cmd
 	char			**arg;
 	char			***infile;
 	char			***outfile;
-//	char			*heredoc;
 	int				fd_in;
 	int				fd_out;
 	struct s_cmd	*prev;
