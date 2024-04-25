@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/24 18:06:32 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/25 18:11:29 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ char	*find_path(t_tools *tools, t_cmd *cmd)
 	char	*cmd_path;
 	int		i;
 
+	if (!tools->path)
+		return (NULL);
 	cmd_path = ft_strjoin("/", cmd->arg[0]);
 	i = 0;
 	while (tools->path[i])
@@ -105,7 +107,6 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 	if (cmd->arg[0][0] == '\0')
 		print_error(cmd->arg[0], ": command not found", 127);
 	path = find_path(tools, cmd);
-//	printf("%s\n", path);
 	if (!path && access(cmd->arg[0], F_OK) == 0)
 	{
 		path = ft_strdup(cmd->arg[0]);

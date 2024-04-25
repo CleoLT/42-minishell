@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/24 18:35:08 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:30:09 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	ft_error(char *arg, int exit_code);
 void	ft_error_built(char *cmd, char *arg, int exit_code);
 void	print_error(char *cmd, char *str, int exit_code);
 int		ft_strerror(int exit_code); // esta creo que no sirve en nnguna parte 
-
+//void    print_error_unset(char *cmd, char *arg);
+	
 /* signal.c */
 void	ft_signals(int process, int *exit_code);
 void	handle_sigquit(int sig);

@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/24 15:20:30 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:56:30 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 //	clear_history();
 	free_arr(tools.envp);
-	free_arr(tools.path);
+	if (tools.path)
+		free_arr(tools.path);
 	return (tools.exit_code);
 }
