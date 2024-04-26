@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/25 18:11:29 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/26 13:58:54 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,22 +91,22 @@ char	*find_path(t_tools *tools, t_cmd *cmd)
 	return (NULL);
 }
 
-void	exec_cmd(t_tools *tools, t_cmd *cmd)
+void	exec_cmd(t_tools **tools, t_cmd *cmd)
 {
 	char	*path;
 	int		built_type;
 	
 	if (cmd->arg[0] == NULL)
-		exit(tools->exit_code);
+		exit((*tools)->exit_code);
 	built_type = ft_is_builtin(cmd->arg[0]);
 	if (built_type)
 	{
-		(exec_built(tools, built_type, cmd));
-		return ;
+		exit(exec_built(tools, built_type, cmd));
+		exit((*tools)->exit_code);
 	}
 	if (cmd->arg[0][0] == '\0')
 		print_error(cmd->arg[0], ": command not found", 127);
-	path = find_path(tools, cmd);
+	path = find_path((*tools), cmd);
 	if (!path && access(cmd->arg[0], F_OK) == 0)
 	{
 		path = ft_strdup(cmd->arg[0]);
@@ -117,7 +117,7 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 	}
 	if (!path)
 		print_error(cmd->arg[0], ": command not found", 127);
-	if (execve(path, cmd->arg, tools->envp) != 0)
+	if (execve(path, cmd->arg,(*tools)->envp) != 0)
 		print_error(cmd->arg[0], ": permission denied", 126);
 /*	if (!path && access(cmd->arg[0], X_OK) == 0)
 	{	path = ft_strdup(cmd->arg[0]);
@@ -135,7 +135,7 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 }
 
 
-void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd, int fd_in)
+void child_process(t_cmd *cmd, t_tools **tools, int *pipe_fd, int fd_in)
 {
 	int	fd_out;
 
@@ -152,7 +152,6 @@ void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd, int fd_in)
 			fd_out = redirect_outfile(cmd->outfile);
 //			close(pipe_fd[WRITE_END]);
 	}
-//	exec_cmd(tools, cmd);
 	if (cmd->next || cmd->outfile)
 	{
 		close(pipe_fd[READ_END]);
@@ -185,9 +184,8 @@ void	execute(t_tools *tools)
 			pipe(pipe_fd);
 		pid[i] = fork();
 		if (pid[i] == 0)
-			child_process(cmd, tools, pipe_fd, fd_in);
-	//	else 
-	//		wait(NULL);
+			child_process(cmd, &tools, pipe_fd, fd_in);
+	//	ft_env(tools->envp_list);
 		if (cmd->prev)  // cierra stdin en caso de  --   cat | ls
 			close(fd_in);
 		if (cmd->next)

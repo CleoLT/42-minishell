@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:08:47 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/26 10:29:03 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/26 13:59:27 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	delete_env(t_envp **env)
 
 }
 
-void	ft_unset(t_envp **envp, char **arg)
+int	ft_unset(t_envp **envp, char **arg)
 {
 	int		i;
 	int		j;
@@ -67,6 +67,6 @@ void	ft_unset(t_envp **envp, char **arg)
 		}
 		
 	}
-
+	return (exit_code);
 //	exit(exit_code);
 }

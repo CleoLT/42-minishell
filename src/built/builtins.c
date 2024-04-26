@@ -6,13 +6,13 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:10:23 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/26 11:09:20 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:00:18 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pwd(void)
+int	ft_pwd(void)
 {
 	char	cwd[MAXPATHLEN];
 
@@ -20,9 +20,10 @@ void	ft_pwd(void)
 		printf("%s\n", cwd);
 	else 
 		ft_error("getcwd function", errno);
+	return (EXIT_SUCCESS);
 }
 
-void	ft_echo(char **arg)
+int	ft_echo(char **arg)
 {
 	int	nl_option;
 	int i;
@@ -49,9 +50,10 @@ void	ft_echo(char **arg)
 	}
 	if (!nl_option)
 		printf("\n");
+	return (EXIT_SUCCESS);
 }
 
-void	ft_env(t_envp *env)
+int	ft_env(t_envp *env)
 {
 
 	while (env)
@@ -62,23 +64,24 @@ void	ft_env(t_envp *env)
 			printf("%s\n", env->value);
 		env = env->next;
 	}	
-
+	return (EXIT_SUCCESS);
 }
 
-void	exec_built(t_tools *tools, int type, t_cmd *cmd)
+int	exec_built(t_tools **tools, int type, t_cmd *cmd)
 {
 
 	if (type == ECHO)
-		ft_echo(cmd->arg);
+		(*tools)->exit_code = ft_echo(cmd->arg);
 	if (type == PWD)
-		ft_pwd();
-	if (type == CD)
-		ft_cd(cmd->arg, tools); 
+		(*tools)->exit_code = ft_pwd();
+//	if (type == CD)
+//		ft_cd(cmd->arg, tools); 
 	if (type == ENV)
-		ft_env(tools->envp_list);
+		(*tools)->exit_code = ft_env((*tools)->envp_list);
 	if (type == UNSET)
-	{	ft_unset(&tools->envp_list, cmd->arg);
-	ft_env(tools->envp_list);
+	{
+		(*tools)->exit_code = ft_unset(&(*tools)->envp_list, cmd->arg);
+		
 	}
-	exit(EXIT_SUCCESS);
+	return ((*tools)->exit_code);
 }
