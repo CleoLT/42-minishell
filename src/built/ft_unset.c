@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:08:47 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/25 17:38:10 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/26 10:29:03 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,17 @@ int	print_error_unset(char *cmd, char *arg)
 
 void	delete_env(t_envp **env)
 {
-	
-printf("delete %s\n", (*env)->name);
+	t_envp	*tmp;
+
+	tmp = *env;
+	*env = (*env)->next;
+	(*env)->prev = tmp->prev;
+	(*env)->prev->next = *env;
+	free(tmp->name);
+	free(tmp->value);
+	free(tmp);
+
+//printf("delete %s\n", (*env)->name);
 
 }
 
@@ -56,6 +65,8 @@ void	ft_unset(t_envp **envp, char **arg)
 			}
 			env = env->next;
 		}
+		
 	}
-	exit(exit_code);
+
+//	exit(exit_code);
 }

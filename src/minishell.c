@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/25 17:56:30 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/26 10:28:02 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,15 @@ int	main(int argc, char **argv, char **envp)
 	if (argc > 1)
 		return (1);
 	tools_init(&tools, envp);
+	if (!envp_reader(&tools))
+			ft_error("bad envp_reader", errno);
 	rl_catch_signals = 0;
 	while (1)
 	{
 		line = readline("\033[0;32mminishell$ \033[0m");
 		if (!line)
 		{
-		//	write(1, "\bexit\n", 6);
-			printf("\b\b\b\bexit \n");
+			write(2, "\bexit\n", 6);
 			break ;
 		}
 		add_history(line);
@@ -53,8 +54,8 @@ int	main(int argc, char **argv, char **envp)
 		}
 	//	printf("line %d: %s\n", i, line);
 		lexer_token(&tools, line);
-		if (!envp_reader(&tools))
-			ft_error("bad envp_reader", errno);
+	//	if (!envp_reader(&tools))
+	//		ft_error("bad envp_reader", errno);
 /*		while (tools.lexer_list != NULL)
 		{
 			printf("type: %d\n str: %s\n indx: %d\n ----\n", tools.lexer_list->type, tools.lexer_list->str, tools.lexer_list->indx);
@@ -76,12 +77,13 @@ int	main(int argc, char **argv, char **envp)
 	//	print_cdm_list(tools.cmd);
 		execute(&tools);
 		free(line);
-		free_tools(&tools);
+			free_tools(&tools);
 		printf("exit_code %d\n", tools.exit_code);
 	}
 //	clear_history();
-	free_arr(tools.envp);
 	if (tools.path)
 		free_arr(tools.path);
+	free_arr(tools.envp);
+	free_envp(&tools.envp_list);
 	return (tools.exit_code);
 }

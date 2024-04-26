@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:10:23 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/24 18:35:10 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/26 11:09:20 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	exec_built(t_tools *tools, int type, t_cmd *cmd)
 	if (type == ENV)
 		ft_env(tools->envp_list);
 	if (type == UNSET)
-		ft_unset(&tools->envp_list, cmd->arg);
+	{	ft_unset(&tools->envp_list, cmd->arg);
+	ft_env(tools->envp_list);
+	}
 	exit(EXIT_SUCCESS);
 }

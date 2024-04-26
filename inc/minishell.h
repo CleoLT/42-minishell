@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/25 16:30:09 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/26 10:29:01 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char	*ft_strcpy(char *dest, const char *src);
 /* free_utils.c */
 int		free_tools(t_tools *tools);
 void	free_arr(char **array);
+void	free_envp(t_envp **envp_list);
 
 /* error.c */
 void	ft_error(char *arg, int exit_code);
