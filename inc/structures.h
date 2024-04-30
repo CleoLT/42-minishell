@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:06:43 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/24 14:56:27 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/30 13:30:26 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_tools
 //	int		pipe_fd[2];
 //	pid_t	*pid;
 	int		t_cmd_size;
+	int		built_type;
 	int		exit_code;
 }	t_tools;
 

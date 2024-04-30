@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/30 12:52:08 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/30 13:35:04 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,14 @@ int	tools_init(t_tools *tools, char **envp)
 	tools->str = NULL;
 	tools->envp_list = NULL;
 	tools->lexer_list = NULL;
-//	tools->path = get_path_env(envp);
 	tools->exit_code = 0;
 	ft_signals(PROCESS_OFF, &tools->exit_code);
 	return (1);
 }
 
+
 char	**get_path(t_tools tools)
 {
-//	t_tools *tmp;
-//
-//	tmp = tools;
 	while (tools.envp_list)
 	{
 		if (ft_strncmp(tools.envp_list->name, "PATH", 5) == 0)
@@ -38,12 +35,22 @@ char	**get_path(t_tools tools)
 	return (NULL);
 }
 
+
+void	init_tools_loop(t_tools *tools)
+{
+
+		tools->path = get_path(*tools);
+		tools->built_type = 0;
+
+
+}
+
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
 	char 	*line;
 //	t_envp	*original_envp;
-	int		built_type;
 
 	(void)argv;
 	if (argc > 1)
@@ -54,7 +61,7 @@ int	main(int argc, char **argv, char **envp)
 	rl_catch_signals = 0;
 	while (1)
 	{
-		tools.path = get_path(tools);
+		init_tools_loop(&tools);
 		line = readline("\033[0;32mminishell$ \033[0m");
 		if (!line)
 		{
@@ -91,16 +98,17 @@ int	main(int argc, char **argv, char **envp)
 		cmd_faker(&tools, line);
 		ft_heredoc(tools.cmd);
 	//	print_cdm_list(tools.cmd);
-		if (tools.cmd)
-			built_type = ft_is_builtin(tools.cmd->arg[0]);
-		if (!tools.cmd->next && built_type)
-			exec_built(&tools, built_type, tools.cmd);
+		if (tools.cmd && tools.cmd->arg[0])
+			tools.built_type = ft_is_builtin(tools.cmd->arg[0]);
+		if (!tools.cmd->next && tools.built_type)
+			exec_built(&tools, tools.built_type, tools.cmd);
 		else
 			execute(&tools);
 		free(line);
 		free_tools(&tools);
-//		tools.path = get_path(tools);
+	
 		printf("exit_code %d\n", tools.exit_code);
+
 	}
 //	clear_history();
 	free_arr(tools.envp);
