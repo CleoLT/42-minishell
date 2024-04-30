@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:10:23 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/26 14:00:18 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/30 11:33:35 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,21 +67,21 @@ int	ft_env(t_envp *env)
 	return (EXIT_SUCCESS);
 }
 
-int	exec_built(t_tools **tools, int type, t_cmd *cmd)
+int	exec_built(t_tools *tools, int type, t_cmd *cmd)
 {
 
 	if (type == ECHO)
-		(*tools)->exit_code = ft_echo(cmd->arg);
+		tools->exit_code = ft_echo(cmd->arg);
 	if (type == PWD)
-		(*tools)->exit_code = ft_pwd();
+		tools->exit_code = ft_pwd();
 //	if (type == CD)
 //		ft_cd(cmd->arg, tools); 
 	if (type == ENV)
-		(*tools)->exit_code = ft_env((*tools)->envp_list);
+		tools->exit_code = ft_env(tools->envp_list);
 	if (type == UNSET)
 	{
-		(*tools)->exit_code = ft_unset(&(*tools)->envp_list, cmd->arg);
+		tools->exit_code = ft_unset(&tools->envp_list, cmd->arg);
 		
 	}
-	return ((*tools)->exit_code);
+	return (tools->exit_code);
 }

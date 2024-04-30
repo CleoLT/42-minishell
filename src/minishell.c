@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/26 10:28:02 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:52:08 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,24 @@ int	tools_init(t_tools *tools, char **envp)
 	tools->str = NULL;
 	tools->envp_list = NULL;
 	tools->lexer_list = NULL;
-	tools->path = get_path_env(envp);
+//	tools->path = get_path_env(envp);
 	tools->exit_code = 0;
 	ft_signals(PROCESS_OFF, &tools->exit_code);
 	return (1);
+}
+
+char	**get_path(t_tools tools)
+{
+//	t_tools *tmp;
+//
+//	tmp = tools;
+	while (tools.envp_list)
+	{
+		if (ft_strncmp(tools.envp_list->name, "PATH", 5) == 0)
+			return (ft_split(tools.envp_list->value, ':')); 
+		tools.envp_list = tools.envp_list->next;
+	}
+	return (NULL);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -29,6 +43,7 @@ int	main(int argc, char **argv, char **envp)
 	t_tools	tools;
 	char 	*line;
 //	t_envp	*original_envp;
+	int		built_type;
 
 	(void)argv;
 	if (argc > 1)
@@ -39,6 +54,7 @@ int	main(int argc, char **argv, char **envp)
 	rl_catch_signals = 0;
 	while (1)
 	{
+		tools.path = get_path(tools);
 		line = readline("\033[0;32mminishell$ \033[0m");
 		if (!line)
 		{
@@ -75,15 +91,20 @@ int	main(int argc, char **argv, char **envp)
 		cmd_faker(&tools, line);
 		ft_heredoc(tools.cmd);
 	//	print_cdm_list(tools.cmd);
-		execute(&tools);
+		if (tools.cmd)
+			built_type = ft_is_builtin(tools.cmd->arg[0]);
+		if (!tools.cmd->next && built_type)
+			exec_built(&tools, built_type, tools.cmd);
+		else
+			execute(&tools);
 		free(line);
-			free_tools(&tools);
+		free_tools(&tools);
+//		tools.path = get_path(tools);
 		printf("exit_code %d\n", tools.exit_code);
 	}
 //	clear_history();
-	if (tools.path)
-		free_arr(tools.path);
 	free_arr(tools.envp);
 	free_envp(&tools.envp_list);
+	free_arr(tools.path);
 	return (tools.exit_code);
 }
