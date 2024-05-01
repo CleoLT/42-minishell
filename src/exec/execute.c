@@ -6,30 +6,12 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/30 13:20:13 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/01 19:01:48 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_is_builtin(char *arg)
-{
-	if (!ft_strncmp(arg, "pwd", 4))
-		return (PWD);
-	if (!ft_strncmp(arg, "echo", 5))
-		return (ECHO);
-	if (!ft_strncmp(arg, "cd", 3))
-		return (CD);
-	if (!ft_strncmp(arg, "export", 7))
-		return (EXPORT);
-	if (!ft_strncmp(arg, "unset", 6))
-		return (UNSET);
-	if (!ft_strncmp(arg, "env", 4))
-		return (ENV);
-	if (!ft_strncmp(arg, "exit", 5))
-		return (EXIT);
-	return (0);
-}
 
 
 void wait_all(pid_t *pid, t_tools *tools)

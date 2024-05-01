@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:08:47 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/01 17:39:48 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/01 18:24:28 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,6 @@ int	print_error_unset(char *cmd, char *arg)
 	return (1);
 }
 
-void	delete_first_node(t_envp **envp)
-{
-	t_envp	*env;
-	
-
-//if (!(*envp)->next)
-//{	free((*envp)->name);
-///free((*envp)->value);
-//free(*envp);
-//*envp = NULL;
-//return ;
-//}
-	//	if ((*envp)->next)
-	env = *envp;
-		*envp = (*envp)->next;
-		(*envp)->prev = NULL;
-//	}
-	free(env->name);
-	free(env->value);
-	free(env);
-	env = NULL;
-}
-
 void	delete_env(t_envp **envp, char *arg)
 {
 	t_envp	*env;
@@ -54,14 +31,13 @@ void	delete_env(t_envp **envp, char *arg)
 		if (!(ft_strncmp(env->name, arg, ft_strlen(arg) + 1)))
 		{
 			if (!env->prev)
-	//			delete_first_node(envp);
 			{
 				*envp = (*envp)->next;
 				(*envp)->prev = NULL;
 			}
 			else
 				env->prev->next = env->next;
-			 if (env->next)
+			if (env->next && env->prev)
 				env->next->prev = env->prev;
 			free(env->name);
 			free(env->value);
@@ -90,11 +66,7 @@ int	ft_unset(t_envp **envp, char **arg)
 			if (arg[i][j] != '_' && !(ft_isalnum(arg[i][j])))
 				exit_code = print_error_unset(arg[0], arg[i]);
 		if (!ft_strncmp(arg[i], "_", 2))
-		{
-			printf("HAHAHAHAHAHHAHA%s\n", arg[i]);
 			continue ;
-		//	delete_first_node(envp);}
-		}
 		else
 			delete_env(envp, arg[i]);
 	}
