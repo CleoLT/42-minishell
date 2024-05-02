@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:59:09 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/05/01 20:33:07 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/02 13:02:44 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MACROS_H
@@ -44,7 +44,7 @@
 # define PROCESS_ON		1
 
 //EXPORT MODE
-# define NO_MODE		0
+# define NAME_ONLY		0
 # define CREATE_MODE	1
 # define APPEND_MODE	2
 

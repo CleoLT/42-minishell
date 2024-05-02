@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:23:48 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/01 20:44:36 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/02 13:03:58 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 
-void	print_export(t_envp *env)
+int	print_export(t_envp *env)
 {
 	while (env)
 	{
@@ -24,14 +24,16 @@ void	print_export(t_envp *env)
 			printf("declare -x %s\n", env->name);
 		env = env->next;
 	}
+	return (0);
 }
 
 void	search_values(char *arg, char **name, char **value, int *mode)
 {
 	int	i;
 
-	i = 0;
-	while (arg[i])
+	i = -1;
+	*mode = NAME_ONLY;
+	while (arg[++i])
 	{
 		if (arg[i] == '=')
 		{
@@ -40,9 +42,16 @@ void	search_values(char *arg, char **name, char **value, int *mode)
 				*mode = APPEND_MODE;
 			break ;
 		}
-		i++;
 	}
-	if (*mode == CREATE_MODE)
+	if (*mode == NAME_ONLY)
+		*value = NULL;
+	else 
+	 	*value = ft_substr(arg, i + 1, ft_strlen(arg));	
+	if (*mode == APPEND_MODE)
+		*name = ft_substr(arg, 0, i - 1);
+	else
+		*name = ft_substr(arg, 0, i);
+/*	if (*mode == CREATE_MODE)
 	{
 		*name = ft_substr(arg, 0, i);
 	   	*value = ft_substr(arg, i + 1, ft_strlen(arg));
@@ -54,9 +63,9 @@ void	search_values(char *arg, char **name, char **value, int *mode)
 	}
 	else 
 	{
-		*name = ft_strdup(arg);
-		*value = NULL;
-	}
+			*name = ft_substr(arg, 0, i);
+	//	*value = NULL;
+	}*/
 }
 
 
@@ -69,10 +78,12 @@ int	ft_export(t_envp **envp, char **arg)
 	char	*value;
 	int		mode;
 
+	name = NULL;
+	value = NULL;
 	exit_code = 0;
 	i = 0;	
 	if (!arg[1])
-		print_export(*envp);
+		return (print_export(*envp));
 	while (arg[++i])
 	{
 		if (arg[i][0] != '_' && !(ft_isalpha(arg[i][0])))

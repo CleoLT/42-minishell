@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:10:23 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/01 19:46:33 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/02 11:50:27 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,14 @@ int	ft_env(t_envp *env)
 
 	while (env)
 	{
-		if (env->name && env->value)
+		if (env->name && env->value && strncmp(env->name, "_", 2))
 		{	
 			printf("%s=", env->name);
 			printf("%s\n", env->value);
 		}
 		env = env->next;
 	}	
+	printf("_=/usr/bin/env\n");
 	return (EXIT_SUCCESS);
 }
 

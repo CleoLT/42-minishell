@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/01 16:40:34 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/02 12:43:33 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	tools_init(t_tools *tools, char **envp)
 
 char	**get_path(t_tools tools)
 {
+	if (!tools.envp_list)
+		return (NULL);
 	while (tools.envp_list)
 	{
 		if (ft_strncmp(tools.envp_list->name, "PATH", 5) == 0)
@@ -38,8 +40,7 @@ char	**get_path(t_tools tools)
 
 void	init_tools_loop(t_tools *tools)
 {
-		if (tools->envp_list)
-			tools->path = get_path(*tools);
+		tools->path = get_path(*tools);
 		tools->built_type = 0;
 
 
@@ -104,11 +105,11 @@ int	main(int argc, char **argv, char **envp)
 			exec_built(&tools, tools.built_type, tools.cmd);
 		else
 			execute(&tools);
+		delete_env(&tools.envp_list, "_");
 		free(line);
 		free_tools(&tools);
 		printf("exit_code %d\n", tools.exit_code);
-
-	}
+		}
 //	clear_history();
 	free_arr(tools.envp);
 	free_envp(&tools.envp_list);
