@@ -6,24 +6,11 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:23:48 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/03 10:51:38 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/03 11:37:13 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	print_export(t_envp *env)
-{
-	while (env)
-	{
-		if (env->value)
-			printf("declare -x %s=\"%s\"\n", env->name, env->value);
-		else 
-			printf("declare -x %s\n", env->name);
-		env = env->next;
-	}
-	return (0);
-} //hacer la funcion de ordenacion alfabetica
 
 void	search_values(char *arg, char **name, char **value, int *mode)
 {
@@ -103,7 +90,6 @@ void	exec_export(char *name, char *value, int mode, t_envp **envp)
 			return (replace_value(name, value, mode, &env));
 		env = env->next;
 	}
-//hacer la parte de append node si el name no esta en la lista	
 	envp_addnode(name, value, envp);
 	free(name);
 	free(value);

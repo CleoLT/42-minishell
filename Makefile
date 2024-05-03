@@ -32,7 +32,7 @@ ERR_FILES	= error
 UTILS_FILES = envp_utils free_utils lexer_utils signal ft_heredoc faker
 EXEC_FILES	= execute redirections
 EXP_FILES	= expander
-BUILT_FILES	= builtins ft_cd ft_unset ft_export 
+BUILT_FILES	= builtins ft_cd ft_unset ft_export print_export 
 
 SRC_FILES+=$(MAIN)
 SRC_FILES+=$(addprefix $(ENVP_DIR),$(ENVP_FILES))

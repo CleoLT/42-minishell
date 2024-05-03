@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 19:37:01 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/01 19:01:48 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/03 13:20:50 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,17 @@ void free_envp(t_envp **envp_list)
 void static	free_cmd(t_cmd *cmd)
 {
 	t_cmd	*tmp;
-	int		i;
+//	int		i;
 
 	while (cmd)
 	{
 		tmp = cmd;
 		cmd = cmd->next;
 		free_arr(tmp->arg);
-		if (tmp->infile)
+		free_array_pt(tmp->infile);
+		free_array_pt(tmp->outfile);
+	
+	/*	if (tmp->infile)
 		{
 			i = 0;
 			while(tmp->infile[i])
@@ -75,7 +78,9 @@ void static	free_cmd(t_cmd *cmd)
 			while(tmp->outfile[i])
 				free(tmp->outfile[i++]);
 			free(tmp->outfile);
-		}
+		}*/
+
+
 		free(tmp);
 	}
 }
@@ -105,3 +110,16 @@ void	free_arr(char **array)
 	}
 	free(array);
 }
+
+void	free_array_pt(char ***array)
+{
+	int i;
+
+	i = 0;
+	if (!array)
+		return ;
+	while (array[i])
+		free_arr(array[i++]);
+	free(array);
+}
+
