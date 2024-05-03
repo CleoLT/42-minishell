@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/02 12:43:33 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/03 10:57:51 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	tools_init(t_tools *tools, char **envp)
 	tools->envp_list = NULL;
 	tools->lexer_list = NULL;
 	tools->exit_code = 0;
+
 	ft_signals(PROCESS_OFF, &tools->exit_code);
 	return (1);
 }
@@ -59,6 +60,7 @@ int	main(int argc, char **argv, char **envp)
 	tools_init(&tools, envp);
 	if (!envp_reader(&tools))
 			ft_error("bad envp_reader", errno);
+	envp_addnode("OLDPWD", NULL, &tools.envp_list);
 	rl_catch_signals = 0;
 	while (1)
 	{

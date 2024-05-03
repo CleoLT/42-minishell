@@ -6,13 +6,11 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:23:48 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/02 18:24:54 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/03 10:51:38 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 int	print_export(t_envp *env)
 {
@@ -25,7 +23,7 @@ int	print_export(t_envp *env)
 		env = env->next;
 	}
 	return (0);
-}
+} //hacer la funcion de ordenacion alfabetica
 
 void	search_values(char *arg, char **name, char **value, int *mode)
 {
@@ -37,7 +35,7 @@ void	search_values(char *arg, char **name, char **value, int *mode)
 	{
 		if (arg[i] == '=')
 		{
-			*mode = CREATE_MODE;
+			*mode = REPLACE_MODE;
 			if (arg[i - 1] == '+')
 				*mode = APPEND_MODE;
 			break ;
@@ -74,24 +72,24 @@ int check_name_error( char *arg, char **name, char **value, int *exit_code)
 }
 
 void	replace_value(char *name, char *value, int mode, t_envp **env)
-{	char	*tmp_value;
+{	
+	char	*tmp_value;
+	
 	if (mode == NAME_ONLY)
-				free(value);
-			else if (mode == APPEND_MODE)
-			{
-			//	tmp_value = (*env)->value;
-				tmp_value = ft_strjoin((*env)->value, value);	
-				free((*env)->value);
-				(*env)->value = tmp_value;
-				free(value);		
-			}
-			else
-			{
-				free((*env)->value);
-				(*env)->value = value;
-			}
-			free(name);
-
+		free(value);
+	else if (mode == APPEND_MODE)
+	{
+		tmp_value = ft_strjoin((*env)->value, value);	
+		free((*env)->value);
+		(*env)->value = tmp_value;
+		free(value);		
+	}
+	else if (mode == REPLACE_MODE)
+	{
+		free((*env)->value);
+		(*env)->value = value;
+	}
+	free(name);
 }
 
 void	exec_export(char *name, char *value, int mode, t_envp **envp)
@@ -105,8 +103,10 @@ void	exec_export(char *name, char *value, int mode, t_envp **envp)
 			return (replace_value(name, value, mode, &env));
 		env = env->next;
 	}
-
-
+//hacer la parte de append node si el name no esta en la lista	
+	envp_addnode(name, value, envp);
+	free(name);
+	free(value);
 }
 
 int	ft_export(t_envp **envp, char **arg)

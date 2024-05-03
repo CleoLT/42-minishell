@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 17:01:46 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/04/24 14:56:07 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/03 10:48:11 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,11 @@ int	envp_addnode(char *n, char *v, t_envp **envp_list)
 	if (!node)
 		return (0);
 	node->name = ft_strdup(n);
-	node->value = ft_strdup(v);
-	if (node->name == NULL || node->value == NULL)
+	if (v) //condicional anadido
+		node->value = ft_strdup(v);
+	else // si v es NULL  
+		node->value = NULL;
+	if (node->name == NULL /*|| node->value == NULL*/)
 	{
  		free(node->name);
 		free(node->value);
