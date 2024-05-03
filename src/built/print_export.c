@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:10:06 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/03 13:21:16 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:00:39 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,20 @@ void	env_to_array(char ****env, t_envp *envp)
 	(*env)[i] = NULL;
 }
 
+void	swap_data(char **s1, char **s2)
+{
+	char	*tmp;
+
+	tmp = *s1;
+	*s1 = *s2;
+	*s2 = tmp;
+}
 
 void	sort_env_array(char ****env, int len)
 {
 	int		i;
 	int		j;
-	char	*tmp_name;
-	char	*tmp_value;
+	int		k;
 
 	i = 0;
 	while (i < len - 1)
@@ -60,15 +67,14 @@ void	sort_env_array(char ****env, int len)
 		j = 0;
 		while ( j < len - 1)
 		{
-			if ((*env)[j][0][0] > (*env)[j + 1][0][0])
+			k = 0;
+			while ((*env)[j][0][k] == (*env)[j + 1][0][k])
+				k++;
+			if ((*env)[j][0][k] > (*env)[j + 1][0][k])
 			{
-				tmp_name = (*env)[j][0];
-				(*env)[j][0] = (*env)[j + 1][0];
-				(*env)[j + 1][0] = tmp_name;
-				tmp_value = (*env)[j][1];
-				(*env)[j][1] = (*env)[j + 1][1];
-				(*env)[j + 1][1] = tmp_value;
-			}
+				swap_data(&(*env)[j][0], &(*env)[j + 1][0]);
+				swap_data(&(*env)[j][1], &(*env)[j + 1][1]);
+			}		
 			j++;
 		}
 		i++;
