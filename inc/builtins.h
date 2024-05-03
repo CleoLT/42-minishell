@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:20:41 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/03 12:05:52 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:17:25 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int		print_error_unset(char *cmd, char *arg);
 
 //EXPORT
 int		ft_export(t_envp **envp, char **arg);
+void	exec_export(char *name, char *value, int mode, t_envp **envp);
 int		print_export(t_envp *envp);
 
 

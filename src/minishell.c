@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/03 14:03:11 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:24:20 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ int	main(int argc, char **argv, char **envp)
 	tools_init(&tools, envp);
 	if (!envp_reader(&tools))
 			ft_error("bad envp_reader", errno);
+
+//	exec_export(ft_strdup("OLDPWD"), NULL, NAME_ONLY, &tools.envp_list);
+	delete_env(&tools.envp_list, "OLDPWD");
 	envp_addnode("OLDPWD", NULL, &tools.envp_list);
 	rl_catch_signals = 0;
 	while (1)
@@ -100,7 +103,7 @@ int	main(int argc, char **argv, char **envp)
 			printf("--> %s\n", *tools.envp++);*/
 		cmd_faker(&tools, line);
 		ft_heredoc(tools.cmd);
-		print_cdm_list(tools.cmd);
+	//	print_cdm_list(tools.cmd);
 		if (tools.cmd && tools.cmd->arg[0])
 			tools.built_type = ft_is_builtin(tools.cmd->arg[0]);
 		if (!tools.cmd->next && tools.built_type)

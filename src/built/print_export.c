@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:10:06 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/03 14:00:39 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:11:33 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	sort_env_array(char ****env, int len)
 		while ( j < len - 1)
 		{
 			k = 0;
-			while ((*env)[j][0][k] == (*env)[j + 1][0][k])
+			while ((*env)[j][0][k] && (*env)[j + 1][0][k] && (*env)[j][0][k] == (*env)[j + 1][0][k])
 				k++;
 			if ((*env)[j][0][k] > (*env)[j + 1][0][k])
 			{
