@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:10:23 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/03 14:44:58 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/04 16:50:55 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,7 @@ int	exec_built(t_tools *tools, int type, t_cmd *cmd)
 		tools->exit_code = ft_unset(&tools->envp_list, cmd->arg);
 	if (type == EXPORT)
 		tools->exit_code = ft_export(&tools->envp_list, cmd->arg);
+	if (type == EXIT)
+		ft_exit(cmd->arg, &tools->exit_code);
 	return (tools->exit_code);
 }

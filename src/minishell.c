@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/03 14:24:20 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/04 20:52:54 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
 	char 	*line;
-//	t_envp	*original_envp;
 
 	(void)argv;
 	if (argc > 1)
@@ -71,7 +70,7 @@ int	main(int argc, char **argv, char **envp)
 		line = readline("\033[0;32mminishell$ \033[0m");
 		if (!line)
 		{
-			write(2, "\bexit\n", 6);
+			write(2, "exit\n", 6);
 			break ;
 		}
 		add_history(line);

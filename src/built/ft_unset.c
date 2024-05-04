@@ -6,14 +6,15 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:08:47 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/02 12:53:28 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/04 21:14:37 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	print_error_unset(char *cmd, char *arg)
-{
+{	
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd, 2);
 	write(2, ": `", 3);
 	ft_putstr_fd(arg, 2);
