@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:10:23 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/05 14:25:32 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/05 17:18:29 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ int	exec_built(t_tools *tools, int type, t_cmd *cmd)
 		tools->exit_code = ft_echo(cmd->arg);
 	if (type == PWD)
 		tools->exit_code = ft_pwd();
-//	if (type == CD)
-//		ft_cd(cmd->arg, tools); 
+	if (type == CD)
+		tools->exit_code = ft_cd(cmd->arg, tools); 
 	if (type == ENV && !cmd->arg[1])
 		tools->exit_code = ft_env(tools->envp_list);
 	else if (type == ENV && cmd->arg[1])

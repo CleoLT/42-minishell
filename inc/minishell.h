@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/05/04 21:27:10 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/05 16:11:47 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	ft_error(char *arg, int exit_code);
 void	print_error(char *cmd, char *str, int exit_code);
 int		ft_strerror(int exit_code); // esta creo que no sirve en nnguna parte 
 //void    print_error_unset(char *cmd, char *arg); // esta en builts cambiar
-int		err_built(char *cmd, char *arg, char *error, int error_num);
-void	ft_error_built(char *cmd, char *arg, int exit_code); //no sirve !!!!
+int		err_built(char *cmd, char *arg, char *error, int exit_code);
+int		perr_built(char *cmd, char *arg, int exit_code);
 
 
 /* signal.c */

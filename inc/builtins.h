@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:20:41 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/05 14:10:42 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/05 17:18:31 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 int		ft_is_builtin(char *arg);
 int		exec_built(t_tools *tools, int type, t_cmd *cmd);
 void	exec_simple_built(t_tools *tools, int built_type, t_cmd *cmd);
+
 //ENV
 int		ft_env(t_envp *env);
 
@@ -32,7 +33,7 @@ int		print_export(t_envp *envp);
 //EXIT
 void    ft_exit(char **arg, int *exit_code);
 
+//CD
+int	ft_cd(char **arg, t_tools *tools);
 
-
-//void	ft_cd(char **arg, t_tools *tools);
 #endif

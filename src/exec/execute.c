@@ -6,13 +6,11 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/05 12:51:22 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/05 15:47:43 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 void wait_all(pid_t *pid, t_tools *tools)
 {
@@ -166,7 +164,6 @@ void	execute(t_tools *tools)
 		pid[i] = fork();
 		if (pid[i] == 0)
 			child_process(cmd, tools, pipe_fd, fd_in);
-	//	ft_env(tools->envp_list);
 		if (cmd->prev)  // cierra stdin en caso de  --   cat | ls
 			close(fd_in);
 		if (cmd->next)

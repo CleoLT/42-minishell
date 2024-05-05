@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:01:41 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/19 15:13:15 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/05 17:34:19 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,17 @@
 
 char	*find_env_value(char *name, t_envp *env)
 {
-	char *value;
-
 	while (env)
 	{
 		if (!ft_strncmp(env->name, name, ft_strlen(env->name)))
 		{
-			value = ft_strdup(env->value);
-			return (value);
+			if (env->value)
+				return (ft_strdup(env->value));
+			else 
+				return  (NULL);
 		}
 		env = env->next;
 	}
-//	ft_putstr_fd("cd: ", 2);
-//	print_error(name, " not set", 1);
 	return (NULL);
 }
 
@@ -36,6 +34,8 @@ void	replace_env_value(char *name, char *value, t_envp *env)
 	{
 		if (!ft_strncmp(env->name, name, ft_strlen(env->name)))
 		{
+			if (!value)
+				value = "";
 			env->value = ft_strdup(value);
 			return ;
 		}
@@ -43,30 +43,54 @@ void	replace_env_value(char *name, char *value, t_envp *env)
 	}
 }
 
-void	ft_cd(char **arg, t_tools *tools)
+int	err_env_notset(char *cmd, char *env, int exit_code)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd(env, STDERR_FILENO);
+	ft_putendl_fd(" not set", STDERR_FILENO);
+	return (exit_code);
+
+}
+
+int	ft_cd(char **arg, t_tools *tools)
 {
 	char	*path;
 
-	if (arg[1] == NULL || !ft_strncmp(arg[1], "~", 2)) 
+	if (!arg[1]) 
 	{
 		path = find_env_value("HOME", tools->envp_list);
-		printf("%s\n", path);
 		if (!path)
-			print_error("cd: ", "HOME not set", 1);
+		{
+			tools->exit_code = err_env_notset(arg[0], "HOME", 1);
+			return (tools->exit_code);
+		}
 	}
+	else if ( !ft_strncmp(arg[1], "~", 2))
+		path = ft_strdup(getenv("HOME"));
 	else if (!ft_strncmp(arg[1], "-", 2))
 	{
+		printf("get OLDPWD %s\n", getenv("OLDPWD"));
 		path = find_env_value("OLDPWD", tools->envp_list);
 		if (!path)
-			print_error("cd: ", "OLDPWD not set", 1);
-		printf("%s\n", path);
+		{
+			tools->exit_code = err_env_notset(arg[0], "OLDPWD", 1);
+			return (tools->exit_code);
+		}
 	}
 	else 
 		path = ft_strdup(arg[1]);
+		printf("%s\n", path);
 	if (chdir(path))
-		ft_error_built("cd: ", path, 1);
+		perr_built("cd: ", path, 1);
 //	replace_env_value("OLDPWD", getcwd(cwd, MAXPATHLEN)
-	replace_env_value("PWD", path, tools->envp_list);
-
 	free(path);
+	replace_env_value("OLDPWD", find_env_value("PWD", tools->envp_list), tools->envp_list);
+	char	cwd[MAXPATHLEN];
+	if (getcwd(cwd, MAXPATHLEN))
+		replace_env_value("PWD", cwd, tools->envp_list);
+	else 
+		ft_error("getcwd function", errno);
+	return (EXIT_SUCCESS);
 }

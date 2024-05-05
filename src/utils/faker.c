@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:16:30 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/05 13:44:11 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/05 15:35:02 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void cmd_faker(t_tools *tools, char *line)
 	tools->cmd = comm;
 	tools->cmd->infile = NULL;
 	tools->cmd->outfile = NULL;
-	tools->cmd->infile = malloc(sizeof(char *) * 5);
+/*	tools->cmd->infile = malloc(sizeof(char *) * 5);
 	tools->cmd->infile[0] = malloc(sizeof(char *) * 2);
 //	tools->cmd->infile[1] = malloc(sizeof(char *) * 3);
 	tools->cmd->infile[1] = NULL;
@@ -85,7 +85,7 @@ void cmd_faker(t_tools *tools, char *line)
 	tools->cmd->outfile[1] = NULL;
 	
 	tools->cmd->fd_in = 0;
-	tools->cmd->fd_out = 0;
+	tools->cmd->fd_out = 0;*/
 	tools->cmd->prev = NULL; 
 
 	tools->cmd->next = NULL;
@@ -146,7 +146,7 @@ void cmd_faker(t_tools *tools, char *line)
 
 //	tools->cmd->next = NULL;
 	*/
-	print_cdm_list(tools->cmd);
+//	print_cdm_list(tools->cmd);
 
 }
 

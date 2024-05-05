@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 16:58:10 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/05 14:56:47 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/05 15:47:43 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	handle_syntax_error(char **arg, int *exit_code)
 			exit(err_built(arg[0], arg[i],": numeric argument required",  255));
 	return (i);
 }
-
 
 void	ft_exit(char **arg, int *exit_code)
 {
