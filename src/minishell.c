@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/04 20:52:54 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/05 14:10:09 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,14 @@ int	main(int argc, char **argv, char **envp)
 			printf("--> %s\n", *tools.envp++);*/
 		cmd_faker(&tools, line);
 		ft_heredoc(tools.cmd);
-	//	print_cdm_list(tools.cmd);
 		if (tools.cmd && tools.cmd->arg[0])
 			tools.built_type = ft_is_builtin(tools.cmd->arg[0]);
 		if (!tools.cmd->next && tools.built_type)
-			exec_built(&tools, tools.built_type, tools.cmd);
+		{
+			exec_simple_built(&tools, tools.built_type, tools.cmd);
+
+		//	exec_built(&tools, tools.built_type, tools.cmd);
+		}
 		else
 			execute(&tools);
 		delete_env(&tools.envp_list, "_");

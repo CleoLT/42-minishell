@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/01 19:01:48 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/05 12:51:22 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,8 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 
 void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd, int fd_in)
 {
-	int	fd_out;
-
+	int fd_out;
+	
 	if (cmd->infile)
 		fd_in = redirect_infile(cmd->infile);
 	if (cmd->prev || cmd->infile)
@@ -143,7 +143,6 @@ void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd, int fd_in)
 	}
 //	if (cmd->next || cmd->prev)
 //		close(pipe_fd[WRITE_END]);
-
 //	signal(SIGQUIT, handle_sigquit); 
 	exec_cmd(tools, cmd);
 }

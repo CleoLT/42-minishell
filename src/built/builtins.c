@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:10:23 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/04 16:50:55 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/05 14:25:32 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,3 +125,33 @@ int	exec_built(t_tools *tools, int type, t_cmd *cmd)
 		ft_exit(cmd->arg, &tools->exit_code);
 	return (tools->exit_code);
 }
+
+void exec_simple_built(t_tools *tools, int built_type, t_cmd *cmd)
+{
+	int	stdin_fd;
+	int	stdout_fd;
+	int	fd_in;
+	int	fd_out;
+
+	if (cmd->infile)
+	{
+		stdin_fd = dup(STDIN_FILENO);
+		fd_in = redirect_infile(cmd->infile);
+		dup2(fd_in, STDIN_FILENO);	
+		close(fd_in);	
+	}
+	if (cmd->outfile)
+	{
+		stdout_fd = dup(STDOUT_FILENO);
+		fd_out = redirect_outfile(cmd->outfile);
+		dup2(fd_out, STDOUT_FILENO);
+		close(fd_out);
+	}		
+	exec_built(tools, built_type, cmd);
+	if (cmd->infile)
+		dup2(stdin_fd, STDIN_FILENO);
+	if (cmd->outfile)
+		dup2(stdout_fd, STDOUT_FILENO);
+}
+
+

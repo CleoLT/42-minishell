@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 16:58:10 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/04 21:24:26 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/05 14:56:47 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,32 +32,33 @@ void check_limits(char *str)
         num = (str[i] - '0') + (num * 10);
         i++;
     }
-
-//	if (sign == -1 && num >= LONG_MAX )
-//		return ;
-
 	if (!ft_strncmp(str, "-9223372036854775808", 21))
 		return ;
-
 	if (num > LONG_MAX)
-	exit(err_built("exit", str, ": numeric argument required", 255));
-
-
-
-
-
+		exit(err_built("exit", str, ": numeric argument required", 255));
 }
 
+void	exec_exit(char *arg)
+{
+	int	num;
 
-void	ft_exit(char **arg, int *exit_code)
+	num = ft_atoi(arg);
+	num = num % 256;
+	if (num < 0)
+		exit(256 + num);
+	else
+		exit(num);
+}
+
+int	handle_syntax_error(char **arg, int *exit_code)
 {
 	int	i;
 	int	j;
-	int	num;
+	int	len;
 
 	i = 1;
 	j = 0;
-	printf("exit\n");
+	len = 0;
 	if (arg[i] && !ft_strncmp(arg[i], "--", 3))
 		i++;
 	if (!arg[i])
@@ -67,18 +68,23 @@ void	ft_exit(char **arg, int *exit_code)
 	if (!arg[i][1])
 		exit(err_built(arg[0], arg[i],": numeric argument required",  255));
 	while (arg[i][j])
-		if (!ft_isdigit(arg[i][j++]))
+		if (!ft_isdigit(arg[i][j++]) || ++len >= 20)
 			exit(err_built(arg[0], arg[i],": numeric argument required",  255));
+	return (i);
+}
+
+
+void	ft_exit(char **arg, int *exit_code)
+{
+	int	i;
+
+	ft_putendl_fd("exit", 2);
+	i = handle_syntax_error(arg, exit_code);
 	if (arg[i + 1])
 	{
 		*exit_code = err_built(arg[0], "", "too many arguments", 1);
 		return ;
 	}
 	check_limits(arg[i]);
-	num = ft_atoi(arg[i]);
-	num = num % 256;
-	if (num < 0)
-		exit(256 + num);
-	else
-		exit(num);
+	exec_exit(arg[i]);
 }
