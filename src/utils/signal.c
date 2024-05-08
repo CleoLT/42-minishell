@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:48:38 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/04/18 16:33:12 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:37:56 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	handle_sigint(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	signal_exit_code = 1;
 }
 
 void	handle_sigint_process(int sig)
@@ -35,17 +36,18 @@ void	handle_sigquit(int sig)
 		printf("Quit: %d\n", sig);		
 }
 
-void	ft_signals(int process, int *exit_code)
+void	ft_signals(int process)
 {
 	if (process == PROCESS_OFF)
 	{
 		signal(SIGQUIT, SIG_IGN);
 	//	sigaction()
-		if (!signal(SIGINT, handle_sigint))
-		{
-	   		*exit_code = 1;			// ctrl + C   ///esta mierda no funciona!!!
-			write(2, "hono\n", 5);
-		}
+		signal(SIGINT, handle_sigint);
+	//		if (!signal(SIGINT, handle_sigint))
+	///	{
+	//   		*exit_code = 1;	// ctrl + C   ///esta mierda no funciona!!!
+	//		write(2, "hono\n", 5);
+	//	}
 	}
 	else if (process == PROCESS_ON)
 	{

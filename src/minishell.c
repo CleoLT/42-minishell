@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/05 15:47:43 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:58:30 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,28 @@ int	tools_init(t_tools *tools, char **envp)
 	tools->envp_list = NULL;
 	tools->lexer_list = NULL;
 	tools->exit_code = 0;
-
-	ft_signals(PROCESS_OFF, &tools->exit_code);
+	if (!envp_reader(tools))
+		ft_error("bad envp_reader", errno);
+	delete_env(&tools->envp_list, "OLDPWD");
+	envp_addnode("OLDPWD", NULL, &tools->envp_list);
+//	exec_export(ft_strdup("OLDPWD"), NULL, NAME_ONLY, &tools->envp_list);
+	rl_catch_signals = 0;
+	ft_signals(PROCESS_OFF);
 	return (1);
 }
-
-
-char	**get_path(t_tools tools)
-{
-	if (!tools.envp_list)
-		return (NULL);
-	while (tools.envp_list)
-	{
-		if (ft_strncmp(tools.envp_list->name, "PATH", 5) == 0)
-			return (ft_split(tools.envp_list->value, ':')); 
-		tools.envp_list = tools.envp_list->next;
-	}
-	return (NULL);
-}
-
 
 void	init_tools_loop(t_tools *tools)
 {
 		tools->path = get_path(*tools);
 		tools->built_type = 0;
+		signal_exit_code = 0;
+}
 
-
+void	free_tools(t_tools *tools)
+{
+	free_arr(tools->envp);
+	free_envp(&tools->envp_list);
+	free_arr(tools->path);
 }
 
 
@@ -53,17 +49,10 @@ int	main(int argc, char **argv, char **envp)
 	t_tools	tools;
 	char 	*line;
 
-	(void)argv;
 	if (argc > 1)
-		return (1);
+		print_error(argv[1], ": minishell don't accept any argument", 1);
+		//		return (perr_built("", argv[1], 1));
 	tools_init(&tools, envp);
-	if (!envp_reader(&tools))
-			ft_error("bad envp_reader", errno);
-
-//	exec_export(ft_strdup("OLDPWD"), NULL, NAME_ONLY, &tools.envp_list);
-	delete_env(&tools.envp_list, "OLDPWD");
-	envp_addnode("OLDPWD", NULL, &tools.envp_list);
-	rl_catch_signals = 0;
 	while (1)
 	{
 		init_tools_loop(&tools);
@@ -80,7 +69,6 @@ int	main(int argc, char **argv, char **envp)
 			free(line);
 			continue ;
 		}
-	//	printf("line %d: %s\n", i, line);
 		lexer_token(&tools, line);
 	//	if (!envp_reader(&tools))
 	//		ft_error("bad envp_reader", errno);
@@ -109,13 +97,12 @@ int	main(int argc, char **argv, char **envp)
 		else
 			execute(&tools);
 		delete_env(&tools.envp_list, "_");
-		free(line);
-		free_tools(&tools);
+		free_tools_loop(&tools, line);
+		if (signal_exit_code)
+			tools.exit_code = signal_exit_code;
 		printf("exit_code %d\n", tools.exit_code);
 		}
 //	clear_history();
-	free_arr(tools.envp);
-	free_envp(&tools.envp_list);
-	free_arr(tools.path);
+	free_tools(&tools);
 	return (tools.exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 19:37:01 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/05 11:23:40 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:01:51 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,13 @@ void static	free_cmd(t_cmd *cmd)
 	}
 }
 
-int	free_tools(t_tools *tools)
+int	free_tools_loop(t_tools *tools, char *line)
 {
+	delete_env(&tools->envp_list, "_");
+	free(line);
 	free(tools->str);
 	free_cmd(tools->cmd);
-//	free_arr(tools->cmd->arg);
 	free_token(&tools->lexer_list);
-//	free_envp(&tools->envp_list);
 	free_arr(tools->path);
 	return (1);
 }

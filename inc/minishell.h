@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/05/05 16:11:47 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:46:45 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ void	ft_heredoc(t_cmd *cmd);
 
 /* envp_utils.c */
 char	**ft_arrdup(char **array);
-char	**get_path_env(char **envp);
+//char	**get_path_env(char **envp);
+char	**get_path(t_tools tools);
 int		array_len(char **array);
 char	*ft_strncpy(char *dest, const char *src, size_t n);
 char	*ft_strcpy(char *dest, const char *src);
 
 /* free_utils.c */
-int		free_tools(t_tools *tools);
+int		free_tools_loop(t_tools *tools, char *line);
 void	free_arr(char **array);
 void	free_envp(t_envp **envp_list);
 void	free_array_pt(char ***array);
@@ -62,7 +63,7 @@ int		perr_built(char *cmd, char *arg, int exit_code);
 
 
 /* signal.c */
-void	ft_signals(int process, int *exit_code);
+void	ft_signals(int process);
 void	handle_sigquit(int sig);
 
 /*commands faker*/

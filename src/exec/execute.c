@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/05 15:47:43 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:37:28 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	execute(t_tools *tools)
 
 	cmd = tools->cmd;
 	pid_t	pid[tools->t_cmd_size];
-	ft_signals(PROCESS_ON, &tools->exit_code);
+	ft_signals(PROCESS_ON);
 
 	while (cmd)
 	{
@@ -175,5 +175,5 @@ void	execute(t_tools *tools)
 		i++;
 	}
 	wait_all(pid, tools);
-	ft_signals(PROCESS_OFF, &tools->exit_code);
+	ft_signals(PROCESS_OFF);
 }
