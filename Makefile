@@ -9,6 +9,8 @@ LIB_FLAG 	= -L./libft/ -L./readline/ -lreadline -lhistory -ltermcap -lft
 DEP_FLAG	= -MMD -MP
 INCLUDE		= -I./libft/inc/ -I./inc/ -I./readline/ 
 MKDIR		= mkdir -p
+HLIB_FILE	= $(READL_DIR)libhistory.a
+RLIB_FILE	= $(READL_DIR)libreadline.a
 
 # ═══ DIRECTORIES ═════════════════════════════════════════════════════════════#
 INC_DIR		= inc/
@@ -50,7 +52,7 @@ DEPS = $(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_FILES)))
 
 # ═══ RULES ═══════════════════════════════════════════════════════════════════#
 
-all:	$(NAME) 
+all: $(NAME) 
 
 $(NAME):	$(OBJS)
 			make -C $(LIB_DIR)
@@ -60,9 +62,12 @@ $(OBJ_DIR)%.o:	$(SRC_DIR)%.c Makefile libft/Makefile libft/src/*/*.c
 				$(MKDIR) $(dir $@)
 				$(CC) $(CFLAGS) -DREADLINE_LIBRARY $(INCLUDE) $(DEP_FLAG) -c -o $@ $<
 
-readl: 
-		cd ./readline/ && ./configure
-		make -C $(READL_DIR)
+readl:
+	@if [ -e "$(HLIB_FILE)" ] && [ -e "$(RLIB_FILE)" ]; then \
+		echo "readline already compiled"; \
+	else \
+		cd ./readline/ && ./configure && make; \
+	fi
 
 cleanrl:
 		make clean -C $(READL_DIR)
@@ -70,10 +75,12 @@ cleanrl:
 clean:
 		$(RMD) $(OBJ_DIR)
 		make clean -C $(LIB_DIR)
+		make clean -C $(READL_DIR)
 		
 fclean:	clean
 		$(RMF) $(NAME)
 		$(RMF) $(LIBFT_DIR)libft.a
+
 
 re:	fclean all
 
