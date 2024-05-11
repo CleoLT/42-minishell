@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:59:09 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/04/22 14:54:13 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:29:34 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MACROS_H
@@ -43,10 +43,10 @@
 # define PROCESS_OFF	0
 # define PROCESS_ON		1
 
-//REDIRECTIONS
-# define IN			"1i"
-# define HDOC		"1h"
-# define OUT		"2o"
-# define APP		"2a"
+//EXPORT MODE
+# define NAME_ONLY		0
+# define REPLACE_MODE	1
+# define APPEND_MODE	2
+
 
 #endif

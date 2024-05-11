@@ -6,8 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 19:37:01 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/11 16:50:07 by irozhkov         ###   ########.fr       */
-/*                                                                            */
+/*   Updated: 2024/05/11 17:57:11 by irozhkov         ###   ########.fr       */
 /* ************************************************************************** */
 
 #include "minishell.h"
@@ -29,7 +28,7 @@ void static free_token(t_token **lexer_list)
 	*lexer_list = NULL;
 }
 
-void static free_envp(t_envp **envp_list)
+void free_envp(t_envp **envp_list)
 {
 	t_envp *tmp;
 
@@ -47,7 +46,7 @@ void static free_envp(t_envp **envp_list)
 	}
 	*envp_list = NULL;
 }
-/*
+	
 void static	free_cmd(t_cmd *cmd)
 {
 	t_cmd	*tmp;
@@ -58,6 +57,9 @@ void static	free_cmd(t_cmd *cmd)
 		tmp = cmd;
 		cmd = cmd->next;
 		free_arr(tmp->arg);
+	//	free_array_pt(tmp->infile);
+	//	free_array_pt(tmp->outfile);
+	
 		if (tmp->infile)
 		{
 			i = 0;
@@ -76,18 +78,21 @@ void static	free_cmd(t_cmd *cmd)
 				free(tmp->outfile[i++]);
 			free(tmp->outfile);
 		}
+
+
 		free(tmp);
 	}
-}*/
+}
 
-int	free_tools(t_tools *tools)
+int	free_tools_loop(t_tools *tools, char *line)
 {
+	delete_env(&tools->envp_list, "_");
+	free(line);
 	free(tools->str);
-//	free_cmd(tools->cmd);
-//	free_arr(tools->cmd->arg);
+	free_cmd(tools->cmd);
 	free_token(&tools->lexer_list);
-//	free_dollar(&tools->dollar_list);
 	free_envp(&tools->envp_list);
+	free_arr(tools->path);
 	return (1);
 }
 
@@ -95,11 +100,28 @@ void	free_arr(char **array)
 {
 	int	i;
 
+	if (!array)
+		return ;
 	i = 0;
 	while (array[i])
 	{
 		free(array[i]);
 		i++;
+	}
+	free(array);
+}
+
+void	free_array_pt(char ***array)
+{
+	int i;
+
+	i = 0;
+	if (!array)
+		return ;
+	while (array[i])
+	{
+	
+		free_arr(array[i++]);
 	}
 	free(array);
 }

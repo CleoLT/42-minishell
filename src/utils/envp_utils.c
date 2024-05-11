@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 17:19:47 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/11 16:06:22 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/11 17:57:51 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	**ft_arrdup(char **array)
 	return (tmp);
 }
 
-char	**get_path_env(char **envp)
+/*char	**get_path_env(char **envp)
 {
 	int		i;
 	char	*env;
@@ -55,7 +55,21 @@ char	**get_path_env(char **envp)
 		i++;
 	}
 	return (NULL);
+}*/
+
+char	**get_path(t_tools tools)
+{
+	if (!tools.envp_list)
+		return (NULL);
+	while (tools.envp_list)
+	{
+		if (ft_strncmp(tools.envp_list->name, "PATH", 5) == 0)
+			return (ft_split(tools.envp_list->value, ':')); 
+		tools.envp_list = tools.envp_list->next;
+	}
+	return (NULL);
 }
+
 
 int	array_len(char **array)
 {
