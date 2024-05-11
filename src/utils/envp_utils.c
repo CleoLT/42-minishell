@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 17:19:47 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/04/22 14:51:56 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/11 16:06:22 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	**get_path_env(char **envp)
 int	array_len(char **array)
 {
 	int	count;
-	
+
 	count = 0;
 	while (array[count])
 		count ++;

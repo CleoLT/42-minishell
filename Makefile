@@ -29,8 +29,8 @@ MAIN		= minishell
 ENVP_FILES  = envp
 LEX_FILES	= lexer quotes spaces token_reader
 ERR_FILES	= error
-UTILS_FILES = envp_utils free_utils lexer_utils signal ft_heredoc
-EXEC_FILES	= execute redirections
+UTILS_FILES = envp_utils expander_utils expander_utils_2 free_utils lexer_utils signal ft_heredoc faker
+EXEC_FILES	= execute redirections ft_unset ft_export print_export ft_exit ft_echo_pwd_env
 EXP_FILES	= expander
 BUILT_FILES	= builtins ft_cd
 

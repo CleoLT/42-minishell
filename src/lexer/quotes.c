@@ -6,38 +6,72 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:55:27 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/04/17 12:36:17 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:33:03 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int	quotes_handler(char *s, int i, char quote, t_token **lexer_list, int c)
+int	quote_addnode(char *sub_str, char quote, t_token **lexer_list, int c)
 {
-	int 	j;
-
-	j = 0;
-	if (s[i + j] == quote)
-	{
-		j++;
-		while (s[i + j] && (s[i + j] != quote))
-			j++;
-		j++;
-	}
 	if (quote == 34)
 	{
-		if (!token_addnode(ft_substr(s, i + 1, j - 2), 7, lexer_list, c))
+		if (!token_addnode(sub_str, 7, lexer_list, c))
 			return (-1);
 	}
 	else if (quote == 39)
 	{
-		if (!token_addnode(ft_substr(s, i + 1, j - 2), 8, lexer_list, c))
+		if (!token_addnode(sub_str, 8, lexer_list, c))
 			return (-1);
+	}
+	return (1);
+}
+
+void	quotes_str(const char *s, char *sub_str, int i)
+{
+	int	k;
+
+	k = 0;
+	i += 1;
+	while (s[i] && !(s[i] == 34 || s[i] == 39))
+	{
+		sub_str[k] = s[i];
+		k++;
+		i++;
+	}
+	sub_str[k] = '\0';
+}
+
+int	quotes_handler(const char *s, int i, t_token **lexer_list, int c)
+{
+	int		j;
+	char	*sub_str;
+	char	quote;
+
+	j = 0;
+	quote = s[i];
+	if (s[i + j] == quote)
+	{
+		while (s[i + (++j)] && (s[i + j] != quote))
+			continue ;
+		j++;
+	}
+	sub_str = (char *)malloc(sizeof(char) * (ft_strlen(s) - 1));
+	if (!sub_str)
+		return (-1);
+	if (quote == 34 || quote == 39)
+	{
+		quotes_str(s, sub_str, i);
+		if (quote_addnode(sub_str, quote, lexer_list, c) < 0)
+		{
+			free(sub_str);
+			return (-1);
+		}
 	}
 	return (j);
 }
 
-int	closed_quotes(char *s, int i, int *counter, int quote)
+int	closed_quotes(const char *s, int i, int *counter, int quote)
 {
 	int	j;
 
@@ -48,9 +82,9 @@ int	closed_quotes(char *s, int i, int *counter, int quote)
 	if (s[j] == quote)
 		*counter += 1;
 	return (j - i);
-}	
+}
 
-int	count_quotes(char *str)
+int	count_quotes(const char *str)
 {
 	int	i;
 	int	s;
@@ -59,7 +93,7 @@ int	count_quotes(char *str)
 	i = -1;
 	s = 0;
 	d = 0;
-	while (str[++i])
+	while (str[++i] != '\0')
 	{
 		if (str[i] == 34)
 			i += closed_quotes(str, i, &d, 34);

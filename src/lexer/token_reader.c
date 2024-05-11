@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:32:50 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/04/17 15:37:02 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/01 15:08:43 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	token_reader(t_tools *tools)
 		else if (check_token(tools->str[i]))
 			j = token_handler(tools->str, i, &tools->lexer_list, c);
 		else if ((tools->str[i] == 34) || (tools->str[i] == 39))
-			j = quotes_handler(tools->str, i, tools->str[i], &tools->lexer_list, c); 
+			j = quotes_handler(tools->str, i, &tools->lexer_list, c); 
 		else
 			j = get_str(tools->str, i, &tools->lexer_list, c);
 		if (j < 0)

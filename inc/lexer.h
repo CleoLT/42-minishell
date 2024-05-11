@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:33:47 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/04/22 13:16:58 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/01 15:09:02 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,11 @@ int		token_reader(t_tools *tools);
 void	token_addback(t_token **lexer_list, t_token *node);
 
 /* quotes.c */
-int		quotes_handler(char *s, int i, char quote, t_token **lexer_list, int c);
-int		closed_quotes(char *s, int i, int *counter, int quote);
-int		count_quotes(char *str);
+int		quote_addnode(char *sub_str, char quote, t_token **lexer_list, int c);
+void	quotes_str(const char *s, char *sub_str, int i);
+int		quotes_handler(const char *s, int i, t_token **lexer_list, int c);
+int		closed_quotes(const char *s, int i, int *counter, int quote);
+int		count_quotes(const char *str);
 
 /* spaces.c */
 int		spaces_handler(char *s, int i, t_token **lexer_list, int c);
