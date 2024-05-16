@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:16:30 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/16 15:48:39 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/16 19:41:13 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void cmd_faker(t_tools *tools, char *line)
     tools->cmd = comm;
     tools->cmd->infile = NULL;
     tools->cmd->outfile = NULL;
-    tools->cmd->infile = malloc(sizeof(char *) * 3);
+/*	tools->cmd->infile = malloc(sizeof(char *) * 3);
     tools->cmd->infile[0] = malloc(sizeof(char *) * 2);
     tools->cmd->infile[1] = malloc(sizeof(char *) * 3);
     tools->cmd->infile[2] = NULL;
@@ -79,7 +79,7 @@ void cmd_faker(t_tools *tools, char *line)
 //  tools->cmd->infile[3][0] = "LA";
 //  tools->cmd->infile[3][1] = "hereddoc";
 //  tools->cmd->infile[3][2] = NULL;
-/*  tools->cmd->outfile = malloc(sizeof(char *) * 2);
+  tools->cmd->outfile = malloc(sizeof(char *) * 2);
     tools->cmd->outfile[0] = malloc(sizeof(char *) * 3);
     tools->cmd->outfile[0][0] = "outfile";
     tools->cmd->outfile[0][1] = NULL;
@@ -147,7 +147,7 @@ void cmd_faker(t_tools *tools, char *line)
 
 //	tools->cmd->next = NULL;
 	*/
-	print_cdm_list(tools->cmd);
+//	print_cdm_list(tools->cmd);
 
 }
 

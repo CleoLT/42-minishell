@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 15:22:27 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/16 18:29:17 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/16 19:38:35 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ void	heredoc_process(int count_hd, char **infile, int *exit_code)
 	 if (WIFSIGNALED(status))
 	{
 		if (WTERMSIG(status) == SIGINT)
+		{
+	//		*sigint = 1;
 			*exit_code = 1;
+		//	*sigint = ;
+		}
 	}	
 	*infile = ft_strjoin("/tmp/.heredoc", hd_num);
 	free(hd_num);
@@ -66,6 +70,9 @@ int	ft_heredoc(t_cmd *cmd, int *exit_code)
 {
 	int		i;
 	int		count_hd;
+//	int		sigint;
+
+//	sigint = 0;
 	count_hd = 0;
 	while (cmd)
 	{
@@ -81,7 +88,10 @@ int	ft_heredoc(t_cmd *cmd, int *exit_code)
 		}
 	cmd = cmd->next;
 	}
-	return (*exit_code);
+	printf("%d\n", *exit_code);
+	if (count_hd > 0)
+		return (*exit_code);
+	return (-1);
 }
 
 
