@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/05/08 18:46:45 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:46:48 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <sys/param.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <termios.h>
+# include <sys/ioctl.h>
 
 # include "../readline/readline.h"
 # include "../readline/history.h"
@@ -37,7 +39,7 @@
 int		signal_exit_code;
 
 void	lexer_token(t_tools *tools, char *line);
-void	ft_heredoc(t_cmd *cmd);
+int		ft_heredoc(t_cmd *cmd, int *exit_code);
 
 /* envp_utils.c */
 char	**ft_arrdup(char **array);

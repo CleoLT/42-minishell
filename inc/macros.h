@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:59:09 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/05/02 18:29:34 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:39:09 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MACROS_H
@@ -31,7 +31,7 @@
 # define WRITE_END	1
 
 //BUILTINS
-# define ECHO		1
+# define ECH		1
 # define CD			2
 # define PWD		3
 # define EXPORT		4
@@ -42,6 +42,7 @@
 //PROCESS
 # define PROCESS_OFF	0
 # define PROCESS_ON		1
+# define PROCESS_HD		2
 
 //EXPORT MODE
 # define NAME_ONLY		0

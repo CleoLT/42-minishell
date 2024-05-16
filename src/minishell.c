@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/08 18:58:30 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/16 18:22:08 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	init_tools_loop(t_tools *tools)
 {
 		tools->path = get_path(*tools);
 		tools->built_type = 0;
-		signal_exit_code = 0;
-}
+	//	signal_exit_code = 0;
+	}
 
 void	free_tools(t_tools *tools)
 {
@@ -57,11 +57,12 @@ int	main(int argc, char **argv, char **envp)
 	{
 		init_tools_loop(&tools);
 		line = readline("\033[0;32mminishell$ \033[0m");
-		if (!line)
+			if (!line)
 		{
 			write(2, "exit\n", 6);
 			break ;
 		}
+		signal_exit_code = 0;
 		add_history(line);
 		if (!count_quotes(line))
 		{
@@ -89,14 +90,14 @@ int	main(int argc, char **argv, char **envp)
 /*		while (*tools.envp != NULL)
 			printf("--> %s\n", *tools.envp++);*/
 		cmd_faker(&tools, line);
-		ft_heredoc(tools.cmd);
+		if (ft_heredoc(tools.cmd, &tools.exit_code))
+			continue ;
 		if (tools.cmd && tools.cmd->arg[0])
 			tools.built_type = ft_is_builtin(tools.cmd->arg[0]);
 		if (!tools.cmd->next && tools.built_type)
 			exec_simple_built(&tools, tools.built_type, tools.cmd);
 		else
 			execute(&tools);
-		delete_env(&tools.envp_list, "_");
 		free_tools_loop(&tools, line);
 		if (signal_exit_code)
 			tools.exit_code = signal_exit_code;

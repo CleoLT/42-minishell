@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 19:37:01 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/11 17:57:11 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:38:28 by cle-tron         ###   ########.fr       */
 /* ************************************************************************** */
 
 #include "minishell.h"
@@ -91,7 +91,7 @@ int	free_tools_loop(t_tools *tools, char *line)
 	free(tools->str);
 	free_cmd(tools->cmd);
 	free_token(&tools->lexer_list);
-	free_envp(&tools->envp_list);
+//	free_envp(&tools->envp_list);
 	free_arr(tools->path);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:16:30 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/10 11:30:07 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:48:39 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,43 +54,44 @@ void	print_cdm_list(t_cmd *cmd)
 
 void cmd_faker(t_tools *tools, char *line)
 {
-	t_cmd *comm;
-	comm = malloc(sizeof(t_cmd));
-	comm->arg = ft_split(line, ' ');
-	tools->cmd = comm;
-	tools->cmd->infile = NULL;
-	tools->cmd->outfile = NULL;
-/*	tools->cmd->infile = malloc(sizeof(char *) * 5);
-	tools->cmd->infile[0] = malloc(sizeof(char *) * 2);
-//	tools->cmd->infile[1] = malloc(sizeof(char *) * 3);
-	tools->cmd->infile[1] = NULL;
-//	tools->cmd->infile[2] = malloc(sizeof(char *) * 2);
-//	tools->cmd->infile[3] = malloc(sizeof(char *) * 3);
-//	tools->cmd->infile[4] = NULL;
-	tools->cmd->infile[0][0] = "infile";
-	tools->cmd->infile[0][1] = NULL;
-//	tools->cmd->infile[1][0] = "LOL";
-//	tools->cmd->infile[1][1] = "heredoc";
-//	tools->cmd->infile[1][2] = NULL;
-//	tools->cmd->infile[2][0] = "txt";
-//	tools->cmd->infile[2][1] = NULL;
-//	tools->cmd->infile[3][0] = "LA";
-//	tools->cmd->infile[3][1] = "hereddoc";
-//	tools->cmd->infile[3][2] = NULL;
-*/	tools->cmd->outfile = malloc(sizeof(char *) * 2);
-	tools->cmd->outfile[0] = malloc(sizeof(char *) * 3);
-	tools->cmd->outfile[0][0] = "outfile";
-	tools->cmd->outfile[0][1] = NULL;
-	tools->cmd->outfile[0][2] = NULL;
-	tools->cmd->outfile[1] = NULL;
-	
-	tools->cmd->fd_in = 0;
-	tools->cmd->fd_out = 0;
-	tools->cmd->prev = NULL; 
+    t_cmd *comm;
+    comm = malloc(sizeof(t_cmd));
+    comm->arg = ft_split(line, ' ');
+    tools->cmd = comm;
+    tools->cmd->infile = NULL;
+    tools->cmd->outfile = NULL;
+    tools->cmd->infile = malloc(sizeof(char *) * 3);
+    tools->cmd->infile[0] = malloc(sizeof(char *) * 2);
+    tools->cmd->infile[1] = malloc(sizeof(char *) * 3);
+    tools->cmd->infile[2] = NULL;
 
-	tools->cmd->next = NULL;
-	tools->t_cmd_size = 1;
 
+//  tools->cmd->infile[2] = malloc(sizeof(char *) * 2);
+//  tools->cmd->infile[3] = malloc(sizeof(char *) * 3);
+//  tools->cmd->infile[4] = NULL;
+    tools->cmd->infile[0][0] = "infile";
+    tools->cmd->infile[0][1] = NULL;
+    tools->cmd->infile[1][0] = "LOL";
+    tools->cmd->infile[1][1] = "heredoc";
+    tools->cmd->infile[1][2] = NULL;
+//  tools->cmd->infile[2][0] = "txt";
+//  tools->cmd->infile[2][1] = NULL;
+//  tools->cmd->infile[3][0] = "LA";
+//  tools->cmd->infile[3][1] = "hereddoc";
+//  tools->cmd->infile[3][2] = NULL;
+/*  tools->cmd->outfile = malloc(sizeof(char *) * 2);
+    tools->cmd->outfile[0] = malloc(sizeof(char *) * 3);
+    tools->cmd->outfile[0][0] = "outfile";
+    tools->cmd->outfile[0][1] = NULL;
+    tools->cmd->outfile[0][2] = NULL;
+    tools->cmd->outfile[1] = NULL;
+    */
+    tools->cmd->fd_in = 0;
+    tools->cmd->fd_out = 0;
+    tools->cmd->prev = NULL;
+
+    tools->cmd->next = NULL;
+    tools->t_cmd_size = 1;
 /*
 	t_cmd *comm1;
 	comm1 = malloc(sizeof(t_cmd));
