@@ -30,10 +30,12 @@ int	quote_addnode(char *sub_str, char quote, t_token **lexer_list, int c)
 void	quotes_str(const char *s, char *sub_str, int i)
 {
 	int	k;
+	char	quote;
 
+	quote = s[i];
 	k = 0;
 	i += 1;
-	while (s[i] && !(s[i] == 34 || s[i] == 39))
+	while (s[i] && !(s[i] == quote))
 	{
 		sub_str[k] = s[i];
 		k++;
@@ -50,12 +52,6 @@ int	quotes_handler(const char *s, int i, t_token **lexer_list, int c)
 
 	j = 0;
 	quote = s[i];
-	if (s[i + j] == quote)
-	{
-		while (s[i + (++j)] && (s[i + j] != quote))
-			continue ;
-		j++;
-	}
 	sub_str = (char *)malloc(sizeof(char) * (ft_strlen(s) - 1));
 	if (!sub_str)
 		return (-1);
@@ -67,6 +63,12 @@ int	quotes_handler(const char *s, int i, t_token **lexer_list, int c)
 			free(sub_str);
 			return (-1);
 		}
+	}
+	if (s[i + j] == quote)
+	{
+		while (s[i + (++j)] && (s[i + j] != quote))
+			continue ;
+		j++;
 	}
 	return (j);
 }
