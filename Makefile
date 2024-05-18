@@ -4,7 +4,7 @@ NAME = minishell
 CC			= gcc
 RMF			= rm -f
 RMD			= rm -rf
-CFLAGS		= -Wall -Wextra -Werror  -g -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
 LIB_FLAG 	= -L./libft/ -L./readline/ -lreadline -lhistory -ltermcap -lft
 DEP_FLAG	= -MMD -MP
 INCLUDE		= -I./libft/inc/ -I./inc/ -I./readline/ 
@@ -23,6 +23,7 @@ LEX_DIR		= lexer/
 EXEC_DIR	= exec/
 EXP_DIR		= expander/
 ERR_DIR		= error/
+PARSER_DIR	= parser/
 UTILS_DIR	= utils/
 BUILT_DIR	= built/
 
@@ -31,9 +32,10 @@ MAIN		= minishell
 ENVP_FILES  = envp
 LEX_FILES	= lexer quotes spaces token_reader
 ERR_FILES	= error
-UTILS_FILES = envp_utils expander_utils expander_utils_2 free_utils lexer_utils signal ft_heredoc faker
+UTILS_FILES = envp_utils expander_utils expander_utils_2 free_utils lexer_utils parser_utils signal ft_heredoc faker
 EXEC_FILES	= execute redirections
 EXP_FILES	= expander
+PARSER_FILES = parser
 BUILT_FILES	= builtins ft_cd ft_unset ft_export print_export ft_exit \
 			  ft_echo_pwd_env 
 
@@ -45,6 +47,7 @@ SRC_FILES+=$(addprefix $(UTILS_DIR),$(UTILS_FILES))
 SRC_FILES+=$(addprefix $(EXEC_DIR),$(EXEC_FILES))
 SRC_FILES+=$(addprefix $(EXP_DIR),$(EXP_FILES))
 SRC_FILES+=$(addprefix $(BUILT_DIR),$(BUILT_FILES))
+SRC_FILES+=$(addprefix $(PARSER_DIR),$(PARSER_FILES))
 
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
