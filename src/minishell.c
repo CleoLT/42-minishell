@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/19 13:12:19 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:34:02 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,12 @@ int	main(int argc, char **argv, char **envp)
 			tools.exit_code = signal_exit_code; //esto posicionado aqui en caso de ctrl + C y ctrl+D
 		if (!line)
 		{
-			write(2, "exit\n", 6);
-			break ;
+	//		write(2, "exit\n", 6);
+	//		break ;
+	 if (isatty(STDIN_FILENO))
+		write(2, "exit\n", 6);
+  		  exit (tools.exit_code);
+		
 		}
 	//	signal_exit_code = 0;
 		add_history(line);
@@ -86,7 +90,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		lexer_token(&tools, line);
-		print_lexer_list(tools.lexer_list);
+//		print_lexer_list(tools.lexer_list);
 	//	if (!envp_reader(&tools))
 	//		ft_error("bad envp_reader", errno);
 /*		while (tools.lexer_list != NULL)
@@ -107,7 +111,7 @@ int	main(int argc, char **argv, char **envp)
 			printf("--> %s\n", *tools.envp++);*/
 		if (ft_parser(&tools))
 		{
-			printf("exit_code %d\n", tools.exit_code);
+		//	printf("exit_code %d\n", tools.exit_code);
 			free_tools_loop(&tools, line);
 			continue ;
 		}		
@@ -116,7 +120,7 @@ int	main(int argc, char **argv, char **envp)
 		
 		if (ft_heredoc(tools.cmd, &tools.exit_code) > 0)
 		{
-			printf("exit_code %d\n", tools.exit_code);
+		//	printf("exit_code %d\n", tools.exit_code);
 			free_tools_loop(&tools, line);
 			continue ;
 		}
@@ -128,9 +132,7 @@ int	main(int argc, char **argv, char **envp)
 			execute(&tools);
 		free_tools_loop(&tools, line);
 	
-	//	if (signal_exit_code)
-	//		tools.exit_code = signal_exit_code;
-		printf("exit_code %d\n", tools.exit_code);
+	//	printf("exit_code %d\n", tools.exit_code);
 		}
 //	clear_history();
 	free_tools(&tools);

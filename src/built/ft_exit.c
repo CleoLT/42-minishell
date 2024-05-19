@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 16:58:10 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/05 15:47:43 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:55:23 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_exit(char **arg, int *exit_code)
 {
 	int	i;
 
-	ft_putendl_fd("exit", 2);
+	ft_putendl_fd("exit", 1);
 	i = handle_syntax_error(arg, exit_code);
 	if (arg[i + 1])
 	{

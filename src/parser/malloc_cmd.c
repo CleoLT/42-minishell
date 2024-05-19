@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:59:31 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/19 14:37:28 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:09:02 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,14 @@ void	malloc_files(char ****files, int count)
 void	create_cmd_malloc(t_cmd **cmd)
 {
 	int	i;
+		i = 0;
+		if ((*cmd)->ar)
+	{
+		(*cmd)->arg = malloc(sizeof(char *) * ((*cmd)->ar + 1));
 
-	(*cmd)->arg = malloc(sizeof(char *) * ((*cmd)->ar + 1));
-	i = 0;
-	while (i <= (*cmd)->ar)
-		(*cmd)->arg[i++] = NULL;
+		while (i <= (*cmd)->ar)
+			(*cmd)->arg[i++] = NULL;
+	}
 	if ((*cmd)->in)
 		malloc_files(&(*cmd)->infile, (*cmd)->in);
 	if ((*cmd)->out)
@@ -72,10 +75,10 @@ void	malloc_and_errors_cmd(t_tools *tools, int *err)
 
 	cmd = tools->cmd;
 	lex = tools->lexer_list;
-	i = -1;
+	i = 0;
 	while (cmd)
 	{
-		while (++i < cmd->lexer_indx && lex)
+		while (i < cmd->lexer_indx && lex)
 		{
 			if (lex->type >= STRING)
 				cmd->ar++;
@@ -85,10 +88,11 @@ void	malloc_and_errors_cmd(t_tools *tools, int *err)
 											(lex->type == PIPE && !lex->next))
 				*err = err_syntax(PIPE);
 			if (*err)
-				return ;	
+				return ;
 			lex = lex->next;
+			i++;
 		}
-		printf("i: %d, arg: %d, infile: %d, outfile: %d\n", i, cmd->ar, cmd->in,cmd->out);
+	//	printf("i: %d, arg: %d, infile: %d, outfile: %d\n", i, cmd->ar, cmd->in,cmd->out);
 		create_cmd_malloc(&cmd);
 		cmd = cmd->next;
 	}

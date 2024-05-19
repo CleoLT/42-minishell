@@ -6,17 +6,16 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:50:15 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/19 14:41:05 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:22:05 by cle-tron         ###   ########.fr       */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
+
 void	print_cdm_list(t_cmd *cmd)
 {
 	int i;
 	while (cmd)
 	{
-		printf("node %d\n", cmd->lexer_indx);
 		if (cmd->infile)
 		{
 			i = 0;
@@ -46,62 +45,53 @@ void	print_cdm_list(t_cmd *cmd)
 		{
 		while (cmd->arg[i])
 			printf("%s ", cmd->arg[i++]);
+		}
 		if (cmd->next)
 			printf("| ");
 		else
 			printf("\n");
-		}
 		cmd = cmd->next;
 	}
-}*/
-
-
+}
+void	fill_files(int *i, char **files, t_token **lex, int *count)
+{
+	if ((*lex)->next && (*lex)->next->type >= STRING)
+	{
+			
+		files[0] = (*lex)->next->str;
+		if ((*lex)->type == INPUT || (*lex)->type == OUTPUT)
+			files[1] = NULL;
+		else
+			files[1] = "hd";
+		files[2] = NULL;
+		*i += 1;
+		*lex = (*lex)->next;
+		*count += 1;
+	}
+}
 
 void	fill_cmd(t_tools *tools)
 {
 	t_cmd	*cmd;
 	t_token	*lex;
 	int		i;
-	int		arg;
-	int		infile;
-	int		outfile;
 
 	cmd = tools->cmd;
 	lex = tools->lexer_list;
 	i = 0;
 	while (cmd)
 	{
-		arg = 0;
-		infile = 0;
-		outfile = 0;
+		cmd->ar = 0;
+		cmd->in = 0;
+		cmd->out = 0;
 		while (i < cmd->lexer_indx && lex)
 		{
-			if (lex->type >= STRING)
-				cmd->arg[arg++] = lex->str;
+			if (lex->type >= STRING && cmd->arg)
+				cmd->arg[cmd->ar++] = lex->str;
 			else if (lex->type == INPUT || lex->type == HEREDOC)
-			{
-				if (lex->next && lex->next->type >= STRING)
-				{
-					cmd->infile[infile][0] = lex->next->str;
-					if (lex->type == INPUT)
-						cmd->infile[infile][1] = NULL;
-					else
-						cmd->infile[infile][1] = "hd";
-					cmd->infile[infile++][2] = NULL;
-					i++;
-					lex = lex->next;
-				}
-			}
+				fill_files(&i, cmd->infile[cmd->in], &lex, &cmd->in);
 			else if (lex->type == OUTPUT || lex->type == APPEND)
-			{
-				if (lex->next && lex->next->type >= STRING)
-				{
-					outfile++;
-					i++;
-					lex = lex->next;
-				}
-			}
-
+				fill_files(&i, cmd->outfile[cmd->out], &lex, &cmd->out);
 			i++;
 			lex = lex->next;
 		}
@@ -125,10 +115,10 @@ int	ft_parser(t_tools *tools)
 		return (error);
 	}
 	fill_cmd(tools);
-	
-//	print_cdm_list(tools->cmd);
-
+//	print_cdm_list(tools->cmd); //BORRAR FUNCTION
 	if (error)
 		tools->exit_code = 258;
+	if (tools->cmd->arg == NULL)
+		tools->cmd->arg = ft_split("  ", ' ');
 	return (error);
 }

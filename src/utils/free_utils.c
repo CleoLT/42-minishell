@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 19:37:01 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/19 12:43:19 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:09:02 by cle-tron         ###   ########.fr       */
 /* ************************************************************************** */
 
 #include "minishell.h"
@@ -58,7 +58,7 @@ void static	free_cmd(t_cmd *cmd)
 		cmd = cmd->next;
 		free(tmp->arg);
 		free_array_pt(tmp->infile);
-	//	free_array_pt(tmp->outfile);
+		free_array_pt(tmp->outfile);
 	
 /*		if (tmp->infile)
 		{
