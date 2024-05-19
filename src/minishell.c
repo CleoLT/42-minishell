@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/16 19:37:55 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:17:14 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,11 @@ int	tools_init(t_tools *tools, char **envp)
 void	init_tools_loop(t_tools *tools)
 {
 	tools->path = get_path(*tools);
+	tools->cmd = NULL;
 	tools->built_type = 0;
 	signal_exit_code = 0;
-//	ft_signals(PROCESS_OFF);
+
+	//ft_signals(PROCESS_OFF);
 }
 
 void	free_tools(t_tools *tools)
@@ -44,6 +46,17 @@ void	free_tools(t_tools *tools)
 	free_arr(tools->path);
 }
 
+void	print_lexer_list(t_token *lexer_list)
+{
+	while (lexer_list)
+	{
+		printf("type: %d\n str: %s\n indx: %d\n ----\n", lexer_list->type, lexer_list->str, lexer_list->indx);
+
+//			printf("\npointer: %p\n", tools.lexer_list);	//lexer_list da leaks de memoria
+			lexer_list = lexer_list->next;
+	
+	}
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -73,6 +86,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		lexer_token(&tools, line);
+		print_lexer_list(tools.lexer_list);
 	//	if (!envp_reader(&tools))
 	//		ft_error("bad envp_reader", errno);
 /*		while (tools.lexer_list != NULL)
@@ -91,7 +105,13 @@ int	main(int argc, char **argv, char **envp)
 		tools.envp_list = original_envp;*/
 /*		while (*tools.envp != NULL)
 			printf("--> %s\n", *tools.envp++);*/
-		cmd_faker(&tools, line);
+		if (ft_parser(&tools))
+		{
+			free_tools_loop(&tools, line);
+			continue ;
+		}		
+	//	cmd_faker(&tools, line);
+
 		
 		if (ft_heredoc(tools.cmd, &tools.exit_code) > 0)
 			continue ;
@@ -102,6 +122,7 @@ int	main(int argc, char **argv, char **envp)
 		else
 			execute(&tools);
 		free_tools_loop(&tools, line);
+	
 	//	if (signal_exit_code)
 	//		tools.exit_code = signal_exit_code;
 		printf("exit_code %d\n", tools.exit_code);

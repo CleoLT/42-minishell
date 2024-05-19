@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:59:09 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/05/16 16:39:09 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/17 14:22:16 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MACROS_H
@@ -39,7 +39,7 @@
 # define ENV		6
 # define EXIT		7
 
-//PROCESS
+//SIGNAL PROCESS 
 # define PROCESS_OFF	0
 # define PROCESS_ON		1
 # define PROCESS_HD		2

@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/05/16 17:46:48 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:43:53 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # include "exec.h"
 # include "expander.h"
 # include "builtins.h"
+# include "parser.h"
 
 int		signal_exit_code;
 
@@ -62,7 +63,7 @@ int		ft_strerror(int exit_code); // esta creo que no sirve en nnguna parte
 //void    print_error_unset(char *cmd, char *arg); // esta en builts cambiar
 int		err_built(char *cmd, char *arg, char *error, int exit_code);
 int		perr_built(char *cmd, char *arg, int exit_code);
-
+int		err_syntax(int type);
 
 /* signal.c */
 void	ft_signals(int process);

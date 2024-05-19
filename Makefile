@@ -4,7 +4,7 @@ NAME = minishell
 CC			= gcc
 RMF			= rm -f
 RMD			= rm -rf
-CFLAGS		= -Wall -Wextra -Werror  -g -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
 LIB_FLAG 	= -L./libft/ -L./readline/ -lreadline -lhistory -ltermcap -lft
 DEP_FLAG	= -MMD -MP
 INCLUDE		= -I./libft/inc/ -I./inc/ -I./readline/ 
@@ -25,6 +25,7 @@ EXP_DIR		= expander/
 ERR_DIR		= error/
 UTILS_DIR	= utils/
 BUILT_DIR	= built/
+PARS_DIR	= parser/
 
 # ═══ SOURCES ═════════════════════════════════════════════════════════════════#
 MAIN		= minishell
@@ -35,7 +36,8 @@ UTILS_FILES = envp_utils expander_utils expander_utils_2 free_utils lexer_utils 
 EXEC_FILES	= execute redirections
 EXP_FILES	= expander
 BUILT_FILES	= builtins ft_cd ft_unset ft_export print_export ft_exit \
-			  ft_echo_pwd_env 
+			  ft_echo_pwd_env
+PARS_FILES = parser
 
 SRC_FILES+=$(MAIN)
 SRC_FILES+=$(addprefix $(ENVP_DIR),$(ENVP_FILES))
@@ -45,6 +47,7 @@ SRC_FILES+=$(addprefix $(UTILS_DIR),$(UTILS_FILES))
 SRC_FILES+=$(addprefix $(EXEC_DIR),$(EXEC_FILES))
 SRC_FILES+=$(addprefix $(EXP_DIR),$(EXP_FILES))
 SRC_FILES+=$(addprefix $(BUILT_DIR),$(BUILT_FILES))
+SRC_FILES+=$(addprefix $(PARS_DIR),$(PARS_FILES))
 
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))

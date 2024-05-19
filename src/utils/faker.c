@@ -6,12 +6,12 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:16:30 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/16 19:41:13 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:20:14 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 void	print_cdm_list(t_cmd *cmd)
 {
 	int i;
@@ -51,13 +51,14 @@ void	print_cdm_list(t_cmd *cmd)
 		cmd = cmd->next;
 	}
 }
-
+*/
 void cmd_faker(t_tools *tools, char *line)
 {
     t_cmd *comm;
     comm = malloc(sizeof(t_cmd));
     comm->arg = ft_split(line, ' ');
-    tools->cmd = comm;
+	printf("arg[0]: %s, arg[1]: %s\n", comm->arg[0], comm->arg[0]);
+	tools->cmd = comm;
     tools->cmd->infile = NULL;
     tools->cmd->outfile = NULL;
 /*	tools->cmd->infile = malloc(sizeof(char *) * 3);
@@ -86,8 +87,8 @@ void cmd_faker(t_tools *tools, char *line)
     tools->cmd->outfile[0][2] = NULL;
     tools->cmd->outfile[1] = NULL;
     */
-    tools->cmd->fd_in = 0;
-    tools->cmd->fd_out = 0;
+  //  tools->cmd->fd_in = 0;
+//    tools->cmd->fd_out = 0;
     tools->cmd->prev = NULL;
 
     tools->cmd->next = NULL;

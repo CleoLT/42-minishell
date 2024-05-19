@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 15:22:27 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/16 19:38:35 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/17 14:18:54 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	ft_heredoc(t_cmd *cmd, int *exit_code)
 		}
 	cmd = cmd->next;
 	}
-	printf("%d\n", *exit_code);
+//	printf("%d\n", *exit_code);
 	if (count_hd > 0)
 		return (*exit_code);
 	return (-1);
