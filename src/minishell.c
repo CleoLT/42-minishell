@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/18 15:17:14 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/19 13:12:19 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int	main(int argc, char **argv, char **envp)
 			printf("--> %s\n", *tools.envp++);*/
 		if (ft_parser(&tools))
 		{
+			printf("exit_code %d\n", tools.exit_code);
 			free_tools_loop(&tools, line);
 			continue ;
 		}		
@@ -114,7 +115,11 @@ int	main(int argc, char **argv, char **envp)
 
 		
 		if (ft_heredoc(tools.cmd, &tools.exit_code) > 0)
+		{
+			printf("exit_code %d\n", tools.exit_code);
+			free_tools_loop(&tools, line);
 			continue ;
+		}
 		if (tools.cmd && tools.cmd->arg[0])
 			tools.built_type = ft_is_builtin(tools.cmd->arg[0]);
 		if (!tools.cmd->next && tools.built_type)
