@@ -6,12 +6,24 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:53:04 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/18 17:25:35 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:50:19 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+/*
+void	init_index(t_token *lex)
+{
+	int i;
 
+	i = 0;
+	while (lex)
+	{
+		lex->indx = i++;
+		lex = lex->next;
+	}
+}
+*/
 void	ft_lexerdeltype(t_tools *tools, int del)
 {
 	t_token	*current;
@@ -36,4 +48,5 @@ void	ft_lexerdeltype(t_tools *tools, int del)
 		else
 			current = current->next;
 	}
+//	init_index(tools->lexer_list);
 }

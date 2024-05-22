@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:59:31 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/19 17:09:02 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/22 20:01:32 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,27 @@ void	create_cmd_malloc(t_cmd **cmd)
 
 void	calculate_files(int *i, t_cmd *cmd, int *err, t_token **lex)
 {
+	if ((*lex)->type == INPUT || (*lex)->type == HEREDOC)
+		cmd->in++;
+	else if ((*lex)->type == OUTPUT || (*lex)->type == APPEND)
+		cmd->out++;
 	if ((*lex)->next && (*lex)->next->type >= STRING)
 	{
-		if ((*lex)->type == INPUT || (*lex)->type == HEREDOC)
-			cmd->in++;
-		else if ((*lex)->type == OUTPUT || (*lex)->type == APPEND)
-			cmd->out++;
-		*i += 1;
+	//	if ((*lex)->type == INPUT || (*lex)->type == HEREDOC)
+	//		cmd->in++;
+	//	else if ((*lex)->type == OUTPUT || (*lex)->type == APPEND)
+	//		cmd->out++;
+			*i += 1;
 		*lex = (*lex)->next;
+	}
+	else if ((*lex)->next && (*lex)->next->next && (*lex)->next->type == SPACE2 && (*lex)->next->next->type >= STRING)
+	{			
+	//		if ((*lex)->type == INPUT || (*lex)->type == HEREDOC)
+//			cmd->in++;
+//		else if ((*lex)->type == OUTPUT || (*lex)->type == APPEND)
+//			cmd->out++;
+		*i += 2;
+		*lex = (*lex)->next->next;
 	}
 	else
 	{	
@@ -64,7 +77,21 @@ void	calculate_files(int *i, t_cmd *cmd, int *err, t_token **lex)
 			*err = err_syntax(-1);
 		else
 			*err = err_syntax((*lex)->next->type);
+		return ;
 	}
+
+//	*i += 1;
+}
+
+int	error_pipe(t_token *lex)
+{
+	if (lex->type == PIPE && lex->prev->type == PIPE)
+		return (1);
+	else if (lex->type == PIPE && !lex->next)
+		return (1);
+	else if (lex->type == PIPE && lex->prev->type == SPACE2 && lex->prev->prev->type == PIPE)
+		return (1);
+	return (0);
 }
 
 void	malloc_and_errors_cmd(t_tools *tools, int *err)
@@ -84,8 +111,7 @@ void	malloc_and_errors_cmd(t_tools *tools, int *err)
 				cmd->ar++;
 			else if (lex->type >= INPUT && lex->type <= APPEND)
 				calculate_files(&i, cmd, err, &lex);
-			else if ((lex->type == PIPE && lex->prev->type == PIPE) || \
-											(lex->type == PIPE && !lex->next))
+			else if (error_pipe(lex))
 				*err = err_syntax(PIPE);
 			if (*err)
 				return ;

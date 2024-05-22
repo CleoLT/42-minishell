@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/19 17:34:02 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/22 20:02:00 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		lexer_token(&tools, line);
-//		print_lexer_list(tools.lexer_list);
+	//	ft_lexerdeltype(&tools, 0);
+	//	print_lexer_list(tools.lexer_list);
 	//	if (!envp_reader(&tools))
 	//		ft_error("bad envp_reader", errno);
 /*		while (tools.lexer_list != NULL)
@@ -111,13 +112,10 @@ int	main(int argc, char **argv, char **envp)
 			printf("--> %s\n", *tools.envp++);*/
 		if (ft_parser(&tools))
 		{
-		//	printf("exit_code %d\n", tools.exit_code);
+	//		printf("exit_code %d\n", tools.exit_code);
 			free_tools_loop(&tools, line);
 			continue ;
 		}		
-	//	cmd_faker(&tools, line);
-
-		
 		if (ft_heredoc(tools.cmd, &tools.exit_code) > 0)
 		{
 		//	printf("exit_code %d\n", tools.exit_code);

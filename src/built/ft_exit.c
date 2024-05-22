@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 16:58:10 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/19 17:55:23 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/22 18:53:05 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,15 @@ int	handle_syntax_error(char **arg, int *exit_code)
 		i++;
 	if (!arg[i])
 		exit(*exit_code);
-	if (arg[i][0] == '+' || arg[i][0] == '-') 
+	while (ft_isspace(arg[i][j]))
 		j++;
-	if (!arg[i][1])
+	if (!arg[i][j])
+		exit(err_built(arg[0], arg[i],": numeric argument required",  255));
+	arg[i] = ft_strtrim(arg[i], " ");
+	j = 0;
+	if (arg[i][j] == '+' || arg[i][j] == '-') 
+		j++;
+	if (!arg[i][j])
 		exit(err_built(arg[0], arg[i],": numeric argument required",  255));
 	while (arg[i][j])
 		if (!ft_isdigit(arg[i][j++]) || ++len >= 20)
@@ -77,11 +83,12 @@ void	ft_exit(char **arg, int *exit_code)
 {
 	int	i;
 
-	ft_putendl_fd("exit", 1);
+	//ft_putendl_fd("exit", 1);
 	i = handle_syntax_error(arg, exit_code);
 	if (arg[i + 1])
 	{
 		*exit_code = err_built(arg[0], "", "too many arguments", 1);
+		free(arg[i]);
 		return ;
 	}
 	check_limits(arg[i]);

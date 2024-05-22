@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:01:41 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/08 17:05:43 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:15:02 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	ft_cd(char **arg, t_tools *tools)
 		return (tools->exit_code);	
 	else if (!path) 
 		path = ft_strdup(arg[1]);
-	if (chdir(path))
+	if (chdir(path) && path[0] != '\0')
 		tools->exit_code = perr_built("cd: ", path, 1);
 	free(path);
 	oldpwd = find_env_value("PWD", tools->envp_list);

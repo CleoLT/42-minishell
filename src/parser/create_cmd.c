@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:54:43 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/19 14:14:32 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/22 20:01:32 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ void	create_cmd_list(t_tools *tools, int *error)
 		if (lexer_tmp->next)
 		{
 			if (lexer_tmp->type == PIPE && lexer_tmp->next->type != PIPE  )
-			create_node_cmd(&tools->cmd, lexer_tmp->indx);
+			{
+				if (lexer_tmp->next->next->type != PIPE)
+					create_node_cmd(&tools->cmd, lexer_tmp->indx);
+			}
 		}
 		i = lexer_tmp->indx;
 		lexer_tmp = lexer_tmp->next;

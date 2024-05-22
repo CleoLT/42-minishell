@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:50:15 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/19 17:22:05 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/22 20:01:32 by cle-tron         ###   ########.fr       */
 /* ************************************************************************** */
 
 #include "minishell.h"
@@ -44,7 +44,7 @@ void	print_cdm_list(t_cmd *cmd)
 		if (cmd->arg)
 		{
 		while (cmd->arg[i])
-			printf("%s ", cmd->arg[i++]);
+			printf("-%s- ", cmd->arg[i++]);
 		}
 		if (cmd->next)
 			printf("| ");
@@ -55,7 +55,30 @@ void	print_cdm_list(t_cmd *cmd)
 }
 void	fill_files(int *i, char **files, t_token **lex, int *count)
 {
-	if ((*lex)->next && (*lex)->next->type >= STRING)
+	t_token *file;
+
+	file = NULL;
+	if (!(*lex)->next)
+		return ;
+	else if ((*lex)->next->type >= STRING)
+		file = (*lex)->next;
+	else if ((*lex)->next->type == SPACE2 && (*lex)->next->next->type >= STRING)
+	{	file = (*lex)->next->next;
+		*i += 1;
+	}
+	else if (file == NULL)
+		return ;
+	files[0] = file->str;
+	if ((*lex)->type == INPUT || (*lex)->type == OUTPUT)
+		files[1] = NULL;
+	else
+		files[1] = "hd";
+	files[2] = NULL;
+	*i += 1;
+	*lex = file;
+	*count += 1;
+	
+	/*	if ((*lex)->next && (*lex)->next->type >= STRING)
 	{
 			
 		files[0] = (*lex)->next->str;
@@ -67,7 +90,7 @@ void	fill_files(int *i, char **files, t_token **lex, int *count)
 		*i += 1;
 		*lex = (*lex)->next;
 		*count += 1;
-	}
+	}*/
 }
 
 void	fill_cmd(t_tools *tools)
@@ -98,6 +121,7 @@ void	fill_cmd(t_tools *tools)
 		cmd = cmd->next;
 	}
 }
+
 
 
 int	ft_parser(t_tools *tools)
