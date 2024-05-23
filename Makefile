@@ -36,7 +36,7 @@ UTILS_FILES = envp_utils expander_utils expander_utils_2 free_utils lexer_utils 
 EXEC_FILES	= execute redirections
 EXP_FILES	= expander
 BUILT_FILES	= builtins ft_cd ft_unset ft_export print_export ft_exit \
-			  ft_echo_pwd_env
+			  ft_echo_pwd_env redirect_built
 PARS_FILES = parser create_cmd malloc_cmd
 
 SRC_FILES+=$(MAIN)

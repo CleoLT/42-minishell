@@ -6,11 +6,43 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/22 20:02:00 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/23 19:05:12 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	export_shlvl(t_envp **envp)
+{
+	t_envp *env;
+	int		num;
+
+	env = *envp;
+	while (env)
+	{
+		if (!ft_strncmp(env->name, "SHLVL", 6) && env->value)
+		{
+			num = ft_atoi(env->value);
+			if (num < 0)
+				num = -1;
+			if (num > 999)
+				num = 0;
+			if (num == 999)
+			{
+				exec_export(ft_strdup("SHLVL"), "", REPLACE_MODE, envp);
+				return ;
+			}
+			num++;
+		//	printf("%d\n", num);
+			exec_export(ft_strdup("SHLVL"), ft_itoa(num), REPLACE_MODE, envp);
+			return ;
+		}
+		env = env->next;
+	}
+//	exec_export(ft_strdup("SHLVL"), "1", REPLACE_MODE, envp);
+}
+
+
 
 int	tools_init(t_tools *tools, char **envp)
 {
@@ -23,6 +55,7 @@ int	tools_init(t_tools *tools, char **envp)
 		ft_error("bad envp_reader", errno);
 	delete_env(&tools->envp_list, "OLDPWD");
 	envp_addnode("OLDPWD", NULL, &tools->envp_list);
+	export_shlvl(&tools->envp_list);
 //	exec_export(ft_strdup("OLDPWD"), NULL, NAME_ONLY, &tools->envp_list);
 	ft_signals(PROCESS_OFF);
 	rl_catch_signals = 0;
@@ -35,8 +68,8 @@ void	init_tools_loop(t_tools *tools)
 	tools->cmd = NULL;
 	tools->built_type = 0;
 	signal_exit_code = 0;
-
-	//ft_signals(PROCESS_OFF);
+	tools->stdin_fd = dup(STDIN_FILENO);
+	tools->stdout_fd = dup(STDOUT_FILENO);
 }
 
 void	free_tools(t_tools *tools)

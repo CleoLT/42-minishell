@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/10 11:42:10 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:25:34 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 	char	*path;
 	int		built_type;
 	
-	if (cmd->arg[0] == NULL)
+	if (cmd->arg == NULL || cmd->arg[0] == NULL )
 		exit(tools->exit_code);
 	built_type = ft_is_builtin(cmd->arg[0]);
 	if (built_type)
 	{
 		exit(exec_built(tools, built_type, cmd));
-		exit(tools->exit_code);
+	//	exit(tools->exit_code);
 	}
 	if (cmd->arg[0][0] == '\0')
 		print_error(cmd->arg[0], ": command not found", 127);
@@ -115,33 +115,29 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 }
 
 
-void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd, int fd_in)
+void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd)
 {
 	int fd_out;
+	int fd_in;
 	
 	if (cmd->infile)
+	{
 		fd_in = redirect_infile(cmd->infile);
-	if (cmd->prev || cmd->infile)
-	{	
-		dup2(fd_in, STDIN_FILENO);	
+		dup2(fd_in, STDIN_FILENO);
 		close(fd_in);
 	}
-	fd_out = pipe_fd[WRITE_END];
 	if (cmd->outfile)
 	{
-			fd_out = redirect_outfile(cmd->outfile);
-//			close(pipe_fd[WRITE_END]);
-	}
-	if (cmd->next || cmd->outfile)
-	{
-		close(pipe_fd[READ_END]);
-		if (dup2(fd_out, STDOUT_FILENO) == -1)
-			ft_error("dup2 function", errno);
+		fd_out = redirect_outfile(cmd->outfile);
+		dup2(fd_out, STDOUT_FILENO);
 		close(fd_out);
 	}
-//	if (cmd->next || cmd->prev)
-//		close(pipe_fd[WRITE_END]);
-//	signal(SIGQUIT, handle_sigquit); 
+	else if (cmd->next)
+	{
+		dup2(pipe_fd[WRITE_END], STDOUT_FILENO);
+		close(pipe_fd[WRITE_END]);
+	}
+	close(pipe_fd[READ_END]);
 	exec_cmd(tools, cmd);
 }
 
@@ -149,31 +145,31 @@ void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd, int fd_in)
 void	execute(t_tools *tools)
 {
 	int	pipe_fd[2];
-	int	fd_in = 0;
 	t_cmd	*cmd;
 	int i = 0;
 
+//	int stdin_fd = dup(STDIN_FILENO);
+//	int	stdout_fd = dup(STDOUT_FILENO);
 	cmd = tools->cmd;
 	pid_t	pid[tools->t_cmd_size];
 	ft_signals(PROCESS_ON);
-
 	while (cmd)
 	{
 		if (cmd->next)
 			pipe(pipe_fd);
 		pid[i] = fork();
 		if (pid[i] == 0)
-			child_process(cmd, tools, pipe_fd, fd_in);
-		if (cmd->prev)  // cierra stdin en caso de  --   cat | ls
-			close(fd_in);
-		if (cmd->next)
-		{
-			fd_in = pipe_fd[READ_END];
-			close(pipe_fd[WRITE_END]);
-		}
+			child_process(cmd, tools, pipe_fd);
+		dup2(pipe_fd[READ_END], STDIN_FILENO);
+		close(pipe_fd[READ_END]);
+		close(pipe_fd[WRITE_END]);
 		cmd = cmd->next;
 		i++;
 	}
+	dup2(tools->stdin_fd, STDIN_FILENO);
+	dup2(tools->stdout_fd, STDOUT_FILENO);
+	close(tools->stdin_fd);
+	close(tools->stdout_fd);
 	wait_all(pid, tools);
 	ft_signals(PROCESS_OFF);
 }

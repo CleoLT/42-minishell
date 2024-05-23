@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:06:43 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/05/19 14:11:45 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:40:16 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ typedef struct s_tools
 	t_token	*lexer_list;
 	t_envp	*envp_list;
 	t_cmd	*cmd;
-//	int		pipe_fd[2];
-//	pid_t	*pid;
 	int		t_cmd_size;
 	int		built_type;
 	int		exit_code;
+	int		stdin_fd;
+	int		stdout_fd;
 }	t_tools;
 
 #endif

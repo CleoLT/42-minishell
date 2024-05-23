@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:10:23 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/08 17:37:35 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:27:06 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ int	exec_built(t_tools *tools, int type, t_cmd *cmd)
 	return (tools->exit_code);
 }
 
-void exec_simple_built(t_tools *tools, int built_type, t_cmd *cmd)
+void	exec_simple_built(t_tools *tools, int built_type, t_cmd *cmd)
 {
-	int	stdin_fd;
-	int	stdout_fd;
-	int	fd_in;
+//	int	stdin_fd;
+//	int	stdout_fd;
+/*	int	fd_in;
 	int	fd_out;
 
 	if (cmd->infile)
@@ -90,12 +90,25 @@ void exec_simple_built(t_tools *tools, int built_type, t_cmd *cmd)
 		fd_out = redirect_outfile(cmd->outfile);
 		dup2(fd_out, STDOUT_FILENO);
 		close(fd_out);
-	}		
+	}*/
+//	stdin_fd = dup(STDIN_FILENO);
+//	stdout_fd = dup(STDOUT_FILENO);
+	if (redirect_built(cmd->infile, cmd->outfile) == 1)
+	{
+		tools->exit_code = 1;
+		return ;
+	}
 	exec_built(tools, built_type, cmd);
 	if (cmd->infile)
-		dup2(stdin_fd, STDIN_FILENO);
+	{
+		dup2(tools->stdin_fd, STDIN_FILENO);
+		close(tools->stdin_fd);
+	}
 	if (cmd->outfile)
-		dup2(stdout_fd, STDOUT_FILENO);
+	{
+		dup2(tools->stdout_fd, STDOUT_FILENO);
+		close(tools->stdout_fd);
+	}
 }
 
 

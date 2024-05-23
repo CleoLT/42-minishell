@@ -6,16 +6,18 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:50:15 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/22 20:01:32 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:24:01 by cle-tron         ###   ########.fr       */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 void	print_cdm_list(t_cmd *cmd)
 {
+	
 	int i;
 	while (cmd)
 	{
+		printf("node: ");
 		if (cmd->infile)
 		{
 			i = 0;
@@ -63,7 +65,8 @@ void	fill_files(int *i, char **files, t_token **lex, int *count)
 	else if ((*lex)->next->type >= STRING)
 		file = (*lex)->next;
 	else if ((*lex)->next->type == SPACE2 && (*lex)->next->next->type >= STRING)
-	{	file = (*lex)->next->next;
+	{
+		file = (*lex)->next->next;
 		*i += 1;
 	}
 	else if (file == NULL)
@@ -121,8 +124,6 @@ void	fill_cmd(t_tools *tools)
 		cmd = cmd->next;
 	}
 }
-
-
 
 int	ft_parser(t_tools *tools)
 {

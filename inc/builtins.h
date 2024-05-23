@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:20:41 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/08 17:05:45 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:03:15 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 int		ft_is_builtin(char *arg);
 int		exec_built(t_tools *tools, int type, t_cmd *cmd);
 void	exec_simple_built(t_tools *tools, int built_type, t_cmd *cmd);
+int		redirect_built(char ***infile, char ***outfile);
 
 //ENV ECHO PWD
 int		ft_env(t_envp *env);

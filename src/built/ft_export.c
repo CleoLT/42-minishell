@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:23:48 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/22 17:32:42 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/23 11:55:33 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ int	ft_export(t_envp **envp, char **arg)
 		if (arg[i][0] != '_' && !(ft_isalpha(arg[i][0])))
 		{
 			exit_code = print_error_unset(arg[0], arg[i]);
-			printf("%s\n", arg[i]);
 			continue ;
 		}
 		search_values(arg[i], &name, &value, &mode);
