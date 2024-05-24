@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:55:27 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/01 16:33:03 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/19 15:57:37 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	quotes_str(const char *s, char *sub_str, int i)
 	quote = s[i];
 	k = 0;
 	i += 1;
-	while (s[i] && !(s[i] == quote))
+	while (s[i] && (s[i] != quote))
 	{
 		sub_str[k] = s[i];
 		k++;

@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 12:13:50 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/11 16:37:05 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:53:18 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,20 @@ char	*expand_envpval(t_tools *tools, char *word)
 {
 	t_envp	*original_envp_list;
 	char	*temp;
-	int		flag;
 
 	original_envp_list = tools->envp_list;
-	flag = -1;
 	temp = NULL;
 	while (tools->envp_list != NULL)
 	{
-		if (ft_strncmp(word, tools->envp_list->name, ft_strlen(word)) == 0)
+		if ((ft_strncmp(word, tools->envp_list->name, ft_strlen(word)) == 0)
+			&& tools->envp_list->value)
 		{
-			flag = 1;
+			temp = (char *)malloc(sizeof(char)
+				* (ft_strlen(tools->envp_list->value) + 1));
+        	ft_strcpy(temp, tools->envp_list->value);
 			break ;
 		}
 		tools->envp_list = tools->envp_list->next;
-	}
-	if (flag == 1)
-	{
-		temp = (char *)malloc(sizeof(char)
-				* (ft_strlen(tools->envp_list->value) + 1));
-		ft_strcpy(temp, tools->envp_list->value);
 	}
 	free(word);
 	tools->envp_list = original_envp_list;
@@ -81,7 +76,7 @@ char	*expand_indx(t_tools *tools, char *s, int i)
 		start_index = (int)(dollar_pos - s);
 		e_pos = dollar_pos + 1;
 		while ((ft_isspace(*e_pos) != 1)
-			&& (*e_pos != '\0') && (*e_pos != '$'))
+			&& (*e_pos != '\0') && (*e_pos != '$') && (*e_pos != '\''))
 			e_pos++;
 		end_index = (int)(e_pos - s);
 	}
