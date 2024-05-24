@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:34:29 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/11 16:17:08 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:53:10 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "minishell.h"
 
 /* expander.c */
+void	ft_chartochar(char *temp, char *temp_word, int *i);
 int		expander_newlen(t_tools *tools, const char *s);
 int		expander_reader(t_tools *tools);
 
@@ -32,4 +33,8 @@ char	*expand_strword(t_tools *tools, char *s, int start, int end);
 char	*expand_indx(t_tools *tools, char *s, int i);
 int		expander_envp_len(t_tools *tools, const char *word);
 
+/* expander_utils_3.c */
+int		expander_question_len(t_tools *tools);
+char	*expand_question(t_tools *tools);
+void	expander_addword(char *temp, char *temp_word, int *i);
 #endif
