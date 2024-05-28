@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:33:47 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/01 15:09:02 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/27 12:27:05 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ int		get_str(char *s, int i, t_token **lexer_list, int c);
 int		token_reader(t_tools *tools);
 
 /* lexer_utils.c */
+char	*ft_strcat(char *dest, const char *src);
+int		ft_doglue(t_token *current);
+void	ft_gluenodes(t_tools *tools);
 void	token_addback(t_token **lexer_list, t_token *node);
 
 /* quotes.c */

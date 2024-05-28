@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 12:13:50 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/24 15:53:18 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:44:39 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*expand_envpval(t_tools *tools, char *word)
 
 	original_envp_list = tools->envp_list;
 	temp = NULL;
+	printf("---> expand_envpval s: %s\n", word);
 	while (tools->envp_list != NULL)
 	{
 		if ((ft_strncmp(word, tools->envp_list->name, ft_strlen(word)) == 0)

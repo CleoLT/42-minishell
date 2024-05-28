@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 16:50:26 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/24 15:53:16 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:45:25 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	expander_reader(t_tools *tools)
 			|| (tools->lexer_list->type == STRINGD))
 			&& (count_dollar(tools->lexer_list->str) > 0))
 		{
-			printf("--->expander_reader before: %s\n", tools->lexer_list->str);
+//			printf("--->expander_reader before: %s\n", tools->lexer_list->str);
 			temp = (char *)malloc(sizeof(char) * (expander_newlen(tools,
 							tools->lexer_list->str) + 1));
 			if (!temp)
@@ -116,7 +116,7 @@ int	expander_reader(t_tools *tools)
 			expand_str(tools, temp, tools->lexer_list->str);
 			free(tools->lexer_list->str);
 			tools->lexer_list->str = temp;
-			printf("--->expander_reader after: %s\n", tools->lexer_list->str);
+//			printf("--->expander_reader after: %s\n", tools->lexer_list->str);
 		}
 		tools->lexer_list = tools->lexer_list->next;
 	}
