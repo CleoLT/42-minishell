@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:34:29 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/24 15:53:10 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/28 15:04:02 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,10 @@ int		expander_envp_len(t_tools *tools, const char *word);
 /* expander_utils_3.c */
 int		expander_question_len(t_tools *tools);
 char	*expand_question(t_tools *tools);
+char	*expand_special(t_tools *tools, char c, int *indx);
 void	expander_addword(char *temp, char *temp_word, int *i);
+int		is_special(char c);
+
+/* expander_utils_4.c */
+int		special_len(t_tools *tools, char c);
 #endif

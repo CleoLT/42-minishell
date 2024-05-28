@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 16:50:26 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/24 16:45:25 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:55:14 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,8 @@ void static	expand_str(t_tools *tools, char *temp, const char *s)
 	{
 		if (s[j] == '$')
 		{
-			if (s[j + 1] == '?')
-			{
-				temp_word = expand_question(tools);
-				j += 2;
-			}
+			if (is_special(s[j + 1]) < 0)
+				temp_word = expand_special(tools, s[j + 1], &j);
 			else
 			{
 				temp_word = expand_indx(tools, (char *)s, j);
@@ -65,8 +62,8 @@ void static add_len(t_tools *tools, const char *s, const char **d_pos, int *len)
 	end_index = -1;
 	start_index = (int)(*d_pos - s);
 	e_pos = *d_pos + 1;
-	if (*e_pos == '?')
-		*len = *len - 2 + expander_question_len(tools);
+	if (is_special(*e_pos) < 0)
+		*len = *len - 2 + special_len(tools, *e_pos);
 	else
 	{
 		while ((ft_isspace(*e_pos) != 1) && *e_pos != '\0'
