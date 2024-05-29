@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:55:27 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/27 15:00:38 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/29 13:17:43 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	quotes_handler(const char *s, int i, t_token **lexer_list, int c)
 	{
 		quotes_str(s, sub_str, i);
 //		printf("---> quotes_handler sub_str_len = %d\n", ft_strlen(sub_str));
-		if (ft_strlen(sub_str) != 0)
+		if (ft_strlen(sub_str) >= 0)
 		{
 			if (quote_addnode(sub_str, quote, lexer_list, c) < 0)
 			{
