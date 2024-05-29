@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:50:15 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/23 13:24:01 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:52:12 by cle-tron         ###   ########.fr       */
 /* ************************************************************************** */
 
 #include "minishell.h"
@@ -80,20 +80,16 @@ void	fill_files(int *i, char **files, t_token **lex, int *count)
 	*i += 1;
 	*lex = file;
 	*count += 1;
-	
-	/*	if ((*lex)->next && (*lex)->next->type >= STRING)
-	{
-			
-		files[0] = (*lex)->next->str;
-		if ((*lex)->type == INPUT || (*lex)->type == OUTPUT)
-			files[1] = NULL;
-		else
-			files[1] = "hd";
-		files[2] = NULL;
-		*i += 1;
-		*lex = (*lex)->next;
-		*count += 1;
-	}*/
+}
+
+int	check_string(t_token *lex)
+{
+	if (lex->type > STRING)
+		return (1);
+	if (lex->type == STRING && lex->str[0] != '\0')
+		return (1);
+	return (0);
+
 }
 
 void	fill_cmd(t_tools *tools)
@@ -112,7 +108,7 @@ void	fill_cmd(t_tools *tools)
 		cmd->out = 0;
 		while (i < cmd->lexer_indx && lex)
 		{
-			if (lex->type >= STRING && cmd->arg)
+			if (check_string(lex) && cmd->arg)
 				cmd->arg[cmd->ar++] = lex->str;
 			else if (lex->type == INPUT || lex->type == HEREDOC)
 				fill_files(&i, cmd->infile[cmd->in], &lex, &cmd->in);

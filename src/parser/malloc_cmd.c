@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:59:31 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/22 20:01:32 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/29 16:07:49 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,12 @@ void	calculate_files(int *i, t_cmd *cmd, int *err, t_token **lex)
 		cmd->out++;
 	if ((*lex)->next && (*lex)->next->type >= STRING)
 	{
-	//	if ((*lex)->type == INPUT || (*lex)->type == HEREDOC)
-	//		cmd->in++;
-	//	else if ((*lex)->type == OUTPUT || (*lex)->type == APPEND)
-	//		cmd->out++;
-			*i += 1;
+		*i += 1;
 		*lex = (*lex)->next;
 	}
-	else if ((*lex)->next && (*lex)->next->next && (*lex)->next->type == SPACE2 && (*lex)->next->next->type >= STRING)
+	else if ((*lex)->next && (*lex)->next->next && \
+		   	(*lex)->next->type == SPACE2 && (*lex)->next->next->type >= STRING)
 	{			
-	//		if ((*lex)->type == INPUT || (*lex)->type == HEREDOC)
-//			cmd->in++;
-//		else if ((*lex)->type == OUTPUT || (*lex)->type == APPEND)
-//			cmd->out++;
 		*i += 2;
 		*lex = (*lex)->next->next;
 	}
@@ -79,8 +72,6 @@ void	calculate_files(int *i, t_cmd *cmd, int *err, t_token **lex)
 			*err = err_syntax((*lex)->next->type);
 		return ;
 	}
-
-//	*i += 1;
 }
 
 int	error_pipe(t_token *lex)
@@ -107,7 +98,7 @@ void	malloc_and_errors_cmd(t_tools *tools, int *err)
 	{
 		while (i < cmd->lexer_indx && lex)
 		{
-			if (lex->type >= STRING)
+			if (check_string(lex))
 				cmd->ar++;
 			else if (lex->type >= INPUT && lex->type <= APPEND)
 				calculate_files(&i, cmd, err, &lex);

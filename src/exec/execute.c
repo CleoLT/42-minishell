@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/23 17:25:34 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:04:29 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,30 +20,16 @@ void wait_all(pid_t *pid, t_tools *tools)
 	{
         waitpid(pid[i], &status, 0);
 		if (WIFEXITED(status))
-		{
 			  tools->exit_code = WEXITSTATUS(status);
-			//printf("Fils [%d] a terminé normalement.\n", pid[i]);
-		}
         else if (WIFSIGNALED(status))
         {
-			//printf("Fils [%d] a ete interrompu.\n", pid[i]);
 			if (WTERMSIG(status) == SIGQUIT)
-			{
 				tools->exit_code = 131;
-         //       printf("\e[31mFils [%d] a recu le signal %d, SIGQUIT\e[0m\n",
-          //                  pid[i], WTERMSIG(status));
-			}
 			if (WTERMSIG(status) == SIGINT)
-			{
 				tools->exit_code = 130;
-             //   printf("\e[31mFils [%d] a recu le signal %d, SIGINT\e[0m\n",
-               //             pid[i], WTERMSIG(status));
-        	}
 		}
         i++;
     }
-
-
 }
 
 char	*find_path(t_tools *tools, t_cmd *cmd)
@@ -80,10 +66,7 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 		exit(tools->exit_code);
 	built_type = ft_is_builtin(cmd->arg[0]);
 	if (built_type)
-	{
 		exit(exec_built(tools, built_type, cmd));
-	//	exit(tools->exit_code);
-	}
 	if (cmd->arg[0][0] == '\0')
 		print_error(cmd->arg[0], ": command not found", 127);
 	path = find_path(tools, cmd);
@@ -97,8 +80,8 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 	}
 	if (!path)
 		print_error(cmd->arg[0], ": command not found", 127);
-	if (execve(path, cmd->arg,tools->envp) != 0)
-		print_error(cmd->arg[0], ": permission denied", 126);
+	execve(path, cmd->arg,tools->envp);
+	//	print_error(cmd->arg[0], ": permission denied", 126);
 /*	if (!path && access(cmd->arg[0], X_OK) == 0)
 	{	path = ft_strdup(cmd->arg[0]);
 		printf("%s\n", path);
@@ -148,8 +131,7 @@ void	execute(t_tools *tools)
 	t_cmd	*cmd;
 	int i = 0;
 
-//	int stdin_fd = dup(STDIN_FILENO);
-//	int	stdout_fd = dup(STDOUT_FILENO);
+	tools->exit_code = 0;
 	cmd = tools->cmd;
 	pid_t	pid[tools->t_cmd_size];
 	ft_signals(PROCESS_ON);
@@ -172,4 +154,5 @@ void	execute(t_tools *tools)
 	close(tools->stdout_fd);
 	wait_all(pid, tools);
 	ft_signals(PROCESS_OFF);
+//	printf("HIHI\n");
 }
