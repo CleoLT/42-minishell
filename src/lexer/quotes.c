@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:55:27 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/29 13:17:43 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:06:17 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int	count_quotes(const char *str)
 			i += closed_quotes(str, i, &d, 34);
 		if (str[i] == 39)
 			i += closed_quotes(str, i, &s, 39);
+		if (str[i] == '\0')
+			break ;
 	}
 	if (((d > 0) && (d % 2 != 0)) || ((s > 0) && (s % 2 != 0)))
 		return (0);

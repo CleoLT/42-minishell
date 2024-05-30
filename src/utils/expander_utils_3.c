@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 16:26:14 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/28 16:17:26 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:06:52 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ char *expand_special(t_tools *tools, char c, int *indx)
 		if (c == '\0')
 		{
 			temp = malloc(2 * sizeof(char));
-			temp = "$";
+			ft_strcpy(temp, "$");
 			(*indx) += 1;
 		}
 		else if (c == '/')
         {
 			temp = malloc(3 * sizeof(char));
-   			temp = "$/";
+   			ft_strcpy(temp, "$/");
             (*indx) += 2;
         }
 	}
@@ -67,7 +67,8 @@ void	expander_addword(char *temp, char *temp_word, int *i)
 //		printf("---> expander_addword before i = %d\n", (*i));
 		ft_chartochar(temp, temp_word, i);
 //		printf("---> expander_addword after i = %d\n", (*i));
-//		free(temp_word);
+		free(temp_word);
+//		printf("---> expander_addword OK\n");
 	}
 }
 
@@ -76,7 +77,7 @@ int	is_special(char c)
 	if (c == '=' || c == '@' || c == '#' || c == '-' || c == '+' || c == '{'
 		|| c == '}' || c == '[' || c == ']' || c == '!' || c == '~' || c == '?'
 		|| c == '%' || c == '^' || c == '=' || c == '*' || c == '/' || c == '$'
-		|| c == ';' || c == '\0')
+		|| c == ';' || c == '|' || c == '\0')
 		return (-1);
 	return (0);
 }

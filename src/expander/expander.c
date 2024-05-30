@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 16:50:26 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/28 16:55:14 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:06:57 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int	expander_newlen(t_tools *tools, const char *s)
 		else
 			dollar_pos++;
 	}
+//	printf("---> expander_newlen len = %d\n", len);
 	return (len);
 }
 
