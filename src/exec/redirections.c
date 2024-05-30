@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 14:13:12 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/23 15:54:43 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/30 13:30:52 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,12 @@ int	redirect_outfile(char ***outfile)
 			close(fd);
 	}
 	return (fd);
+}
+
+void	redirect_stdin_out(t_tools *tools)
+{
+	dup2(tools->stdin_fd, STDIN_FILENO);
+	dup2(tools->stdout_fd, STDOUT_FILENO);
+	close(tools->stdin_fd);
+	close(tools->stdout_fd);
 }

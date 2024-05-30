@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/29 17:04:29 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/30 15:23:48 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,19 +81,6 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 	if (!path)
 		print_error(cmd->arg[0], ": command not found", 127);
 	execve(path, cmd->arg,tools->envp);
-	//	print_error(cmd->arg[0], ": permission denied", 126);
-/*	if (!path && access(cmd->arg[0], X_OK) == 0)
-	{	path = ft_strdup(cmd->arg[0]);
-		printf("%s\n", path);
-	}
-	else if (access(cmd->arg[0], F_OK) == 0)
-		print_error(cmd->arg[0], ": permission denied", 126);
-	if (!path)
-		print_error(cmd->arg[0], ": command not found", 127);
-	if (execve(path, cmd->arg, tools->envp) != 0)
-		ft_error("execve function", errno);
-*/
-
 	free(path);
 }
 
@@ -124,7 +111,6 @@ void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd)
 	exec_cmd(tools, cmd);
 }
 
-
 void	execute(t_tools *tools)
 {
 	int	pipe_fd[2];
@@ -148,11 +134,7 @@ void	execute(t_tools *tools)
 		cmd = cmd->next;
 		i++;
 	}
-	dup2(tools->stdin_fd, STDIN_FILENO);
-	dup2(tools->stdout_fd, STDOUT_FILENO);
-	close(tools->stdin_fd);
-	close(tools->stdout_fd);
+	redirect_stdin_out(tools);
 	wait_all(pid, tools);
 	ft_signals(PROCESS_OFF);
-//	printf("HIHI\n");
 }
