@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 12:13:50 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/28 16:54:00 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:06:55 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ char	*expand_envpval(t_tools *tools, char *word)
 	t_envp	*original_envp_list;
 	char	*temp;
 
+	if (ft_strchr(word, '\\') != NULL)
+        return (expand_newline(word));
 	original_envp_list = tools->envp_list;
-	temp = NULL;
-//	printf("---> expand_envpval s: %s\n", word);
+    temp = NULL;
 	while (tools->envp_list != NULL)
 	{
 		if ((ft_strncmp(word, tools->envp_list->name, ft_strlen(word)) == 0)
@@ -34,12 +35,6 @@ char	*expand_envpval(t_tools *tools, char *word)
 	}
 	free(word);
 	tools->envp_list = original_envp_list;
-/*	if (temp == NULL)
-	{
-		temp = (char *)malloc(2);
-		if (temp != NULL)
-			ft_strcpy(temp, "");
-	}*/
 	return (temp);
 }
 
@@ -95,19 +90,23 @@ int	expander_envp_len(t_tools *tools, const char *word)
 	t_envp	*original_envp_list;
 	int		len;
 
-//	len = 1;
 	len = 0;
 	original_envp_list = tools->envp_list;
-	while (tools->envp_list != NULL)
+	if (ft_strchr(word, '\\') != NULL)
+		return (newline_len(word));
+	else
 	{
-		if (ft_strncmp(word, tools->envp_list->name,
-				ft_strlen(tools->envp_list->name)) == 0)
+		while (tools->envp_list != NULL)
 		{
-			len = ft_strlen(tools->envp_list->value);
-			break ;
+			if (ft_strncmp(word, tools->envp_list->name,
+					ft_strlen(tools->envp_list->name)) == 0)
+			{
+				len = ft_strlen(tools->envp_list->value);
+				break ;
+			}
+			tools->envp_list = tools->envp_list->next;
 		}
-		tools->envp_list = tools->envp_list->next;
+		tools->envp_list = original_envp_list;
 	}
-	tools->envp_list = original_envp_list;
 	return (len);
 }
