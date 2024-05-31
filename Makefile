@@ -31,9 +31,9 @@ PARS_DIR	= parser/
 MAIN		= minishell
 ENVP_FILES  = envp
 LEX_FILES	= lexer quotes spaces token_reader
-ERR_FILES	= error
-UTILS_FILES = envp_utils expander_utils expander_utils_2 expander_utils_3 expander_utils_4 free_utils lexer_utils parser_utils signal ft_heredoc faker
-EXEC_FILES	= execute redirections
+ERR_FILES	= error error_return
+UTILS_FILES = envp_utils expander_utils expander_utils_2 expander_utils_3 expander_utils_4 free_utils free_utils2 lexer_utils parser_utils signal ft_heredoc init_tools print
+EXEC_FILES	= execute redirections exec_utils
 EXP_FILES	= expander
 BUILT_FILES	= builtins ft_cd ft_unset ft_export print_export ft_exit \
 			  ft_echo_pwd_env redirect_built
@@ -67,7 +67,7 @@ $(OBJ_DIR)%.o:	$(SRC_DIR)%.c Makefile libft/Makefile libft/src/*/*.c
 
 readl:
 	@if [ -e "$(HLIB_FILE)" ] && [ -e "$(RLIB_FILE)" ]; then \
-		echo "readline already compiled"; \
+		echo "readline and minishell already compiled"; \
 	else \
 		cd ./readline/ && ./configure && make; \
 	fi

@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:53:04 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/22 17:50:19 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 14:57:52 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,4 @@ void	ft_lexerdeltype(t_tools *tools, int del)
 		else
 			current = current->next;
 	}
-//	init_index(tools->lexer_list);
 }

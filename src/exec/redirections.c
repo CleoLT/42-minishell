@@ -6,11 +6,11 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 14:13:12 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/23 15:54:43 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 14:42:23 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 static int	open_infile(char *file)
 {
@@ -28,8 +28,8 @@ static int	open_infile(char *file)
 
 static int	open_outfile(char **file)
 {
-	int	fd;
-	struct stat sb;
+	int			fd;
+	struct stat	sb;
 
 	stat(*file, &sb);
 	if (S_ISDIR(sb.st_mode))
@@ -47,17 +47,16 @@ static int	open_outfile(char **file)
 
 int	redirect_infile(char ***infile)
 {
-	int i;
-	int fd;
+	int	i;
+	int	fd;
 
 	i = 0;
-
 	while (infile[i])
 	{
 		fd = open_infile(infile[i][0]);
 		if (infile[i + 1] && fd > 0)
 			close(fd);
-		if (infile[i][1]) //if heredoc
+		if (infile[i][1])
 			unlink(infile[i][0]);
 		i++;
 	}
@@ -77,4 +76,12 @@ int	redirect_outfile(char ***outfile)
 			close(fd);
 	}
 	return (fd);
+}
+
+void	redirect_stdin_out(t_tools *tools)
+{
+	dup2(tools->stdin_fd, STDIN_FILENO);
+	dup2(tools->stdout_fd, STDOUT_FILENO);
+	close(tools->stdin_fd);
+	close(tools->stdout_fd);
 }

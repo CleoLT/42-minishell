@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 15:22:27 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/17 14:18:54 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 14:52:39 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	create_hd_file(char *limiter, char *hd_num)
 	{
 		line = readline("> ");
 		if (!line)
-			break ; 
+			break ;
 		if (!ft_strncmp(limiter, line, ft_strlen(limiter) + 1))
 		{
 			free(line);
@@ -36,7 +36,7 @@ void	create_hd_file(char *limiter, char *hd_num)
 		ft_putendl_fd(line, fd);
 		free(line);
 	}
-	close(fd);	
+	close(fd);
 	exit(0);
 }
 
@@ -52,16 +52,12 @@ void	heredoc_process(int count_hd, char **infile, int *exit_code)
 		create_hd_file(*infile, hd_num);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
-		*exit_code = WEXITSTATUS(status); //esto no es del todo cierto
-	 if (WIFSIGNALED(status))
+		*exit_code = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
 	{
 		if (WTERMSIG(status) == SIGINT)
-		{
-	//		*sigint = 1;
 			*exit_code = 1;
-		//	*sigint = ;
-		}
-	}	
+	}
 	*infile = ft_strjoin("/tmp/.heredoc", hd_num);
 	free(hd_num);
 }
@@ -70,9 +66,7 @@ int	ft_heredoc(t_cmd *cmd, int *exit_code)
 {
 	int		i;
 	int		count_hd;
-//	int		sigint;
 
-//	sigint = 0;
 	count_hd = 0;
 	while (cmd)
 	{
@@ -86,12 +80,9 @@ int	ft_heredoc(t_cmd *cmd, int *exit_code)
 				i++;
 			}
 		}
-	cmd = cmd->next;
+		cmd = cmd->next;
 	}
-//	printf("%d\n", *exit_code);
 	if (count_hd > 0)
 		return (*exit_code);
 	return (-1);
 }
-
-

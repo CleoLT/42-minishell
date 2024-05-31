@@ -6,32 +6,32 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 16:58:10 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/22 18:53:05 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:02:10 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void check_limits(char *str)
+void	check_limits(char *str)
 {
-    int i;
-    int			sign;
-	unsigned	long long 	num;
+	int					i;
+	int					sign;
+	unsigned long long	num;
 
-    i = 0;
-    sign = 1;
-    if (str[i] == '-' || str[i] == '+')
-    {
-        if (str[i] == '-')
-            sign = -sign;
-        i++;
-    }
-    num = 0;
-    while (str[i] >= '0' && str[i] <= '9')
-    {
-        num = (str[i] - '0') + (num * 10);
-        i++;
-    }
+	i = 0;
+	sign = 1;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -sign;
+		i++;
+	}
+	num = 0;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		num = (str[i] - '0') + (num * 10);
+		i++;
+	}
 	if (!ft_strncmp(str, "-9223372036854775808", 21))
 		return ;
 	if (num > LONG_MAX)
@@ -66,16 +66,16 @@ int	handle_syntax_error(char **arg, int *exit_code)
 	while (ft_isspace(arg[i][j]))
 		j++;
 	if (!arg[i][j])
-		exit(err_built(arg[0], arg[i],": numeric argument required",  255));
+		exit(err_built(arg[0], arg[i], ": numeric argument required", 255));
 	arg[i] = ft_strtrim(arg[i], " ");
 	j = 0;
-	if (arg[i][j] == '+' || arg[i][j] == '-') 
+	if (arg[i][j] == '+' || arg[i][j] == '-')
 		j++;
 	if (!arg[i][j])
-		exit(err_built(arg[0], arg[i],": numeric argument required",  255));
+		exit(err_built(arg[0], arg[i], ": numeric argument required", 255));
 	while (arg[i][j])
 		if (!ft_isdigit(arg[i][j++]) || ++len >= 20)
-			exit(err_built(arg[0], arg[i],": numeric argument required",  255));
+			exit(err_built(arg[0], arg[i], ": numeric argument required", 255));
 	return (i);
 }
 
@@ -83,7 +83,6 @@ void	ft_exit(char **arg, int *exit_code)
 {
 	int	i;
 
-	//ft_putendl_fd("exit", 1);
 	i = handle_syntax_error(arg, exit_code);
 	if (arg[i + 1])
 	{

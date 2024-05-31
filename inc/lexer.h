@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:33:47 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/27 12:27:05 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:07:12 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	envp_addback(t_envp **envp_list, t_envp *node);
 /* token_reader.c */
 int		check_token(int c);
 int		token_handler(char *s, int i, t_token **lexer_list, int c);
-int		token_addnode (char *s, int token, t_token **lexer_list, int c);
+int		token_addnode(char *s, int token, t_token **lexer_list, int c);
 int		get_str(char *s, int i, t_token **lexer_list, int c);
 int		token_reader(t_tools *tools);
 

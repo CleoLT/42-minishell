@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:06:43 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/05/23 16:40:16 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:06:01 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,12 @@ typedef struct s_cmd
 	int				lexer_indx;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
-
 }	t_cmd;
 
 typedef struct s_tools
 {
 	char	**envp;
-	char 	**path;
+	char	**path;
 	char	*str;
 	t_token	*lexer_list;
 	t_envp	*envp_list;

@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:48:38 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/16 18:07:27 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:10:14 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	handle_sigint(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	signal_exit_code = 1;
+	g_exit_code = 1;
 }
 
 void	handle_sigint_process(int sig)
@@ -32,16 +32,16 @@ void	handle_sigint_process(int sig)
 
 void	handle_sigquit(int sig)
 {
-		printf("Quit: %d\n", sig);		
+	printf("Quit: %d\n", sig);
 }
 
-void    handle_sigint_heredoc(int sig)
+void	handle_sigint_heredoc(int sig)
 {
-    struct termios	term_attr;
+	struct termios	term_attr;
 
 	(void)sig;
-    if (isatty(STDIN_FILENO))
-    {
+	if (isatty(STDIN_FILENO))
+	{
 		if (tcgetattr(STDIN_FILENO, &term_attr) != -1)
 		{
 			term_attr.c_lflag |= ECHO;
@@ -60,12 +60,12 @@ void	ft_signals(int process)
 	}
 	else if (process == PROCESS_ON)
 	{
-		signal(SIGQUIT, handle_sigquit);   // ctrl + '\' llamar si hay un process en curso
-		signal(SIGINT, handle_sigint_process); //ctrl + C in child porcess
+		signal(SIGQUIT, handle_sigquit);
+		signal(SIGINT, handle_sigint_process);
 	}
 	else if (process == PROCESS_HD)
 	{
-	  	signal(SIGQUIT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, handle_sigint_heredoc);
 	}
 }

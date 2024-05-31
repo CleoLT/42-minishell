@@ -6,58 +6,15 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:50:15 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/29 15:52:12 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 14:48:31 by cle-tron         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_cdm_list(t_cmd *cmd)
-{
-	
-	int i;
-	while (cmd)
-	{
-		printf("node: ");
-		if (cmd->infile)
-		{
-			i = 0;
-			while (cmd->infile[i])
-			{
-				if (cmd->infile[i][1])
-					printf("<<%s ", cmd->infile[i][0]);
-				else
-					printf("<%s ", cmd->infile[i][0]);
-				i++;
-			}
-		}
-		if (cmd->outfile)
-		{
-			i = 0;
-			while (cmd->outfile[i])
-			{
-				if (cmd->outfile[i][1])
-					printf(">>%s ", cmd->outfile[i][0]);
-				else
-					printf(">%s ", cmd->outfile[i][0]);
-				i++;
-			}
-		}
-		i = 0;
-		if (cmd->arg)
-		{
-		while (cmd->arg[i])
-			printf("-%s- ", cmd->arg[i++]);
-		}
-		if (cmd->next)
-			printf("| ");
-		else
-			printf("\n");
-		cmd = cmd->next;
-	}
-}
 void	fill_files(int *i, char **files, t_token **lex, int *count)
 {
-	t_token *file;
+	t_token	*file;
 
 	file = NULL;
 	if (!(*lex)->next)
@@ -89,7 +46,6 @@ int	check_string(t_token *lex)
 	if (lex->type == STRING && lex->str[0] != '\0')
 		return (1);
 	return (0);
-
 }
 
 void	fill_cmd(t_tools *tools)
@@ -124,7 +80,7 @@ void	fill_cmd(t_tools *tools)
 int	ft_parser(t_tools *tools)
 {
 	int	error;
-	
+
 	error = 0;
 	create_cmd_list(tools, &error);
 	if (!tools->lexer_list)
@@ -136,10 +92,11 @@ int	ft_parser(t_tools *tools)
 		return (error);
 	}
 	fill_cmd(tools);
-//	print_cdm_list(tools->cmd); //BORRAR FUNCTION
 	if (error)
 		tools->exit_code = 258;
 	if (tools->cmd->arg == NULL)
 		tools->cmd->arg = ft_split("  ", ' ');
 	return (error);
 }
+
+//print_cdm_list(tools->cmd);
