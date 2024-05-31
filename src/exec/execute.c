@@ -6,62 +6,39 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:37:56 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/30 15:23:48 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 14:41:11 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void wait_all(pid_t *pid, t_tools *tools)
+void	wait_all(pid_t *pid, t_tools *tools)
 {
-	int i = 0;
+	int	i;
 	int	status;
-	while (i < tools->t_cmd_size)    
+
+	i = 0;
+	while (i < tools->t_cmd_size)
 	{
-        waitpid(pid[i], &status, 0);
+		waitpid(pid[i], &status, 0);
 		if (WIFEXITED(status))
-			  tools->exit_code = WEXITSTATUS(status);
-        else if (WIFSIGNALED(status))
-        {
+			tools->exit_code = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+		{
 			if (WTERMSIG(status) == SIGQUIT)
 				tools->exit_code = 131;
 			if (WTERMSIG(status) == SIGINT)
 				tools->exit_code = 130;
 		}
-        i++;
-    }
-}
-
-char	*find_path(t_tools *tools, t_cmd *cmd)
-{
-	char	*path;
-	char	*cmd_path;
-	int		i;
-
-	if (!tools->path)
-		return (NULL);
-	cmd_path = ft_strjoin("/", cmd->arg[0]);
-	i = 0;
-	while (tools->path[i])
-	{
-		path = ft_strjoin(tools->path[i], cmd_path);
-		if (access(path, F_OK) == 0)
-		{
-			free(cmd_path);
-			return (path);
-		}
-		free(path);
 		i++;
 	}
-	free(cmd_path);
-	return (NULL);
 }
 
 void	exec_cmd(t_tools *tools, t_cmd *cmd)
 {
 	char	*path;
 	int		built_type;
-	
+
 	if (cmd->arg == NULL || cmd->arg[0] == NULL )
 		exit(tools->exit_code);
 	built_type = ft_is_builtin(cmd->arg[0]);
@@ -73,23 +50,23 @@ void	exec_cmd(t_tools *tools, t_cmd *cmd)
 	if (!path && access(cmd->arg[0], F_OK) == 0)
 	{
 		path = ft_strdup(cmd->arg[0]);
-		if (ft_strncmp(path, "./", 2) && ft_strncmp(path, "/", 1)) //en caso que sea un archivo existente txt por ejemplo
+		if (ft_strncmp(path, "./", 2) && ft_strncmp(path, "/", 1))
 			print_error(cmd->arg[0], ": command not found", 127);
-		else if (!(ft_strncmp(path, "./", 2)) && access(cmd->arg[0] , X_OK)) 
+		else if (!(ft_strncmp(path, "./", 2)) && access(cmd->arg[0], X_OK))
 			print_error(cmd->arg[0], ": permission denied", 126);
 	}
 	if (!path)
 		print_error(cmd->arg[0], ": command not found", 127);
-	execve(path, cmd->arg,tools->envp);
+	if (execve(path, cmd->arg, tools->envp) == -1 && is_directory(cmd->arg[0]))
+		print_error(cmd->arg[0], ": is a directory", 126);
 	free(path);
 }
 
-
-void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd)
+void	child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd)
 {
-	int fd_out;
-	int fd_in;
-	
+	int	fd_out;
+	int	fd_in;
+
 	if (cmd->infile)
 	{
 		fd_in = redirect_infile(cmd->infile);
@@ -113,14 +90,16 @@ void child_process(t_cmd *cmd, t_tools *tools, int *pipe_fd)
 
 void	execute(t_tools *tools)
 {
-	int	pipe_fd[2];
+	int		pipe_fd[2];
+	int		i;
 	t_cmd	*cmd;
-	int i = 0;
+	pid_t	*pid;
 
-	tools->exit_code = 0;
 	cmd = tools->cmd;
-	pid_t	pid[tools->t_cmd_size];
-	ft_signals(PROCESS_ON);
+	pid = malloc(sizeof(pid_t) * tools->t_cmd_size);
+	if (!pid)
+		return ;
+	i = 0;
 	while (cmd)
 	{
 		if (cmd->next)
@@ -134,7 +113,6 @@ void	execute(t_tools *tools)
 		cmd = cmd->next;
 		i++;
 	}
-	redirect_stdin_out(tools);
 	wait_all(pid, tools);
-	ft_signals(PROCESS_OFF);
+	free(pid);
 }

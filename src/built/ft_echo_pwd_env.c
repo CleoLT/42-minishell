@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:02:36 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/08 17:05:43 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:52:41 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_pwd(void)
 
 	if (getcwd(cwd, MAXPATHLEN))
 		printf("%s\n", cwd);
-	else 
+	else
 		ft_error("getcwd function", errno);
 	return (EXIT_SUCCESS);
 }
@@ -26,8 +26,8 @@ int	ft_pwd(void)
 int	ft_echo(char **arg)
 {
 	int	nl_option;
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	nl_option = 0;
@@ -36,7 +36,7 @@ int	ft_echo(char **arg)
 		j = 2;
 		while (arg[i][j] == 'n')
 			j++;
-		if (arg[i][j] != '\0')		
+		if (arg[i][j] != '\0')
 			break ;
 		nl_option++;
 	}
@@ -56,12 +56,12 @@ int	ft_env(t_envp *env)
 	while (env)
 	{
 		if (env->name && env->value && strncmp(env->name, "_", 2))
-		{	
+		{
 			printf("%s=", env->name);
 			printf("%s\n", env->value);
 		}
 		env = env->next;
-	}	
+	}
 	printf("_=/usr/bin/env\n");
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 16:04:09 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/30 16:18:36 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:01:49 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,3 +81,20 @@ void	print_cdm_list(t_cmd *cmd)
 		cmd = cmd->next;
 	}
 }
+
+/*
+void print_env_rev(t_envp *env)
+{
+	printf("\n");
+	while (env->next)
+		env = env->next;
+	while (env)
+	{
+		if (env->name)
+			printf("%s=", env->name);
+		if (env->value)
+			printf("%s\n", env->value);
+		env = env->prev;
+	}
+
+}*/

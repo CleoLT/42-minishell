@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/05/30 16:42:47 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:08:12 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # include "builtins.h"
 # include "parser.h"
 
-int		signal_exit_code;
+int		g_exit_code;
 
 void	lexer_token(t_tools *tools, char *line);
 int		ft_heredoc(t_cmd *cmd, int *exit_code);
@@ -70,8 +70,10 @@ void	free_exp_array(char ***array);
 /* error.c */
 void	ft_error(char *arg, int exit_code);
 void	print_error(char *cmd, char *str, int exit_code);
+
+/* error_return.c */
 int		ft_strerror(int exit_code); // esta creo que no sirve en nnguna parte 
-//void    print_error_unset(char *cmd, char *arg); // esta en builts cambiar
+int		print_error_unset(char *cmd, char *arg); // esta en builts cambiar
 int		err_built(char *cmd, char *arg, char *error, int exit_code);
 int		perr_built(char *cmd, char *arg, int exit_code);
 int		err_syntax(int type);

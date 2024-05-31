@@ -6,11 +6,11 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 14:13:12 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/23 17:02:16 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:19:56 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 static int	open_infileb(char *file)
 {
@@ -21,15 +21,13 @@ static int	open_infileb(char *file)
 	if (access(file, R_OK) != 0)
 		return (perr_built("", file, -1));
 	fd = open(file, O_RDONLY);
-//	if (fd == -1)
-//		ft_error("open function", errno);
 	return (fd);
 }
 
 static int	open_outfileb(char **file)
 {
-	int	fd;
-	struct stat sb;
+	int			fd;
+	struct stat	sb;
 
 	stat(*file, &sb);
 	if (S_ISDIR(sb.st_mode))
@@ -47,11 +45,10 @@ static int	open_outfileb(char **file)
 
 int	redirect_infileb(char ***infile)
 {
-	int i;
-	int fd;
+	int	i;
+	int	fd;
 
 	i = 0;
-
 	while (infile[i])
 	{
 		fd = open_infileb(infile[i][0]);
@@ -59,7 +56,7 @@ int	redirect_infileb(char ***infile)
 			return (-1);
 		if (infile[i + 1] && fd > 0)
 			close(fd);
-		if (infile[i][1]) //if heredoc
+		if (infile[i][1])
 			unlink(infile[i][0]);
 		i++;
 	}
@@ -85,7 +82,7 @@ int	redirect_outfileb(char ***outfile)
 
 int	redirect_built(char ***infile, char ***outfile)
 {
-	int fd_in;
+	int	fd_in;
 	int	fd_out;
 
 	if (infile)
@@ -93,8 +90,8 @@ int	redirect_built(char ***infile, char ***outfile)
 		fd_in = redirect_infileb(infile);
 		if (fd_in == -1)
 			return (1);
-		dup2(fd_in, STDIN_FILENO);	
-		close(fd_in);	
+		dup2(fd_in, STDIN_FILENO);
+		close(fd_in);
 	}
 	if (outfile)
 	{

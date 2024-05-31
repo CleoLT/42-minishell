@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:50:15 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/30 16:21:35 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 14:48:31 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,11 @@ int	ft_parser(t_tools *tools)
 		return (error);
 	}
 	fill_cmd(tools);
-	//print_cdm_list(tools->cmd); //BORRAR FUNCTION
 	if (error)
 		tools->exit_code = 258;
 	if (tools->cmd->arg == NULL)
 		tools->cmd->arg = ft_split("  ", ' ');
 	return (error);
 }
+
+//print_cdm_list(tools->cmd);

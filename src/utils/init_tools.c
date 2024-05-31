@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:56:36 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/30 16:00:33 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:10:49 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	export_shlvl(t_envp **envp)
 {
-	t_envp *env;
+	t_envp	*env;
 	int		num;
 
 	env = *envp;
@@ -53,7 +53,6 @@ int	tools_init(t_tools *tools, char **envp)
 	delete_env(&tools->envp_list, "OLDPWD");
 	envp_addnode("OLDPWD", NULL, &tools->envp_list);
 	export_shlvl(&tools->envp_list);
-//	exec_export(ft_strdup("OLDPWD"), NULL, NAME_ONLY, &tools->envp_list);
 	ft_signals(PROCESS_OFF);
 	rl_catch_signals = 0;
 	return (1);
@@ -64,7 +63,7 @@ void	init_tools_loop(t_tools *tools)
 	tools->path = get_path(*tools);
 	tools->cmd = NULL;
 	tools->built_type = 0;
-	signal_exit_code = 0;
+	g_exit_code = 0;
 	tools->stdin_fd = dup(STDIN_FILENO);
 	tools->stdout_fd = dup(STDOUT_FILENO);
 }

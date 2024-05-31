@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:23:48 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/30 15:53:52 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:03:42 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ int	ft_export(t_envp **envp, char **arg)
 		search_values(arg[i], &name, &value, &mode);
 		if (check_name_error(arg[i], &name, &value, &exit_code))
 			continue ;
-	//	printf("name:%s, value:%s, mode %d\n", name, value, mode);
 		exec_export(name, value, mode, envp);
 	}
 	return (exit_code);
