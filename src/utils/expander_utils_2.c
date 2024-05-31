@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 12:13:50 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/31 18:28:13 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/31 21:51:34 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ char	*expand_envpval(t_tools *tools, char *word)
 	t_envp	*original_envp_list;
 	char	*temp;
 
-	if (ft_strchr(word, '\\') != NULL)
-		return (expand_newline(word));
 	original_envp_list = tools->envp_list;
 	temp = NULL;
 	while (tools->envp_list != NULL)
@@ -62,6 +60,8 @@ char	*expand_strword(t_tools *tools, char *s, int start, int end)
 		free(temp);
 		return (NULL);
 	}
+	if (ft_strchr(temp, '\\') != NULL)
+		return (expand_newline(temp));
 	return (expand_envpval(tools, temp));
 }
 

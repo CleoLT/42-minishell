@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:58:47 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/31 18:56:44 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/31 21:39:17 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,16 @@ char	*expand_special_other(char c, int *indx)
 	if (c == '\0')
 	{
 		temp = malloc(2 * sizeof(char));
+		if (!temp)
+			return (NULL);
 		ft_strcpy(temp, "$");
 		(*indx) += 1;
 	}
 	else
 	{
 		temp = malloc(3 * sizeof(char));
+		if (!temp)
+			return (NULL);
 		temp[0] = '$';
 		temp[1] = c;
 		temp[2] = '\0';
