@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 12:13:50 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/31 15:24:34 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/31 18:28:13 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ char	*expand_envpval(t_tools *tools, char *word)
 	t_envp	*original_envp_list;
 	char	*temp;
 
-//	printf("---> expand_envpval : %s\n", word);
 	if (ft_strchr(word, '\\') != NULL)
-        return (expand_newline(word));
+		return (expand_newline(word));
 	original_envp_list = tools->envp_list;
-    temp = NULL;
+	temp = NULL;
 	while (tools->envp_list != NULL)
 	{
 		if ((ft_strncmp(word, tools->envp_list->name,
@@ -30,8 +29,8 @@ char	*expand_envpval(t_tools *tools, char *word)
 			&& tools->envp_list->value)
 		{
 			temp = (char *)malloc(sizeof(char)
-				* (ft_strlen(tools->envp_list->value) + 1));
-        	ft_strcpy(temp, tools->envp_list->value);
+					* (ft_strlen(tools->envp_list->value) + 1));
+			ft_strcpy(temp, tools->envp_list->value);
 			break ;
 		}
 		tools->envp_list = tools->envp_list->next;
@@ -84,7 +83,6 @@ char	*expand_indx(t_tools *tools, char *s, int i)
 			e_pos++;
 		end_index = (int)(e_pos - s);
 	}
-//	printf("---> expand_indx e_pos : %s\n", e_pos);
 	return (expand_strword(tools, s, start_index, end_index));
 }
 

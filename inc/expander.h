@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:34:29 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/30 16:07:01 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/31 18:54:18 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,6 @@ int		is_special(char c);
 int		special_len(t_tools *tools, char c);
 int		newline_len(const char *word);
 char	*expand_newline(char *word);
+char	*expand_special_other(char c, int *indx);
+
 #endif
