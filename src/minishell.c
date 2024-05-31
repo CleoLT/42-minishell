@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:38:25 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/31 15:09:43 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:51:48 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(int argc, char **argv, char **envp)
 		if (quotes(line, &tools.exit_code))
 			continue ;
 		lexer_token(&tools, line);
-		if (ft_parser(&tools) || ft_heredoc(tools.cmd, &tools.exit_code) > 0)
+		if (ft_parser(&tools) || ft_heredoc(tools.cmd, &tools) > 0)
 		{
 			free_tools_loop(&tools, line);
 			continue ;

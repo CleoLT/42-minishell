@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/05/31 15:08:12 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:51:57 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 int		g_exit_code;
 
 void	lexer_token(t_tools *tools, char *line);
-int		ft_heredoc(t_cmd *cmd, int *exit_code);
+int		ft_heredoc(t_cmd *cmd, t_tools *tools);
 
 /* init_tools.c */
 int		tools_init(t_tools *tools, char **envp);
