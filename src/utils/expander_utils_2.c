@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 12:13:50 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/30 16:06:55 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:24:34 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@ char	*expand_envpval(t_tools *tools, char *word)
 	t_envp	*original_envp_list;
 	char	*temp;
 
+//	printf("---> expand_envpval : %s\n", word);
 	if (ft_strchr(word, '\\') != NULL)
         return (expand_newline(word));
 	original_envp_list = tools->envp_list;
     temp = NULL;
 	while (tools->envp_list != NULL)
 	{
-		if ((ft_strncmp(word, tools->envp_list->name, ft_strlen(word)) == 0)
+		if ((ft_strncmp(word, tools->envp_list->name,
+					ft_strlen(tools->envp_list->name)) == 0)
+			&& (ft_strlen(word) == ft_strlen(tools->envp_list->name))
 			&& tools->envp_list->value)
 		{
 			temp = (char *)malloc(sizeof(char)
@@ -77,11 +80,11 @@ char	*expand_indx(t_tools *tools, char *s, int i)
 	{
 		start_index = (int)(dollar_pos - s);
 		e_pos = dollar_pos + 1;
-		while ((ft_isspace(*e_pos) != 1)
-			&& (*e_pos != '\0') && (*e_pos != '$') && (*e_pos != '\''))
+		while ((ft_isspace(*e_pos) != 1) && (is_special(*e_pos) != -1))
 			e_pos++;
 		end_index = (int)(e_pos - s);
 	}
+//	printf("---> expand_indx e_pos : %s\n", e_pos);
 	return (expand_strword(tools, s, start_index, end_index));
 }
 

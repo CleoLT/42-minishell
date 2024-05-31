@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:05:29 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/22 15:35:38 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:23:15 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,7 @@ int	dollar_len(const char *s, int i)
 	{
 		start_index = (int)(dollar_pos - s);
 		end_pos = dollar_pos + 1;
-		while ((ft_isspace(*end_pos) != 1) && *end_pos != '\0'
-			&& *end_pos != '$' && *end_pos != '\'')
+		while ((ft_isspace(*end_pos) != 1) && (is_special(*end_pos) != -1))
 			end_pos++;
 		end_index = (int)(end_pos - s);
 	}

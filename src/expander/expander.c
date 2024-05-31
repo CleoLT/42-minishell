@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 16:50:26 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/30 16:06:57 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:24:31 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void static	expand_str(t_tools *tools, char *temp, const char *s)
 				j = dollar_len(s, j);
 			}
 			expander_addword(temp, temp_word, &i);
+//			printf("---> expand_str : %c\n", s[j]);
 		}
 		else
 			temp[i++] = s[j++];
@@ -66,8 +67,7 @@ void static add_len(t_tools *tools, const char *s, const char **d_pos, int *len)
 		*len = *len - 2 + special_len(tools, *e_pos);
 	else
 	{
-		while ((ft_isspace(*e_pos) != 1) && *e_pos != '\0'
-			&& *e_pos != '$' && *e_pos != '\'')
+		while ((ft_isspace(*e_pos) != 1) && is_special(*e_pos) != -1)
 			e_pos++;
 		end_index = (int)(e_pos - s);
 		*len -= (end_index - start_index);
