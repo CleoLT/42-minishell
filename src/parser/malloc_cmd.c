@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:59:31 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/31 14:47:58 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 18:59:43 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,13 @@ void	malloc_files(char ****files, int count)
 
 	i = 0;
 	*files = malloc(sizeof(char *) * (count + 1));
+	if (!(*files))
+		return (malloc_error());
 	while (i < count)
 	{
 		(*files)[i] = malloc(sizeof(char *) * 3);
+		if (!(*files)[i])
+			return (malloc_error());
 		j = 0;
 		while (j < 3)
 			(*files)[i][j++] = NULL;
@@ -38,6 +42,8 @@ void	create_cmd_malloc(t_cmd **cmd)
 	if ((*cmd)->ar)
 	{
 		(*cmd)->arg = malloc(sizeof(char *) * ((*cmd)->ar + 1));
+		if (!(*cmd)->arg)
+			return (malloc_error());
 		while (i <= (*cmd)->ar)
 			(*cmd)->arg[i++] = NULL;
 	}

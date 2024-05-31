@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 15:22:27 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/31 17:08:14 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 19:20:14 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	hd_loop(t_tools *tools, char *limiter, int fd)
 		if (!line)
 			break ;
 		newl = malloc(sizeof(char *) * expander_newlen(tools, line) + 1);
+		if (!newl)
+			return (malloc_error());
 		expand_str(tools, newl, line);
 		if (!ft_strncmp(limiter, line, ft_strlen(limiter) + 1))
 		{

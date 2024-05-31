@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/05/31 15:51:57 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 19:03:38 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,11 @@ void	free_exp_array(char ***array);
 /* error.c */
 void	ft_error(char *arg, int exit_code);
 void	print_error(char *cmd, char *str, int exit_code);
+void	malloc_error();
 
 /* error_return.c */
-int		ft_strerror(int exit_code); // esta creo que no sirve en nnguna parte 
-int		print_error_unset(char *cmd, char *arg); // esta en builts cambiar
+int		ft_strerror(int exit_code);
+int		print_error_unset(char *cmd, char *arg);
 int		err_built(char *cmd, char *arg, char *error, int exit_code);
 int		perr_built(char *cmd, char *arg, int exit_code);
 int		err_syntax(int type);

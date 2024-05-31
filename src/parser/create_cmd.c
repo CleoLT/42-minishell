@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:54:43 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/31 14:44:19 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 19:06:59 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	create_node_cmd(t_cmd **cmd_list, int indx)
 
 	node = malloc(sizeof(t_cmd));
 	if (!node)
-		ft_error("malloc function", errno);
+		return (malloc_error());
 	node->arg = NULL;
 	node->infile = NULL;
 	node->outfile = NULL;
