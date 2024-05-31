@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:10:06 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/30 15:46:36 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 19:09:06 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	env_to_array(char ****env, t_envp *envp)
 	while (envp)
 	{
 		(*env)[i] = malloc(sizeof(char *) * 3);
+		if (!(*env)[i])
+			return (malloc_error());
 		(*env)[i][0] = ft_strdup(envp->name);
 		if (envp->value)
 			(*env)[i][1] = ft_strdup(envp->value);
@@ -89,6 +91,8 @@ int	print_export(t_envp *envp)
 
 	len = count_nodes(envp);
 	env = malloc(sizeof(char *) * (len + 1));
+	if (!env)
+		return (EXIT_FAILURE);
 	env_to_array(&env, envp);
 	sort_env_array(&env, len);
 	i = 0;
