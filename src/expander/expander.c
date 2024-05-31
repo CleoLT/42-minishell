@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 16:50:26 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/31 18:54:51 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/31 19:03:23 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_chartochar(char *temp, char *temp_word, int *i)
 	}
 }
 
-void static	expand_str(t_tools *tools, char *temp, const char *s)
+void	expand_str(t_tools *tools, char *temp, const char *s)
 {
 	char	*temp_word;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:34:29 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/31 18:54:18 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/31 19:02:27 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 void	ft_chartochar(char *temp, char *temp_word, int *i);
 int		expander_newlen(t_tools *tools, const char *s);
 int		expander_reader(t_tools *tools);
+void	expand_str(t_tools *tools, char *temp, const char *s);
 
 /* expander_utils.c */
 int		expander_value_len(t_tools *tools, const char *s, int start, int end);
