@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:58:47 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/30 16:17:21 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/05/31 18:56:44 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int	special_len(t_tools *tools, char c)
 		return (expander_question_len(tools));
 	else if (c == '\0')
 		return (2);
-	else if (c == '/')
+	else if ((c >= '0') && (c <= '9'))
+		return (0);
+	else
 		return (2);
 	return (0);
 }
@@ -35,7 +37,7 @@ int	newline_len(const char *word)
 	while (temp[i])
 	{
 		if (!(temp[i] == '\\' && (temp[i + 1] == 'n' || temp[i + 1] == 't'
-				|| temp[i + 1] == 'r')))
+					|| temp[i + 1] == 'r')))
 		{
 			len++;
 			i++;
@@ -49,7 +51,7 @@ int	newline_len(const char *word)
 	return (len);
 }
 
-void static expand_newlinesym(char *temp, char c, int *i, int *j)
+void static	expand_newlinesym(char *temp, char c, int *i, int *j)
 {
 	if (c == 'n')
 		temp[(*j)] = 10;
@@ -72,7 +74,7 @@ char	*expand_newline(char *word)
 	temp = (char *)malloc(sizeof(char) * (newline_len(word) + 1));
 	if (!temp)
 		return (NULL);
-	while  (word[i])
+	while (word[i])
 	{
 		if (!(word[i] == '\\' && (word[i + 1] == 'n' || word[i + 1] == 't'
 					|| word[i + 1] == 'r')))
@@ -86,5 +88,26 @@ char	*expand_newline(char *word)
 	}
 	temp[j] = '\0';
 	free(word);
+	return (temp);
+}
+
+char	*expand_special_other(char c, int *indx)
+{
+	char	*temp;
+
+	if (c == '\0')
+	{
+		temp = malloc(2 * sizeof(char));
+		ft_strcpy(temp, "$");
+		(*indx) += 1;
+	}
+	else
+	{
+		temp = malloc(3 * sizeof(char));
+		temp[0] = '$';
+		temp[1] = c;
+		temp[2] = '\0';
+		(*indx) += 2;
+	}
 	return (temp);
 }

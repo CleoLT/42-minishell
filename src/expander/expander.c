@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 16:50:26 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/31 15:52:57 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 19:03:23 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	expand_str(t_tools *tools, char *temp, const char *s)
 	{
 		if (s[j] == '$')
 		{
-			if (is_special(s[j + 1]) < 0)
+			if ((is_special(s[j + 1]) < 0)
+				|| ((s[j + 1] >= '0') && (s[j + 1] <= '9')))
 				temp_word = expand_special(tools, s[j + 1], &j);
 			else
 			{
@@ -45,7 +46,6 @@ void	expand_str(t_tools *tools, char *temp, const char *s)
 				j = dollar_len(s, j);
 			}
 			expander_addword(temp, temp_word, &i);
-//			printf("---> expand_str : %c\n", s[j]);
 		}
 		else
 			temp[i++] = s[j++];
@@ -53,22 +53,27 @@ void	expand_str(t_tools *tools, char *temp, const char *s)
 	temp[i] = '\0';
 }
 
-void static add_len(t_tools *tools, const char *s, const char **d_pos, int *len)
+void static	add_len(t_tools *tools, const char *s, const char **d_pos, int *len)
 {
 	int			start_index;
-	int 		end_index;
+	int			end_index;
 	const char	*e_pos;
 
 	start_index = -1;
 	end_index = -1;
 	start_index = (int)(*d_pos - s);
 	e_pos = *d_pos + 1;
-	if (is_special(*e_pos) < 0)
+	if (is_special(*e_pos) < 0 || (((*e_pos) >= '0') && ((*e_pos) <= '9')))
 		*len = *len - 2 + special_len(tools, *e_pos);
 	else
 	{
-		while ((ft_isspace(*e_pos) != 1) && is_special(*e_pos) != -1)
+		if ((*e_pos - 1) == '$' && ((*e_pos) >= '0') && ((*e_pos) <= '9'))
 			e_pos++;
+		else
+		{
+			while ((ft_isspace(*e_pos) != 1) && is_special(*e_pos) != -1)
+				e_pos++;
+		}
 		end_index = (int)(e_pos - s);
 		*len -= (end_index - start_index);
 		*len += expander_value_len(tools, s, start_index, end_index);
@@ -90,7 +95,6 @@ int	expander_newlen(t_tools *tools, const char *s)
 		else
 			dollar_pos++;
 	}
-//	printf("---> expander_newlen len = %d\n", len);
 	return (len);
 }
 
@@ -103,10 +107,9 @@ int	expander_reader(t_tools *tools)
 	while (tools->lexer_list != NULL)
 	{
 		if (((tools->lexer_list->type == STRING)
-			|| (tools->lexer_list->type == STRINGD))
+				|| (tools->lexer_list->type == STRINGD))
 			&& (count_dollar(tools->lexer_list->str) > 0))
 		{
-//			printf("--->expander_reader before: %s\n", tools->lexer_list->str);
 			temp = (char *)malloc(sizeof(char) * (expander_newlen(tools,
 							tools->lexer_list->str) + 1));
 			if (!temp)
@@ -114,7 +117,6 @@ int	expander_reader(t_tools *tools)
 			expand_str(tools, temp, tools->lexer_list->str);
 			free(tools->lexer_list->str);
 			tools->lexer_list->str = temp;
-//			printf("--->expander_reader after: %s\n", tools->lexer_list->str);
 		}
 		tools->lexer_list = tools->lexer_list->next;
 	}
