@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:01:41 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/31 12:51:13 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/05/31 18:05:09 by cle-tron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,11 @@ char	*home_and_oldpwd_path(char **arg, int *exit_code, t_envp *envp_list)
 	char	*path;
 
 	path = NULL;
-	if (!arg[1] || !ft_strncmp(arg[1], "~", 2))
+	if (!arg[1])
 	{
 		path = find_env_value("HOME", envp_list);
 		if (!path)
-		{
-			if (arg[1] && !ft_strncmp(arg[1], "~", 2))
-				path = ft_strdup(getenv("HOME"));
-			else
-				*exit_code = err_env_notset(arg[0], "HOME", 1);
-		}
+			*exit_code = err_env_notset(arg[0], "HOME", 1);
 	}
 	else if (!ft_strncmp(arg[1], "-", 2))
 	{
