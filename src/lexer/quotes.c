@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:55:27 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/29 15:06:17 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/06/01 11:56:35 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	quote_addnode(char *sub_str, char quote, t_token **lexer_list, int c)
 
 void	quotes_str(const char *s, char *sub_str, int i)
 {
-	int	k;
+	int		k;
 	char	quote;
 
 	quote = s[i];
@@ -58,15 +58,7 @@ int	quotes_handler(const char *s, int i, t_token **lexer_list, int c)
 	if (quote == 34 || quote == 39)
 	{
 		quotes_str(s, sub_str, i);
-//		printf("---> quotes_handler sub_str_len = %d\n", ft_strlen(sub_str));
-		if (ft_strlen(sub_str) >= 0)
-		{
-			if (quote_addnode(sub_str, quote, lexer_list, c) < 0)
-			{
-				free(sub_str);
-				return (-1);
-			}
-		}
+		quotes_handler_extra(sub_str, quote, lexer_list, c);
 	}
 	if (s[i + j] == quote)
 	{

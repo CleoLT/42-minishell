@@ -6,7 +6,7 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:55:33 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/05/31 19:03:38 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/06/01 11:38:54 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	free_exp_array(char ***array);
 /* error.c */
 void	ft_error(char *arg, int exit_code);
 void	print_error(char *cmd, char *str, int exit_code);
-void	malloc_error();
+void	malloc_error(void);
 
 /* error_return.c */
 int		ft_strerror(int exit_code);

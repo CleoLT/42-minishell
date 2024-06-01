@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/01 11:42:07 by irozhkov          #+#    #+#             */
+/*   Updated: 2024/06/01 11:43:04 by irozhkov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "lexer.h"
 
@@ -19,7 +31,7 @@ void	change_tilde_value(t_tools *tools)
 			{
 				tmp = ft_strjoin(home, lex->str + 1);
 				free(lex->str);
-				lex->str = tmp;	
+				lex->str = tmp;
 			}
 		}
 		lex = lex->next;
@@ -36,6 +48,4 @@ void	lexer_token(t_tools *tools, char *line)
 	if (!expander_reader(tools))
 		ft_error("bad expander", errno);
 	change_tilde_value(tools);
-/*	if (tools->str[0] == '\0')
-		return (free_tools(tools));*/
 }

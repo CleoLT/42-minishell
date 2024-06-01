@@ -6,11 +6,11 @@
 /*   By: ale-tron <ale-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:09:37 by ale-tron          #+#    #+#             */
-/*   Updated: 2024/05/04 21:29:17 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/06/01 11:37:35 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
- int	ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int	i;
 	int	sign;

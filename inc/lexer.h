@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:33:47 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/31 15:07:12 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/06/01 11:54:35 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	*ft_strcat(char *dest, const char *src);
 int		ft_doglue(t_token *current);
 void	ft_gluenodes(t_tools *tools);
 void	token_addback(t_token **lexer_list, t_token *node);
+int		quotes_handler_extra(char *sub, char q, t_token **lexer_list, int c);
 
 /* quotes.c */
 int		quote_addnode(char *sub_str, char quote, t_token **lexer_list, int c);

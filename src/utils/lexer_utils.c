@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:30:31 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/27 14:46:44 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/06/01 12:02:11 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	token_addback(t_token **lexer_list, t_token *node)
 
 char	*ft_strcat(char *dest, const char *src)
 {
-	unsigned int i;
-	unsigned int j;
+	unsigned int	i;
+	unsigned int	j;
 
 	i = 0;
 	while (dest[i] != '\0')
@@ -47,19 +47,20 @@ char	*ft_strcat(char *dest, const char *src)
 	return (dest);
 }
 
-int	 ft_doglue(t_token *current)
+int	ft_doglue(t_token *current)
 {
 	t_token	*next_node;
 	char	*new_str;
 
 	next_node = current->next;
 	if ((current->type == 6 || current->type == 7 || current->type == 8)
-		&& (next_node->type == 6 || next_node->type == 7 || next_node->type == 8))
+		&& (next_node->type == 6 || next_node->type == 7
+			|| next_node->type == 8))
 	{
 		new_str = (char *)malloc(ft_strlen(current->str)
-			+ strlen(next_node->str) + 1);
+				+ strlen(next_node->str) + 1);
 		if (!new_str)
-		   return (1);	
+			return (1);
 		ft_strcpy(new_str, current->str);
 		ft_strcat(new_str, next_node->str);
 		free(current->str);
@@ -76,11 +77,11 @@ int	 ft_doglue(t_token *current)
 
 void	ft_gluenodes(t_tools *tools)
 {
-	t_token *current;
+	t_token	*current;
 	int		glued;
 
 	if (!tools || !tools->lexer_list)
-		return;
+		return ;
 	glued = 1;
 	while (glued)
 	{
@@ -91,9 +92,22 @@ void	ft_gluenodes(t_tools *tools)
 			if (ft_doglue(current))
 			{
 				glued = 1;
-				break;
+				break ;
 			}
 			current = current->next;
 		}
 	}
+}
+
+int	quotes_handler_extra(char *sub, char q, t_token **lexer_list, int c)
+{
+	if (ft_strlen(sub) >= 0)
+	{
+		if (quote_addnode(sub, q, lexer_list, c) < 0)
+		{
+			free(sub);
+			return (-1);
+		}
+	}
+	return (0);
 }

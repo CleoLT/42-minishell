@@ -6,13 +6,13 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:32:50 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/29 16:26:32 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/06/01 11:58:47 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int check_token(int c)
+int	check_token(int c)
 {
 	if (c == '|')
 		return (PIPE);
@@ -49,9 +49,9 @@ int	token_handler(char *s, int i, t_token **lexer_list, int c)
 	return (0);
 }
 
-int	token_addnode (char *s, int token, t_token **lexer_list, int c)
+int	token_addnode(char *s, int token, t_token **lexer_list, int c)
 {
-	t_token *node;
+	t_token	*node;
 
 	node = (t_token *)malloc(sizeof(t_token));
 	if (!node)
@@ -81,7 +81,7 @@ int	get_str(char *s, int i, t_token **lexer_list, int c)
 int	token_reader(t_tools *tools)
 {
 	int	i;
-	int j;
+	int	j;
 	int	c;
 
 	i = 0;

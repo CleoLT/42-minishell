@@ -6,7 +6,7 @@
 /*   By: cle-tron <cle-tron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:36:04 by cle-tron          #+#    #+#             */
-/*   Updated: 2024/05/31 18:54:12 by cle-tron         ###   ########.fr       */
+/*   Updated: 2024/06/01 11:41:15 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	print_error(char *cmd, char *str, int exit_code)
 	exit(exit_code);
 }
 
-void	malloc_error()
+void	malloc_error(void)
 {
 	ft_putstr_fd("minishell: error malloc function", STDERR_FILENO);
 }

@@ -6,7 +6,7 @@
 /*   By: irozhkov <irozhkov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 17:01:46 by irozhkov          #+#    #+#             */
-/*   Updated: 2024/05/11 17:58:38 by irozhkov         ###   ########.fr       */
+/*   Updated: 2024/06/01 11:40:37 by irozhkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	envp_addnode(char *n, char *v, t_envp **envp_list)
 		node->value = NULL;
 	if (node->name == NULL)
 	{
- 		free(node->name);
+		free(node->name);
 		free(node->value);
 		free(node);
 		return (0);
@@ -92,8 +92,6 @@ int	envp_reader(t_tools *tools)
 		result = extract_key_value(tools->envp[i], &key, &value);
 		if (result == 0)
 		{
-//			printf("---> key: %s\n", key);
-//			printf("---> value: %s\n", value);
 			flag = envp_addnode(key, value, &tools->envp_list);
 			free(key);
 			free(value);
